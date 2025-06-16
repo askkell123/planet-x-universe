@@ -1,0 +1,37 @@
+AERONIS – THE SKYWARD KINGDOM
+
+OVERVIEW:
+Aeronis is a lush, cloud-wreathed celestial world where gravity-defying landmasses and floating cities drift between air currents. Vast anti-gravity fields and natural jet streams hold the terrain in the skies, turning Aeronis into a world of motion, turbulence, and vertical warfare. The skies are ruled by the Aerostriders, winged warriors of immense speed and agility, trained to master the unpredictable skies in both flight and combat.
+
+STATS:
+Temperature: 25°C
+Population: 800m
+Day Length: 29h
+Radius: 6,500km
+Major City: Skydraeth
+Mothership: Ventus
+
+LOCATIONS:
+- The Cloud Reaches: A vast expanse of drifting islands that move unpredictably, creating both a challenge and an advantage in aerial warfare.
+- The Tempest Expanse: A region where fierce storms and electrical discharges dominate the skies, harnessed by the Aerostriders for energy.
+- The Skyforges: Floating sanctuaries where Aerostrider weapons and armor are forged using condensed atmospheric energy.
+
+MAJOR CITY:
+NAME: Skydraeth
+DESCRIPTION: A breathtaking metropolis suspended in midair by advanced anti-gravity engines. Built from reflective alloys, Skydraeth shimmers in sunlight and can become nearly invisible from a distance. Carved partially into stone and capable of descending to the surface for camouflage, the city constantly shifts position to remain hidden. It is the cultural and strategic hub of Aerostrider civilization, where elite warriors train in aerial tactics.
+
+MOTHERSHIP:
+NAME: Ventus
+DESCRIPTION: A colossal airborne fortress designed to stabilize Aeronis’s fragmented terrain with artificial air currents. It houses wind turbines and storm generators capable of manipulating the weather. Ventus serves as a mobile base and command center for Aerostrider forces, able to deploy rapid aerial strikes from any altitude.
+
+INHABITANTS:
+NAME: The Aerostriders
+DESCRIPTION: Avian-inspired humanoids built for speed and maneuverability in the air. Standing around 6 feet tall, they have feathered wings with iridescent hues that shift with the sky for camouflage. Their skin is covered in fine feather-like plating to reduce drag, and their reinforced skeletal structures endure high-speed combat. With razor-sharp talons and keen storm-piercing vision, Aerostriders dominate the skies in both ranged and close-quarters combat.
+
+LEADER:
+NAME: Zephryon the Swift
+DESCRIPTION: The unmatched master of aerial combat, Zephryon moves faster than the eye can track. His nanotech wings shift colors like stormclouds, blending him into the sky. With reflexes beyond comprehension and blades that can summon cutting gales, he leads with a doctrine of speed, adaptability, and aerial supremacy.
+
+WEAPON:
+NAME: Aero Blades
+DESCRIPTION: Twin energy daggers with plasma-charged edges that leave trails of electrified air. Designed for ranged and melee combat, they can curve mid-flight and return to their wielder. When caught mid-air, they grant a burst of speed. Charged strikes create shockwave slashes that cut through multiple foes, making them ideal for high-speed, multi-target engagements.

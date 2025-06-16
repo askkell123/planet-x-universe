@@ -1,0 +1,35 @@
+OVERVIEW:
+Planet-X, the home of the Xylons, is a serene world of floating islands underneath the vast expanse of a glowing sky. The entire planet is bathed in the radiant light of Elixir, a powerful energy source that flows through every living thing. The sky is filled with vibrant auroras of gold, violet, and blue, creating an ethereal atmosphere where the landscape seems to shimmer with untold power. The Xylons have mastered this energy, using it to fuel civilizations, advance their knowledge, and remain in harmony with the universe. The planet is a haven of peace and wisdom, where spiritual enlightenment is deeply intertwined with technological advancement.
+
+STATS:
+Temperature: 32°C
+Population: 9bn
+Day Length: 37h
+Radius: 10,400km
+Major City: Solara Nexus
+Mothership: Seraphim
+
+LOCATIONS:
+- Isle of Eternis: The Grand Temples, where Xylons meditate and refine the Elixir into its most potent forms. This sacred island is the heart of their spiritual and alchemical practices.
+- Isle of Aurelia: Vast crystalline mines glowing with veins of raw Elixir energy. These mines are not only a source of immense power but also the location of deep philosophical and scientific study into the nature of Elixir.
+- Isle of Navalis: A haven of tranquil waterfalls and luminescent flora, serving as a spiritual retreat where the Xylons can attune themselves to the flow of time and energy.
+
+MAJOR CITY:
+NAME: Solara Nexus
+DESCRIPTION: Solara Nexus is the cultural and economic heart of Planet-X. The city is made up of floating spires that shimmer with radiant energy fields, a perfect blend of nature and advanced technology. It is here that the Xylons conduct their most critical studies and trade in Elixir, the substance that powers the entire galaxy’s economy. The city is a place of learning and knowledge, with libraries filled with ancient texts and laboratories for studying the very fabric of time and energy.
+
+MOTHERSHIP:
+NAME: Seraphim
+DESCRIPTION: The Seraphim is a golden, regal mothership that symbolizes the Xylons' spiritual enlightenment and economic dominance. Its design resembles a floating temple, with radiant light pouring from its surface. The ship's interior is bathed in golden light, and it is home to the highest priests and scholars of the Xylons. The Seraphim channels massive amounts of Elixir energy, both as a weapon and as a tool for interstellar travel. It is said that the Seraphim can traverse the deepest corners of the universe, guiding the Xylons in their never-ending quest for enlightenment.
+
+INHABITANTS:
+NAME: The Xylons
+DESCRIPTION: The Xylons are a tall and elegant race, standing between 7-9 feet. Their skin shimmers with energy reflecting their attunement to Elixir and the flow of the universe. The Xylons have oversized ears as a result of their willingness to listen and learn in order to further advance their knowledge and enlightenment. They have two arms, which are adorned with golden rings matching the necklaces they wear. This jewellery pulses with Elixir energy, a mark of their mastery over this substance. In sync with their jewellery, Xylons also have golden strips integrated into their necks and faces, acting as personal elixir storage. Their eyes are large and deep, reflecting their deep connection to time, knowledge, and the cosmos.
+
+LEADER:
+NAME: Vaelith the Eternal
+DESCRIPTION: Vaelith the Eternal is a transcendent being, a living conduit of Elixir energy who has reached a higher state of consciousness. Having absorbed and become one with Elixir, Vaelith has gained the ability to guide his people with unparalleled wisdom. His form is ageless and ever-changing, glowing with Elixir light. He is known as the Eternal Watcher, the one who perceives the grand design of the universe. Vaelith’s wisdom and insight are revered by all Xylons, and his guidance is sought in every decision, from spiritual matters to the most important scientific inquiries. With his mastery over time and Elixir, Vaelith leads his people with a calm, measured hand, ensuring peace and prosperity across the universe.
+
+WEAPON:
+NAME: Elixir Repeater
+DESCRIPTION: The Elixir Repeater is a predominantly gold rifle, pulsating with pure, concentrated Elixir energy. Its sleek design reflects the Xylons' mastery of energy manipulation. The Elixir Repeater absorbs enemy attacks, converting them into homing energy bursts. The weapon can channel both offensive and defensive Elixir energy, turning incoming attacks into devastating energy projectiles that seek out their targets. It is a precise and deadly weapon, allowing its wielder to manipulate energy flow in combat, using the enemy's own power against them.

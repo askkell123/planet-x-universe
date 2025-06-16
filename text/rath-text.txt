@@ -1,0 +1,37 @@
+RATH – THE WORLD OF WAR AND RUIN
+
+OVERVIEW:
+Rath is a dying, war-torn world, its sky choked with industrial smoke and its surface reduced to ash and steel. This planet is no longer a home—it is a relentless war factory, churning out means of destruction with every cycle. The ground trembles with the march of the Dark Mata, and the ruins of countless civilizations serve as a grim reminder of their conquests. Every fallen enemy is repurposed, their remains twisted into cybernetic monstrosities to fuel the Dark Mata’s endless war machine.
+
+STATS:
+Temperature: -40°C 
+Population: 21bn
+Day Length: 31h
+Radius: 8,500km
+Major City: Dreadspire
+Mothership: Oblivion Prime
+
+LOCATIONS:
+- The Forge of Annihilation: A massive, highly efficient industrial complex where weapons, war machines, and new Dark Mata are created.
+- The Bone Wastes: A desolate expanse littered with the skeletal remains of conquered species, their bodies stripped for resources and their technology scavenged.
+- Core of the Void: A highly classified research facility where captured alien technology is reverse-engineered and adapted for the Dark Mata’s ever-evolving arsenal.
+
+MAJOR CITY:
+NAME: Dreadspire
+DESCRIPTION: Dreadspire is a fortress of blackened steel, pulsing with the energy of stolen life forces. Towering spires stretch into the toxic sky, acting as both a command center and a proving ground for the strongest Dark Mata warriors. The city thrives on conflict, with gladiatorial arenas determining the fittest to lead the next conquest.
+
+MOTHERSHIP:
+NAME: Oblivion Prime
+DESCRIPTION: Oblivion Prime is a warship of sheer devastation, covered in dark metal plating that absorbs the energy of destruction it causes. Its core is powered by a reactor that siphons energy from fallen enemies, making it stronger the more it destroys. Equipped with planetary bombardment systems and gravitational weapons that tear apart enemy fleets, Oblivion Prime is both a symbol and an instrument of annihilation.
+
+INHABITANTS:
+NAME: Dark Mata
+DESCRIPTION: The Dark Mata are a ruthless race of half-machine, half-reptilian conquerors engineered for war and assimilation, on both land and water. Their bodies are a fusion of organic muscle and mechanical plating, with cybernetic enhancements increasing their combat efficiency. They range between 8-10 feet tall and their tails can stretch up to 8 feet. Spikes on their heads, arms, and tails make them brutally effective in close quarters. Their eyes glow a sickly red or violet, constantly scanning for...
+
+LEADER:
+NAME: Vorrak the Unmaker
+DESCRIPTION: Vorrak the Unmaker is the perfect fusion of organic brutality and mechanical precision, a warlord engineered for absolute destruction. His left arm is a biomechanical weapon that adapts to combat situations, shifting seamlessly between a blade, energy cannon, and shield. Vorrak’s mind operates like a battle-hardened AI, processing tactical scenarios with inhuman speed while maintaining the savage instincts of a conqueror. He leads with an iron will, seeking to expand the Dark Mata’s dominion...
+
+WEAPON:
+NAME: Singularity Cannon
+DESCRIPTION: The Singularity Cannon is a massive fusion rifle, its barrel resembling a swirling vortex of unstable energy. It fires a miniature black hole, pulling enemies into its crushing gravity well before detonating in a violent explosion. The longer it charges, the larger the singularity, allowing for massive destruction in a concentrated area. It can be mounted onto Dark Mata war machines, turning them into mobile singularity generators.

@@ -1,0 +1,37 @@
+GALEON – THE WORLD OF FIRE AND FROST
+
+OVERVIEW:
+Galeon is a planet of relentless extremes, its environment governed by violent thermal shifts and elemental fury. Towering mountain ranges cradle superheated valleys, while frigid polar storms sweep across scorched plains in an endless battle of fire and ice. Galeon’s volatile weather is not a fluke of nature—it is its defining force. The sky itself crackles with bursts of plasma lightning, and subterranean tectonics release geysers of molten rock beside glaciers that refuse to melt. Only the strong endure here. Life on Galeon is forged in extremes, and none embody this more than its dominant species—the Thermicons.
+
+STATS:
+Temperature: -150°C to +900°C
+Population: 1.3bn
+Day Length: 29h
+Radius: 29,000km
+Major City: Thermara Citadel
+Mothership: Thermaforge
+
+LOCATIONS:
+- Cryotherm Divide: A vast rift that separates Galeon’s frozen northern hemisphere from its blazing southern lands. Thermal clashes manifest as violent stormfronts and unstable magnetic fields. It's both a natural barrier and a sacred battleground for Thermicon rites of passage.
+- Pyrocore Crater: An ever-erupting volcanic basin rich in volatile minerals. It is the heart of Galeon’s energy extraction industry and a dangerous training ground for Thermicon warriors who seek to master fire itself.
+- Glacium Vault: A labyrinthine fortress of ice and crystal located beneath Galeon’s coldest pole, where ancient energy relics are stored and studied. Protected by automated drones and cryo-beasts born of glacial mutation.
+
+MAJOR CITY:
+NAME: Thermara Citadel
+DESCRIPTION: Thermara Citadel stands at the intersection of Galeon’s two great climates. Built into the cliffs of the Cryotherm Divide, the city is a marvel of adaptive architecture—half of its towers pulse with molten energy, while the other half glisten with reinforced ice-steel. Thermara is both a capital and a crucible, where politics, military command, and scientific experimentation collide. It's a place where only those who can endure contradiction—heat and cold, fury and patience—can thrive.
+
+MOTHERSHIP:
+NAME: Thermaforge
+DESCRIPTION: Thermaforge is the apex of Thermicon engineering: a colossal dreadnought designed to harvest, store, and unleash extreme temperature energies. The hull is composed of a unique alloy that shifts states based on external stimuli—expanding under heat to deflect plasma, contracting in cold to absorb kinetic force. Its core reactor, the Bifrost Engine, siphons both thermal and cryo energy from planetary environments, powering devastating elemental weaponry. The Thermaforge can deploy climate bombs to alter planetary atmospheres mid-battle, forcing enemies into thermal shock.
+
+INHABITANTS:
+NAME: Thermicons
+DESCRIPTION: The Thermicons are towering elemental beings, humanoid in form but sculpted by millennia of exposure to harsh climates. Their bodies are semi-organic, armored with adaptive bio-platelets that change structure depending on temperature. Internally, they house sophisticated heat exchange systems that allow them to survive in environments that would vaporize or freeze most species. Some Thermicons radiate heat like walking furnaces, while others are cold enough to shatter steel with a touch. Their society is split into two castes: the Infernii, who draw power from volcanic heat, and the Cryari, who thrive in absolute cold. Despite their opposition, both castes are essential to Thermicon dominance, combining for devastating synergy in battle. Thermicons can manipulate ambient temperature to weaken enemies, fuel their weapons, or fortify their surroundings. They live by the creed of Equilibrium through Extremes—only by mastering both heat and cold can one achieve true power.
+
+LEADER:
+NAME: Kyrran Dualborn
+DESCRIPTION: Kyrran Dualborn is the living embodiment of Galeon’s duality. Born during a planetary convergence of blizzard and eruption, Kyrran was the first Thermicon to survive in both hemispheres without external aid. His body is split symmetrically—one side ablaze with lava-like pulses, the other encased in crystalline frost. His twin cores allow him to emit opposing thermal fields, destabilizing enemies and weather systems alike. In battle, Kyrran wields the Helfrost Spear, a weapon that channels both searing plasma and absolute zero through a polarized shaft. Kyrran’s strategic mind is unmatched—able to adapt to any battlefield condition, weaponize climate, and lead with icy patience or fiery wrath. Under his rule, the Thermicons march not for conquest, but for control of the universe’s elemental balance.
+
+WEAPON:
+NAME: Thermal Singe Array
+DESCRIPTION: The Thermal Singe Array appears as a swirling gyroscope of liquid fire and supercooled crystal suspended in magnetic containment. It channels Galeon’s elemental essence into a focused beam capable of phasing between incendiary and cryonic modes. In Inferno Mode, it unleashes a column of plasma that vaporizes everything in its path. In Cryo Mode, it emits a wave of absolute cold, flash-freezing enemies and stopping machinery mid-operation. The weapon can alternate modes rapidly or combine them into a Fusion Burst, creating a cataclysmic thermal detonation that shatters armor and warps terrain. Mounted on both Thermaforge and elite Thermicon units, the Singe Array is feared across galaxies as a force of elemental annihilation.

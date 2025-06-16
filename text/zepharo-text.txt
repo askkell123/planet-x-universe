@@ -1,0 +1,38 @@
+
+ZEPHARO – THE OCEANIC ABYSS
+
+OVERVIEW:
+Zepharo is a vast oceanic world with minimal rocky landmasses. It features scattered floating reefs and deep-sea trenches filled with bioluminescent flora. The planet’s waters shimmer with an eerie glow, and its currents pulse with mysterious energy. Gigantic marine leviathans roam the depths, while ancient submerged ruins hint at civilizations lost to time.
+
+STATS:
+Temperature: 2°C
+Population: 20bn
+Day Length: 27h
+Radius: 18,200km
+Major City: Neptara Sail
+Mothership: Aquilon
+
+LOCATIONS:
+- Abyssal Trench: A bottomless rift where ancient secrets and monstrous creatures lurk. It is said to be the birthplace of Zepharo’s strongest energy currents.
+- The Luminous Reef: A sprawling coral metropolis, glowing with bioelectric energy and serving as the central hub for Aquadyne culture and commerce.
+- Maelstrom Nexus: A region of perpetual, swirling whirlpools that acts as both a natural defense and a sacred trial for those seeking to prove their strength.
+
+MAJOR CITY:
+NAME: Neptara Sail
+DESCRIPTION: A massive underwater citadel built into the side of a colossal trench wall, with ship-like structures projecting above the surface. Its towering structures pulse with energy strips, and it serves as both the capital and a sanctuary for Zepharo’s inhabitants.
+
+MOTHERSHIP:
+NAME: Aquilon
+DESCRIPTION: A submersible megastructure that glides beneath Zepharo’s waves, designed for deep-sea exploration and warfare. It features sleek, fish-like contours and bioluminescent lights that allow it to move undetected in the abyss. Equipped with pulse-wave generators capable of disrupting enemy vessels and marine threats.
+
+INHABITANTS:
+NAME: Aquadynes
+DESCRIPTION: Amphibious beings capable of breathing both underwater and on land. They measure between 12–15 feet and are covered in sleek, scaly exoskeletons with intricate bioluminescent patterns that shift based on mood and communication. Webbed limbs allow for rapid movement in water, while powerful tails aid in propulsion. They possess enhanced sonar abilities for echolocation and long-distance communication, and can generate bioelectric pulses for speech or as a weapon.
+
+LEADER:
+NAME: Thalzor, Lord of the Abyss
+DESCRIPTION: A fusion of organic and biomechanical evolution, seamlessly adapted to the ocean’s depths. His body pulses with living energy, allowing him to channel bioelectricity at will. He can manipulate ocean currents, control marine creatures, and summon devastating storms. Revered as a godlike figure, his sonar pulses can command his people with unbreakable precision.
+
+WEAPON:
+NAME: Tidebreaker Harpoon
+DESCRIPTION: A trident-like harpoon with glowing blue circuits, lined with retractable chains for added reach. Its dagger-like tip pierces bodies and electrocutes enemies upon impact, stunning them with a powerful bioelectric surge. The harpoon’s retractable chains allow the user to pull enemies in for close-quarters combat. In water, it can generate shockwaves that ripple through the depths, disabling multiple foes at once.

@@ -1,0 +1,38 @@
+
+AKARIA – THE LUMINOUS UNDERWORLD
+
+OVERVIEW:
+Akaria is a vast subterranean world, illuminated by towering crystalline formations that radiate a soft, otherworldly glow. The planet’s surface is barren, concealing the thriving underworld beneath—a labyrinth of shimmering caves, glowing rivers of liquid light, and ancient structures carved from radiant minerals. The very air hums with energy, as the crystals continuously channel and store photon power. Only the Luminoths, beings of living light, have mastered the secrets of this underground sanctuary...
+
+STATS:
+Temperature: 15°C 
+Population: 12m
+Day Length: 31h
+Radius: 9,100km
+Major City: Luminara Sanctum
+Mothership: Luminara
+
+LOCATIONS:
+- The Crystal Labyrinth: A maze of refractive crystal walls that twist and shift, creating endless illusions and pathways of light.
+- The Abyss of Echoes: A chasm so deep that no bottom has ever been found, filled with floating energy orbs that respond to sound and movement.
+- The Luminous Wellspring: A sacred site where raw photon energy flows like a river, empowering the Luminoths and recharging their crystalline technology.
+
+MAJOR CITY:
+NAME: Luminara Sanctum
+DESCRIPTION: A breathtaking underground city constructed from towering, semi-transparent crystal spires that emit a continuous, pulsating glow. It is the heart of Luminoth civilization, where photon energy is refined into powerful technology. The city shifts in appearance, its crystalline architecture refracting light into mesmerizing patterns, making it nearly impossible for outsiders to navigate.
+
+MOTHERSHIP:
+NAME: Luminara
+DESCRIPTION: A massive, floating megastructure composed almost entirely of luminescent crystal, acting as a mobile energy generator. It absorbs and channels pure photon energy, capable of unleashing devastating light-based weaponry. The mothership constantly shifts colors based on its energy levels, becoming nearly invisible in certain spectrums. It acts as both a fortress and a research hub, preserving the knowledge of the Luminoths.
+
+INHABITANTS:
+NAME: The Luminoths
+DESCRIPTION: Ethereal humanoid beings with translucent, radiant skin that glows in hues of grey and gold. Their bodies are composed of light-infused energy, pulsing with an internal radiance that intensifies during combat. Their eyes shine like miniature stars, allowing them to see in absolute darkness. Their mouths are very small, so their speech is exceptionally high pitched—undetectable to the human ear. They are very tall, ranging between 11-12 feet. Their limbs, though slender, can harden photons in...
+
+LEADER:
+NAME: Syltharion, the Lightborn
+DESCRIPTION: Once a scholar seeking to understand the mysteries of photon energy, Syltharion was forever changed after an experiment with crystalline technology. His physical form dissolved into pure energy, transforming him into a being of living light. He possesses near-limitless control over photon energy, able to shape it into powerful constructs or devastating beams of destruction. His mere presence illuminates even the darkest depths, and his wisdom guides the Luminoths in their pursuit of enlighte...
+
+WEAPON:
+NAME: Prism Caster
+DESCRIPTION: A sleek, futuristic handheld cannon adorned with glowing crystal formations that shift colors as energy is stored. It fires high-intensity laser beams that refract off surfaces, allowing for indirect attacks. The weapon can split a single shot into multiple beams, striking enemies from multiple angles. Charged shots create explosive bursts of concentrated light, temporarily blinding enemies. It can also manipulate light refraction to create holographic decoys for deception and ambushes.

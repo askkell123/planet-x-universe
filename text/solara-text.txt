@@ -1,0 +1,35 @@
+OVERVIEW:
+Solara is a planet of relentless heat, its surface scorched by the unyielding power of its sun. Vast barren deserts of sand stretch across half the landscape, while rivers of liquid fire carve through volcanic craters on the remainder. The air shimmers with heatwaves, and the atmosphere is bathed in an eternal golden glow. Only the Helios, beings of pure solar energy, can withstand the infernal heat that is Solara. Their civilization thrives where others would be reduced to ashes, harnessing the raw power of the sun to fuel their existence.
+
+STATS:
+Temperature: 1,500°C 
+Population: 16bn
+Day Length: 36h
+Radius: 30,400km
+Major City: Aurion
+Mothership: Phoenix
+
+LOCATIONS:
+- The Pyre Fields: A searing wasteland where the sand itself glows with the intense heat. To any but the Helios, this place is certain death. Research centres made from hardened sand and rock are scattered around this vast wasteland allowing the Helios to further study and experiment with the solar energy.
+- The Solar Cathedrals: Grand temples dedicated to the worship and harnessing of solar energy, where Helios gather to perform sacred rituals that bind them to the stars.
+- The Inferno Peaks: A chain of towering volcanic mountains where the Helios extract pure energy from lava flows, refining it into a limitless power source for their technology.
+
+MAJOR CITY:
+NAME: Aurion, the Eternal Citadel
+DESCRIPTION: A city forged from solar-infused metal, floating above a sea of fire. Aurion’s towers radiate with stored solar energy, acting as both a beacon and a fortress. It serves as the heart of Helios civilization, where solar energy is refined, technology is advanced, and their conquest of the stars is planned.
+
+MOTHERSHIP:
+NAME: Phoenix
+DESCRIPTION: A massive solar energy collector, bird-like in form and designed to absorb and store the raw power of suns. Its reflective, solar-absorbing alloy causes its surface to shimmer like a miniature star. Capable of igniting nearby stars, unleashing devastating solar bursts that incinerate enemy fleets. Functions as both a warship and a mobile energy station, ensuring the Helios never run out of power.
+
+INHABITANTS:
+NAME: The Helios
+DESCRIPTION: Radiant beings, their golden skin glowing with the stored energy of the sun. Their bodies are a fusion of organic and photonic structures, allowing them to manipulate solar energy at will through glowing antennas on their heads. Tall and regal (ranging between 7–8 feet), with angular features and eyes that burn like miniature stars. All communication is done telepathically with a huge range so summoning reserves if under attack is instant. Completely immune to extreme heat and radiation, thriving in conditions that would destroy any other species. Live in harmony with the flames, using them to forge weapons, power their technology, and fuel their expansion across the cosmos.
+
+LEADER:
+NAME: Helion Prime, the Sunbringer
+DESCRIPTION: A being born from a solar eruption, his body an embodiment of pure flame and celestial energy. His armor is wreathed in eternal fire, burning with an intensity that no darkness can withstand. Can manipulate the energy of stars themselves, summoning solar storms and flares to obliterate his enemies. Leads the Helios in a never-ending cycle of conquest, using the power of the sun to burn away the shadows of the galaxy. Considered a god of light and destruction, his mere presence ignites the battlefield in a blinding inferno.
+
+WEAPON:
+NAME: Solar Flare Railgun
+DESCRIPTION: A sleek, golden metallic railgun with a heat-distorted barrel that constantly shimmers, lined with solar panels that absorb and store sunlight. Charges energy from sunlight, releasing a piercing solar beam capable of cutting through multiple enemies and armour. The longer the weapon charges, the more destructive the shot becomes. At maximum charge, it can maintain a constant solar beam for 10 seconds allowing it to incinerate everything in its path, causing fiery explosions upon impact.

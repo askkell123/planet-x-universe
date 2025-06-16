@@ -1,0 +1,35 @@
+OVERVIEW:
+Drakko is a world of unrelenting fire, where the ground cracks with molten veins and volcanic eruptions paint the sky in ash and flame. The surface never cools, and rivers of lava carve through blackened rock like glowing veins of a living, breathing beast. The air is thick with heat, and the land itself seems to roar with fury. Only the Infernoids, beings of living fire and stone, can endure the brutal inferno of this planet, thriving where others would be reduced to ash.
+
+STATS:
+Temperature: 1,200°C
+Population: 12bn
+Day Length: 39h
+Radius: 39,500km
+Major City: Pyros
+Mothership: Infernova
+
+LOCATIONS:
+- The Ashen Wastes: A scorched desert of blackened rock and smoldering embers, where geysers of superheated steam erupt unpredictably.
+- The Molten Chasm: A bottomless fissure in the planet’s crust, filled with surging lava tides that feed the world's unending infernos.
+- The Crucible Peaks: Jagged volcanic spires that serve as training grounds and sacred sites for Infernoid warriors.
+
+MAJOR CITY:
+NAME: Pyros, the City of Flames
+DESCRIPTION: The heart of Infernoid civilization, Pyros is built upon a caldera of constant eruption. Its towers are sculpted from obsidian and brimstone, and magma rivers flow through its streets as both power source and defense mechanism.
+
+MOTHERSHIP:
+NAME: Infernova
+DESCRIPTION: A mobile volcanic citadel, forged from cooled obsidian and brimstone, harnessing magma as its primary power source. Constantly absorbs geothermal energy, allowing it to fire devastating lava blasts at enemies. Equipped with furnace reactors that convert raw magma into lava weaponry. Can terraform enemy planets, unleashing virtually unlimited lava to the surface, infernal storms and fiery eruptions upon arrival.
+
+INHABITANTS:
+NAME: The Infernoids
+DESCRIPTION: Towering reptilian warriors with muscular, blackened bodies forged by fire. Between 10-12 feet tall. Their skin is cracked obsidian, with molten lava flowing through glowing veins. Flame-like markings shift across their bodies, pulsing with heat as their energy surges. Their eyes burn like molten coals, always filled with the fury of the forge. Resistant to extreme temperatures, thriving in volcanic environments where others would perish. Naturally adept at warfare, forging weapons and armor from the living flames of their world.
+
+LEADER:
+NAME: Pyragoth the Undying
+DESCRIPTION: A titan forged in the heart of a supervolcano, Pyragoth is more fire than flesh, his body a living furnace encased in obsidian armor. His core burns with an eternal flame, making him nearly unkillable—when destroyed, he simply regenerates from the embers. His presence alone raises the temperature of the battlefield, turning entire landscapes into smoldering wastelands. Wields the power to summon infernos at will, shaping the fire and lava of Drakko as weapons of mass destruction. Leads his people with an iron will, forging the Infernoids into an unstoppable force of conquest.
+
+WEAPON:
+NAME: Magma Gauntlet
+DESCRIPTION: A massive, obsidian-plated gauntlet with glowing molten veins coursing through its surface, pulsing with raw volcanic power. Striking the ground generates seismic shockwaves of fire, knocking enemies off their feet. A charged attack launches explosive magma fists, erupting into fiery blasts upon impact. Can superheat the air around it, creating a blazing barrier to incinerate incoming projectiles. Absorbs heat from the environment, increasing its destructive potential the longer it remains in battle.

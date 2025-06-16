@@ -1,0 +1,35 @@
+OVERVIEW:
+Lyra is a world bathed in the light of countless stars, where towering observatories and light-emitting structures stretch into the cosmos. The Astralis, its enlightened inhabitants, use this celestial paradise to study and manipulate the very fabric of the universe. The planet itself is a floating hub of knowledge, with massive telescopic structures reaching out to analyze and harness cosmic phenomena. Lyra is a serene and quiet world, with most of its cities built along the shorelines of its great lake...
+
+STATS:
+Temperature: -20°C
+Population: 14m
+Day Length: 41h
+Radius: 9,200km
+Major City: Lunaris
+Mothership: Stellaris
+
+LOCATIONS:
+- The Stellar Observatory: A vast network of floating observatories, where the Astralis chart the movements of distant stars and planets.
+- The Nebula Gardens: Fields near the great lakes filled with bioluminescent plants that mimic constellations, used for meditation by the Astralis to align with the stars.
+- The Event Horizon Archives: A sanctuary housing ancient Astralis knowledge and astronomical records, preserved in energy-infused crystal archives.
+
+MAJOR CITY:
+NAME: Lunaris
+DESCRIPTION: Lunaris is a city suspended among the stars, built upon a massive space station at the heart of Lyra’s Stellar Observatory. Its structures are made from energy-conductive materials that glow with the light of distant suns and can harness cosmic radiation for power. Lunaris serves as the cultural and scientific center of Lyra, home to the Astralis’ most advanced research in gravitational waves and stellar phenomena.
+
+MOTHERSHIP:
+NAME: Stellaris
+DESCRIPTION: Stellaris is a colossal space station that functions as both a research hub and deep-space outpost. Built with radiant crystalline materials, it can withstand the harshest cosmic conditions and serves as a beacon of light. It houses gravitational wave generators capable of bending light and space, observatories, laboratories, and astral archives. Stellaris also travels deep into unexplored space, gathering data and offering protection to Astralis expeditions.
+
+INHABITANTS:
+NAME: The Astralis
+DESCRIPTION: The Astralis are tall, regal beings around seven feet in height. They have slender, nearly translucent bodies that shimmer with starlight and are dusted with faint traces of stardust. Their glowing white or golden eyes can perceive cosmic radiation and celestial bodies invisible to most life forms. With elongated fingers tipped in light, they can manipulate gravitational waves and bend the fabric of the universe. They move with precision and grace, in tune with the flow of the cosmos.
+
+LEADER:
+NAME: Solmara the Watcher
+DESCRIPTION: Solmara is an ancient being said to have lived for millennia by absorbing cosmic radiation from the stars. Her body is made of pure stardust, radiant and ever-shifting. As the Eternal Watcher, she guides the Astralis in their cosmic endeavors, meditating on the vastness of the universe and ensuring balance. She is unmatched in her ability to manipulate gravitational waves and starlight, making her a powerful and serene leader.
+
+WEAPON:
+NAME: Nebula Lance
+DESCRIPTION: The Nebula Lance is a shimmering, elongated sniper rifle with a translucent barrel flowing with light energy. A floating crystal core channels pure cosmic light into concentrated pulses. It fires gravitational beam pulses that reverse an enemy’s gravity and create devastating micro black hole implosions on headshots. The weapon can also manipulate light to create illusions or disorient enemies, making it a formidable Astralis tool.

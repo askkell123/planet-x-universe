@@ -1,0 +1,37 @@
+TOPPO – THE EVER-SHIFTING LABYRINTH
+
+OVERVIEW:
+Toppo is a planet of perpetual motion, a world in constant upheaval where the land itself is never the same. Tectonic shifts, violent quakes, and howling sandstorms reshape its surface daily, turning deserts into mountains and tunnels into dead ends. The sky is often obscured by swirling dust and optical distortions, making navigation a nightmare for any but the native Tauri. To outsiders, Toppo is an endless, shifting maze—but for the Tauri, it is home, a battlefield where they have learned to master the chaos.
+
+STATS:
+Temperature: 450°C
+Population: 24bn
+Day Length: 49h
+Radius: 46,800km
+Major City: Mirage
+Mothership: Nebula
+
+LOCATIONS:
+- The Shifting Sands: An unpredictable desert where massive dunes reform in mere hours, swallowing landmarks and disorienting those who dare to cross.
+- The Labyrinthine Caverns: A complex network of underground tunnels that stretch deep beneath the surface, constantly shifting due to tectonic activity. The Tauri use these tunnels for both shelter and guerrilla warfare.
+- The Pillars of Uncertainty: Towering stone monoliths that rise and fall unpredictably, serving as the only stable points in a world of instability. These landmarks are where the Tauri build their temporary camps.
+
+MAJOR CITY:
+NAME: Mirage, the City of Phantoms
+DESCRIPTION: Less a city and more a constantly moving settlement, Mirage exists in fragments, shifting as the land changes beneath it. The Tauri use advanced nomadic structures, capable of folding and relocating in response to the planet’s unpredictable nature. The city is known for its ghostly mirages that confuse outsiders, making it seem like a phantom metropolis that appears and disappears without warning.
+
+MOTHERSHIP:
+NAME: Nebula
+DESCRIPTION: A mobile fortress, circular in shape, with adaptive camouflage technology that allows it to blend seamlessly into any environment. Its surface shifts between holographic projections and organic plating, making it virtually invisible when stationary. It is equipped with terrain-scanning technology that predicts tectonic movements, giving the Tauri an unmatched advantage in battle. The ship is capable of deploying stealth drones to map and manipulate the battlefield in real-time.
+
+INHABITANTS:
+NAME: The Tauri
+DESCRIPTION: Reptilian humanoids with sleek, scaled bodies designed for survival in extreme conditions. They possess exceptional agility and reflexes, allowing them to navigate unstable terrain with ease. Their eyes are adapted to see through optical distortions, including mirages and holograms. Naturally adept at guerrilla warfare, they use ambushes and deception to outmaneuver enemies. Their bodies have evolved to survive extended periods without food or water, making them resilient to harsh conditions.
+
+LEADER:
+NAME: Kaelus the Unbreakable
+DESCRIPTION: A brilliant tactician and the ultimate survivor, Kaelus has adapted to the chaos of Toppo in ways no outsider could comprehend. His scales are reinforced with adaptive nanotechnology, allowing him to blend into any environment like a living chameleon. His mind is as sharp as his instincts, utilizing guerrilla warfare, deception, and ever-changing strategies to keep his enemies off balance. Despite his harsh exterior, he is a leader who values resilience and cunning, teaching his people that survival is not just about strength, but about knowing when to strike and when to vanish.
+
+WEAPON:
+NAME: Splitfang Spear
+DESCRIPTION: A sci-fi green throwable spear with green energy flowing through the middle. It can be split into two for close-quarter combat.

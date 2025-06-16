@@ -1,0 +1,4119 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Space Mono', monospace, sans-serif;
+}
+
+@font-face {
+  font-family: 'Nyxerin';
+  src: url('fonts/NYXERIN.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Space Mono';
+  src: url('fonts/SpaceMono-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  overflow: hidden;
+  background: #0c0c0c;
+  color: #fff;
+  font-size: 10px;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="white" stroke-width="1" stroke-dasharray="20,2"><rect x="3" y="3" width="30" height="30" rx="12" ry="12" fill="none" /><circle cx="18" cy="18" r="1" fill="white" /></svg>') 18 18, auto;
+}
+
+/* Apply Nyxerin font and gradient to specific text elements */
+h1, h2, 
+.logo, .section-title, 
+.planet-name, .planet-subtitle, .location-item h4, 
+.inhabitants-name, .ship-name, .leader-name, .weapon-name {
+  font-family: 'Nyxerin', sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  filter: drop-shadow(0px 2px 20px rgba(0, 0, 0, 0.5));
+}
+
+/* Set h3, h4, h5 to white with no gradient */
+h3, h4, h5, .location-item h4 {
+  font-family: 'Nyxerin', sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  filter: drop-shadow(0px 2px 20px rgba(0, 0, 0, 0.5));
+  background-image: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+}
+
+/* Body text styling */
+p, .location-item p, .city-description, .ship-description, 
+.inhabitants-description, .leader-description, .weapon-description,
+.planet-description {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: #A5A5A5;
+  text-align: left;
+}
+
+/* Stat labels */
+.stat-item h4, .stat-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-align: center;
+  background-image: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+}
+
+/* Stat values */
+.stat-value {
+  font-family: 'Nyxerin', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Override text shadow for better readability on specific elements */
+.logo {
+  background-image: linear-gradient(to bottom, #ffffff, #606060);
+  filter: drop-shadow(0px 2px 20px rgba(0, 0, 0, 0.7));
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+#container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+#scene-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="white" stroke-width="1" stroke-dasharray="20,2"><rect x="3" y="3" width="30" height="30" rx="12" ry="12" fill="none" /><circle cx="18" cy="18" r="1" fill="white" /></svg>') 18 18, auto;
+}
+
+#scene-container canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#ui-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Brand header */
+.brand {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  pointer-events: none;
+  z-index: 200;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+}
+
+/* Top Navigation Controls */
+#navigation-controls {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  background-color: rgba(12, 12, 12, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  pointer-events: auto;
+  z-index: 150;
+}
+
+.nav-control {
+  text-align: center;
+  padding: 5px 15px;
+  min-width: 120px;
+}
+
+.control-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  background-image: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+}
+
+.control-desc {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: #A5A5A5;
+  text-transform: uppercase;
+}
+
+/* Minimal Planet Info */
+.planet-info {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.planet-info.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.planet-info .planet-name {
+  font-size: 64px;
+  font-weight: 700;
+  margin-bottom: 20px !important;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.planet-subtitle {
+  display: none;
+}
+
+/* ------------------------------------------------------------------
+   Explore button: solid white pill style
+------------------------------------------------------------------- */
+.explore-button {
+  background: #ffffff !important;
+  color: #0c0c0c !important; /* dark text for contrast */
+  border: none !important;
+  border-radius: 9999px !important; /* fully rounded */
+  padding: 12px 28px !important;
+  gap: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 0; /* establish stacking context */
+}
+
+.explore-button:hover {
+  background: #e6e6e6 !important; /* slight shade on hover */
+}
+
+.explore-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #0c0c0c;
+  transform: translateX(-100%);
+  transition: transform 0.4s ease;
+  z-index: -1; /* behind text */
+}
+
+.explore-button:hover::after {
+  transform: translateX(0);
+}
+
+.explore-button:hover {
+  color: #ffffff !important;
+}
+
+/* Remove Explore button icon */
+.explore-button .icon-box {
+  display: none !important;
+}
+
+.explore-button .planet-button-name {
+  font-family: 'Nyxerin', sans-serif;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+/* Full Screen Modal */
+.planet-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  transform: scale(0.1);
+  filter: blur(20px);
+  opacity: 0;
+  transform-origin: center center;
+  border-radius: 50%; /* start as circle */
+}
+
+.planet-modal.visible {
+  display: block;
+  opacity: 1;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(12, 12, 12, 1);
+  backdrop-filter: blur(32px);
+}
+
+.modal-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  color: #fff;
+  /* scroll-snap-type: y mandatory; */ /* Temporarily disabled for debugging */
+  scroll-behavior: smooth !important;
+}
+
+.modal-inner {
+  scroll-behavior: smooth;
+  padding-top: 1px;
+}
+
+.close-modal {
+  position: fixed;
+  top: auto !important;
+  right: auto !important;
+  bottom: 20px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: #ffffff !important;
+  color: #0c0c0c !important;
+  border-radius: 9999px !important;
+  padding: 12px 32px !important;
+  width: auto !important;
+  height: auto !important;
+  border: 1px solid #0c0c0c !important;
+  font-family: 'Nyxerin', sans-serif !important;
+  font-weight: 700 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  z-index: 10000 !important;
+}
+
+/* Remove any icon inside modal close button */
+.close-modal .close-icon { display:none !important; }
+
+.close-modal:hover {
+  background: rgba(12, 12, 12, 0.9);
+}
+
+.close-modal .close-icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+  z-index: 8001;
+
+}
+
+.close-modal:hover .close-icon {
+  opacity: 1;
+}
+
+/* Hero Image */
+.hero-image {
+  width: 100%;
+  height: auto;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 48px;
+  border-radius: 16px;
+}
+
+/* Planet Header */
+.planet-header {
+  text-align: left;
+  margin-bottom: 48px;
+}
+
+.planet-header .planet-name {
+  font-size: 64px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.planet-header .planet-subtitle {
+  display: none;
+}
+
+/* Planet Stats */
+.planet-stats {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 5vh auto;
+}
+
+.stat-item {
+  background: none;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  backdrop-filter: none;
+  justify-content: center;
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item h4 {
+  font-size: 10px;
+  margin-bottom: 4px;
+  opacity: 0.7;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: left;
+}
+
+.stat-value {
+  font-family: 'Nyxerin', sans-serif;
+  font-size: 0.75vw;
+  font-weight: 600;
+  text-align: left;
+}
+
+/* Sections */
+section {
+  margin-bottom: 64px;
+}
+
+section h3 {
+  font-size: 34px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+/* Key Locations */
+/* 
+.location-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+*/
+
+/* Commenting out the general .location-item rule to prevent conflicts */
+/*
+.location-item {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: rgba(12, 12, 12, 0.6);
+  border-radius: 8px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+*/
+
+/* Keep specific rules for image and content *within* the item if needed */
+/* These might need adjustment if the structure inside location-item changed */
+.location-item .location-image {
+  width: 100%;
+  height: 200px; /* Or make aspect-ratio based */
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+}
+
+.location-item .location-content {
+  flex: 1;
+}
+
+.location-item h4 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.location-item p {
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.8;
+  text-align: left;
+}
+
+/* Content Rows */
+.content-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text-content {
+  flex: 1;
+  max-width: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.image-content {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.image-content img {
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+/* Alternating Sections */
+.major-city-section .content-row,
+.inhabitants-section .content-row {
+  grid-template-columns: 3fr 2fr;
+}
+
+.mothership-section .content-row,
+.weaponry-section .content-row {
+  grid-template-columns: 2fr 3fr;
+}
+
+/* Scrollbar styling */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: rgba(12, 12, 12, 0.6);
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: rgba(12, 12, 12, 0.9);
+  border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(12, 12, 12, 1);
+}
+
+/* Controls Info */
+.controls-info {
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 32px;
+  z-index: 2;
+  background: rgba(12, 12, 12, 0.5);
+  padding: 16px 32px;
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+}
+
+.control-item {
+  text-align: center;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.control-item span {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 4px;
+  opacity: 0.9;
+}
+
+/* Temporary scrollbar visibility override */
+::-webkit-scrollbar {
+  display: block !important; /* Force display */
+  width: 15px !important;   /* Make it wide */
+  height: 15px !important;  /* Make it tall */
+}
+
+::-webkit-scrollbar-track {
+  background: yellow !important; /* Obvious track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background: red !important; /* Obvious thumb color */
+  border-radius: 0 !important; /* Make it square */
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: auto !important; /* Force scrollbar */
+  scrollbar-color: red yellow !important; /* Obvious colors */
+}
+
+/* Make sure potential scrollers allow overflow */
+body, html, #planet-modal, .modal-content {
+    overflow-y: auto !important; /* Ensure overflow is allowed, overriding hidden */
+}
+
+/* Modal sections */
+.modal-section {
+  height: auto !important;
+  min-height: 100vh !important; /* Ensure section occupies full viewport for intersection detection */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 60px;
+  background-color: transparent;
+  z-index: 2;
+  margin-bottom: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  background-image: none !important;
+  background-size: none !important;
+}
+
+/* Remove dotted overlay pseudo-elements on hero & insignia sections */
+.hero-section::after,
+.insignia-section::after {
+  background-image: none !important;
+}
+
+.section-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.section-background img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.section-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 0px;
+  align-items: flex-end;
+  background: none;
+}
+
+/* ------------------------------------------------------------------
+   Ensure all section titles are positioned relative (not absolute)
+------------------------------------------------------------------- */
+.section-title {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  margin: 40px 0 20px 40px !important; /* keep same visual offset */
+  width: auto !important;
+  height: auto !important;
+  font-size: 2vw !important;
+  text-align: left !important;
+}
+
+/* Base styling for the section number appended to each title */
+.section-title::after {
+  font-family: 'Nyxerin', sans-serif;
+  font-size: 0.5vw;
+  color: rgba(255, 255, 255, 0.6); /* 60% white */
+  margin-left: 0.3em; /* Hug the title with small gap */
+  content: '';
+}
+
+/* Numbered sections */
+.locations-section   .section-title::after { content: '01'; }
+.major-city-section  .section-title::after { content: '02'; }
+.mothership-section  .section-title::after { content: '03'; }
+.inhabitants-section .section-title::after { content: '04'; }
+.weapon-section      .section-title::after { content: '05'; }
+.next-planet-section .section-title::after { content: '06'; }
+
+.content-wrap {
+  width: 33%;
+  padding: 40px;
+  background: rgba(12, 12, 12, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Hero Section */
+.hero-section {
+  height: auto;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+  background: linear-gradient(to top, rgba(12, 12, 12, 1) 0%, rgba(12, 12, 12, 1) 50%, rgba(12, 12, 12, 0) 100%);
+}
+
+.hero-section .section-background {
+  display: none;
+}
+
+.hero-section .section-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-section .planet-name {
+  font-size: clamp(48px, 8vw, 120px);
+  text-align: left;
+  margin: 40px 0;
+  width: 100%;
+  color: white;
+  
+  order: 2;
+  padding-left: 40px;
+}
+
+.hero-section .hero-image-container {
+  width: 100%;
+  height: 64vh; /* Reduced from 80vh by 20% */
+  margin-bottom: 40px;
+  order: 1;
+}
+
+.hero-section .hero-columns-wrapper {
+  display: flex;
+  flex-wrap: wrap; /* Allow columns to wrap */
+  width: 100%; /* Ensure it takes full width of its parent */
+  order: 3;
+}
+
+/* Left column - 33.333% */
+.hero-content-wrap {
+  width: 33.333%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: none;
+  padding: 40px;
+  animation: contentFadeIn 1s ease-out 0.3s forwards;
+  opacity: 0;
+  position: relative;
+}
+
+.hero-section .planet-description {
+  font-size: 10px;
+  line-height: 1.6;
+  opacity: 0.8;
+  text-align: left;
+}
+
+/* Right column - 66.667% */
+.hero-right-column {
+  width: 66.667%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: flex-end;
+  padding: 40px;
+  justify-content: center;
+}
+
+.hero-section .hero-image-container {
+  width: 100%;
+  height: 64vh; /* Reduced from 80vh by 20% */
+  margin-bottom: 40px;
+  padding: 40px 40px 0;
+  opacity: 0;
+  clip-path: inset(100% 0 0 0);
+  transition: opacity 1s ease-out, clip-path 1s ease-out;
+}
+
+/* Override: let stats grid expand naturally */
+.hero-section .planet-stats {
+  height: auto !important;
+}
+
+.hero-section .hero-columns-wrapper {
+  order: 3;
+}
+
+.hero-section .planet-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(12, 12, 12, 0.4);
+  backdrop-filter: blur(10px);
+  padding: 0;
+  transform: translateY(30px);
+  opacity: 0;
+  animation: contentFadeIn 1s ease-out 0.6s forwards;
+}
+
+.stat-item:nth-child(3n) {
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item:nth-child(4),
+.stat-item:nth-child(5),
+.stat-item:nth-child(6) {
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item h4 {
+  font-size: 12px;
+  margin-bottom: 4px;
+  opacity: 0.7;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: left;
+}
+
+.stat-value {
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+}
+
+@keyframes heroReveal {
+  0% {
+    transform: scale(1.2);
+    opacity: 0;
+    filter: brightness(0.7) contrast(1.1) blur(10px);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    filter: brightness(1) contrast(1) blur(0px);
+  }
+}
+
+@keyframes contentFadeIn {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Locations Section */
+.locations-section {
+  display: flex; /* Use flexbox for vertical layout */
+  flex-direction: column; /* Stack content and controls vertically */
+  height: 100vh; /* Full viewport height */
+  /* background-color: var(--modal-bg-color); */ /* Keep background if needed */
+  /* padding-top: 40px; */ /* Remove top padding, handle spacing internally */
+  margin-top: 0; 
+  position: relative; /* allow absolute child positioning */
+}
+
+.locations-section .section-content {
+  /* This container handles the horizontal scroll */
+  height: 88vh; /* increased by 10% from 80vh */
+  overflow-x: auto; 
+  overflow-y: hidden; 
+  position: relative; 
+  width: 100%; 
+  padding-bottom: 0; /* Remove bottom padding if items are full height */
+  display: flex; 
+  align-items: center; 
+  scroll-behavior: smooth; 
+  scrollbar-width: none; /* Firefox */
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.locations-section .section-content::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.locations-section .location-list {
+  /* This list just holds the items horizontally */
+  display: flex;
+  flex-direction: row;
+  width: max-content; 
+  height: 88vh; /* match item height */
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  align-items: center; 
+}
+
+/* ------------------------------------------------------------------
+   Override:make location items transparent and content 50% width
+------------------------------------------------------------------- */
+.locations-section .location-item {
+  background: none !important;
+}
+
+.locations-section .location-item .location-content {
+  width: 50% !important;
+}
+
+/* --- Add this missing rule --- */
+.locations-section .location-item {
+  width: 60vw; /* reduced by 20% from 75vw */
+  height: 88vh; /* increased by 10% from 80vh */
+  flex-shrink: 0; /* Prevent items from shrinking */
+  margin-right: 20px; /* Spacing between items */
+  border-radius: 8px; 
+  overflow: hidden; 
+  /* Set flex column layout *ON THE ITEM* */
+  display: flex; 
+  flex-direction: column;
+  background-color: rgba(20, 20, 20, 0.5); 
+  padding: 0; /* Keep padding 0 */
+  position: static; /* Ensure it flows normally */
+  gap: 16px; /* Add gap between image and content */
+}
+
+.locations-section .location-item .location-image {
+  width: 100%;
+  height: 80%; /* Changed from 60% */
+  flex-shrink: 0; /* Prevent image shrinking */
+  position: static; 
+}
+
+.locations-section .location-item .location-image img {
+  display: block; 
+  width: 110% !important;
+  margin-left: -5% !important;
+  height: 100%;
+  object-fit: cover; 
+}
+
+.locations-section .location-item .location-content {
+  /* Content takes remaining space dynamically */
+  flex-grow: 1; /* Allow content to take remaining space */
+  /* height: 40%; */ /* Remove fixed height */
+  width: 30%; /* Keep left aligned, 30% width */
+  padding: 0; /* Set padding to 0 on all sides */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content to top */
+  align-items: flex-start; /* Align text left */
+  position: static; /* Ensure it flows below image */
+  background: none; /* No background needed here */
+  /* Remove specific padding overrides */
+  /* padding-left: 20px; */
+  /* padding-right: 20px; */
+  /* padding-bottom: 20px; */ 
+}
+
+.locations-section .location-item .location-content h4 {
+  /* Inherit h4 styles or add specific ones */
+  margin-bottom: 10px; /* Space between title and description */
+  color: #fff; /* Ensure text is visible */
+}
+
+.locations-section .location-item .location-content p {
+  /* Inherit general p styles, but specify size */
+  font-size: 10px; /* Set font size to 10px */
+  color: #A5A5A5; /* Match planet description style */
+  font-family: 'Space Mono', monospace; /* Match planet description style */
+  text-transform: uppercase; /* Match planet description style */
+  line-height: 1.6; /* Match planet description style */
+  margin: 0; /* Reset margin */
+}
+
+.locations-section .location-item:last-child {
+  margin-right: 0; 
+}
+/* --- End specific location item styles --- */
+
+/* New container for buttons */
+.location-controls {
+  position: absolute !important;
+  top: 50%;
+  left: 20px;           /* snug against items */
+  transform: translateY(-50%);
+  height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 20px !important;
+  background: none !important;
+  padding: 0 !important;
+  z-index: 5;
+}
+
+/* Arrow Button Styling (Adjusted) */
+.scroll-arrow {
+  /* Remove absolute positioning */
+  /* position: absolute; */
+  /* top: 50%; */
+  /* transform: translateY(-50%); */
+  /* left: 20px; */ /* Remove side positioning */
+  /* right: 20px; */ 
+  z-index: 10;
+  background-color: rgba(20, 20, 20, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  width: 60px; /* Adjust size */
+  height: 60px; /* Adjust size */
+  border-radius: 50%; /* Make circular */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px; /* Adjust arrow size */
+  transition: background-color 0.2s ease, opacity 0.3s ease;
+  opacity: 1;
+  font-size: 0; /* Hide text fallback if any */
+}
+
+/* Remove specific left/right classes for positioning */
+/* .scroll-arrow.left { } */
+/* .scroll-arrow.right { } */
+
+/* Style for the IMG inside the arrow button */
+.scroll-arrow img {
+  display: block;
+  width: 16px;
+  height: 16px;
+  filter: invert(1) brightness(1.5);
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.scroll-arrow:hover img {
+  opacity: 1;
+}
+
+/* ... rest of scroll-arrow styles (.hidden, :hover) ... */
+
+/* City, Mothership, Weapon Sections */
+.city-section .section-content,
+.mothership-section .section-content,
+.weapon-section .section-content {
+  align-items: flex-end;
+  background: none;
+  padding-bottom: 0px;
+  padding-left: 0px;
+}
+
+/* Inhabitants Section */
+.inhabitants-section .section-title {
+  order: 0 !important; /* heading first */
+}
+
+.inhabitants-section .section-background {
+  order: 0 !important; /* image first */
+}
+
+.inhabitants-section .section-content {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+}
+
+.inhabitants-section .content-wrap {
+  width: 100% !important;
+  padding: 0 40px !important;
+}
+
+.inhabitants-section .content-wrap.empty-column {
+  display: none !important;
+}
+
+/* Image container fills width, 80% height */
+.inhabitants-section .section-background.inhabitants-image,
+.inhabitants-section .section-background {
+  width: 100% !important;
+  height: 72vh !important; /* Reduced from 80vh by 10% */
+  order: 1;
+  overflow: hidden;
+  position: relative;
+}
+.inhabitants-section .section-background.inhabitants-image img,
+.inhabitants-section .section-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  clip-path: inset(100% 0 0 0);
+  transition: opacity 1s ease-out, clip-path 1s ease-out;
+}
+/* Reveal animation once section is visible */
+.section-visible .inhabitants-section .section-background img,
+.inhabitants-section.section-visible .section-background img {
+  opacity: 1 !important;
+  clip-path: inset(0 0 0 0) !important;
+}
+
+/* Text content underneath, 33% width aligned left */
+.inhabitants-section .content-wrap {
+  order: 2;
+  width: 33.333% !important;
+  align-self: flex-start;
+  margin-top: 20px;
+  padding: 0 40px !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  height: auto !important;
+}
+
+.inhabitants-section .inhabitants-name,
+.inhabitants-section .leader-name {
+  font-size: 36px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.inhabitants-section .inhabitants-description,
+.inhabitants-section .leader-description {
+  font-size: 10px;
+  line-height: 1.6;
+  opacity: 0.8;
+  text-align: left;
+}
+
+/* Section Backgrounds with Gradient Overlays */
+.section-background::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: none;
+}
+
+/* Content Styles */
+h3 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.content-wrap p {
+  font-size: 10px;
+  line-height: 1.6;
+  opacity: 0.8;
+  text-align: left;
+
+}
+
+/* Stats section adjustments */
+.stats-section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Major city section */
+.major-city-section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Mothership section */
+.mothership-section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Inhabitants section */
+.inhabitants-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Weaponry section */
+.weaponry-section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Ensure each section snaps to viewport */
+.modal-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Image content for specific sections */
+.major-city-section .image-content,
+.mothership-section .image-content,
+.inhabitants-section .image-content,
+.weaponry-section .image-content {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.major-city-section .image-content img,
+.mothership-section .image-content img,
+.inhabitants-section .image-content img,
+.weaponry-section .image-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Scene Detailing */
+.scene-frame {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.scene-frame img {
+  position: absolute;
+  width: auto;
+  height: auto;
+}
+
+.scene-frame .top-left {
+  top: 10px;
+  left: 10px;
+  width: 80px;
+  height: 17px;
+}
+
+.scene-frame .top-middle {
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30vw;
+  height: auto;
+  aspect-ratio: 18.75 / 1; /* 300px / 16px = 18.75 */
+}
+
+.scene-frame .top-right {
+  top: 10px;
+  right: 10px;
+  width: 80px;
+  height: 17px;
+}
+
+.scene-frame .bottom-left {
+  bottom: 10px;
+  left: 10px;
+  width: 80px;
+  height: 17px;
+}
+
+.scene-frame .bottom-middle {
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+}
+
+.scene-frame .bottom-right {
+  bottom: 10px;
+  right: 10px;
+  width: 80px;
+  height: 17px;
+}
+
+.scene-frame .centre-middle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: auto;
+  opacity: 0.5;
+}
+
+/* Pagination Dots */
+.pagination-dots {
+  position: fixed;
+  top: 50%;
+  right: 40px;
+  transform: translateY(-50%);
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 100;
+}
+
+.pagination-dot {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination-dot img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.pagination-dot .dot-active {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.pagination-dot .dot-inactive {
+  opacity: 1;
+}
+
+.pagination-dot.active .dot-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.pagination-dot.active .dot-inactive {
+  opacity: 0;
+}
+
+/* Reveal animations for background images in other sections */
+.city-section .section-background,
+.mothership-section .section-background,
+.inhabitants-section .section-background,
+.weapon-section .section-background {
+  transform: scale(1.1);
+  opacity: 0;
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), 
+              opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.city-section .section-background img,
+.mothership-section .section-background img,
+.inhabitants-section .section-background img,
+.weapon-section .section-background img {
+  filter: brightness(0.7) blur(5px);
+  transition: filter 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Reveal animation trigger (match section-visible on same element) */
+.mothership-section.section-visible .section-background img {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+}
+
+/* Global p tag styling */
+p {
+  font-size: 10px;
+  line-height: 1.6;
+  opacity: 0.8;
+  text-align: left;
+  font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
+  color: #A5A5A5;
+}
+
+/* Custom cursors for interactive elements */
+.explore-button, 
+.close-modal, 
+.pagination-dot,
+a, 
+button,
+#mute-button { /* Added #mute-button here for default state */
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="%2300ffea" stroke-width="1" stroke-dasharray="20,2"><rect x="3" y="3" width="30" height="30" rx="12" ry="12" fill="none" /><circle cx="18" cy="18" r="2" fill="%2300ffea" /></svg>') 18 18, pointer !important;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.explore-button:hover, 
+.close-modal:hover, 
+.pagination-dot:hover,
+a:hover, 
+button:hover,
+#mute-button:hover { /* Added #mute-button:hover here */
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="%2300ffea" stroke-width="1" stroke-dasharray="20,2"><rect x="3" y="3" width="30" height="30" rx="12" ry="12" fill="none" /><circle cx="18" cy="18" r="2" fill="%2300ffea" /></svg>') 18 18, pointer !important;
+  transform: scale(1.03);
+  filter: brightness(1.2);
+}
+
+/* Scene container cursor when over a planet */
+#scene-container.hovering-planet {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="%2300ffea" stroke-width="1" stroke-dasharray="20,2"><rect x="3" y="3" width="30" height="30" rx="12" ry="12" fill="none" /><circle cx="18" cy="18" r="2" fill="%2300ffea" /></svg>') 18 18, pointer !important;
+}
+
+/* Additional cursor style for when dragging in the scene */
+#scene-container:active {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="%2300ffea" stroke-width="1" stroke-dasharray="20,2"><rect x="3" y="3" width="30" height="30" rx="12" ry="12" fill="none" /><circle cx="18" cy="18" r="3" fill="%2300ffea" /></svg>') 18 18, grabbing !important;
+}
+
+/* Nebula Background Effect */
+.nebula-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  background: radial-gradient(ellipse at center, rgba(12, 12, 12, 1) 0%, rgba(10, 10, 10, 1) 100%);
+}
+
+.nebula-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(0, 255, 234, 0.05) 0%, rgba(0, 255, 234, 0) 70%),
+    radial-gradient(circle at 80% 70%, rgba(120, 0, 255, 0.1) 0%, rgba(120, 0, 255, 0) 70%),
+    radial-gradient(circle at 60% 40%, rgba(50, 0, 120, 0.1) 0%, rgba(50, 0, 120, 0) 70%);
+  mix-blend-mode: screen;
+  animation: nebula-move 120s infinite linear;
+}
+
+.nebula-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(1px 1px at 10% 10%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 20% 20%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 30% 30%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 40% 40%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 50% 50%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 60% 60%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 70% 70%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 80% 80%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 90% 90%, rgba(255, 255, 255, 0.8) 50%, transparent 100%);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.3;
+  animation: nebula-stars 30s infinite linear;
+}
+
+.nebula-dust {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 15% 15%, rgba(0, 255, 234, 0.3) 50%, transparent 100%),
+    radial-gradient(2px 2px at 25% 25%, rgba(120, 0, 255, 0.3) 50%, transparent 100%),
+    radial-gradient(2px 2px at 35% 35%, rgba(50, 0, 120, 0.3) 50%, transparent 100%),
+    radial-gradient(2px 2px at 45% 45%, rgba(0, 255, 234, 0.3) 50%, transparent 100%),
+    radial-gradient(2px 2px at 55% 55%, rgba(120, 0, 255, 0.3) 50%, transparent 100%),
+    radial-gradient(2px 2px at 65% 65%, rgba(50, 0, 120, 0.3) 50%, transparent 100%),
+    radial-gradient(2px 2px at 75% 75%, rgba(0, 255, 234, 0.3) 50%, transparent 100%),
+    radial-gradient(2px 2px at 85% 85%, rgba(120, 0, 255, 0.3) 50%, transparent 100%);
+  background-repeat: repeat;
+  background-size: 300px 300px;
+  opacity: 0.2;
+  mix-blend-mode: screen;
+  animation: nebula-dust 60s infinite linear;
+}
+
+@keyframes nebula-move {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 50% 50%; }
+  100% { background-position: 0% 0%; }
+}
+
+@keyframes nebula-stars {
+  0% { background-position: 0px 0px; }
+  100% { background-position: 200px 200px; }
+}
+
+@keyframes nebula-dust {
+  0% { background-position: 0px 0px; }
+  100% { background-position: 300px 300px; }
+}
+
+.city-section .section-title {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  width: auto;
+  height: auto;
+  font-size: 36px;
+  z-index: 5;
+}
+
+.city-section .section-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  background: none;
+  padding: 0;
+  height: 100%;
+}
+
+.city-section .section-background {
+  position: relative;
+  width: 100% !important;
+  height: 80vh !important;
+  order: 1;
+  overflow:hidden;
+  position: relative;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box;
+}
+
+.city-section .section-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  clip-path: inset(100% 0 0 0);
+  transition: opacity 1s ease-out, clip-path 1s ease-out;
+}
+
+.section-visible .city-section .section-background img {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+}
+
+.city-section .content-wrap {
+  order: 2;
+  width: 33.333% !important;
+  align-self: flex-start;
+  margin-top:20px;
+  padding:0 40px;
+  background:none !important;
+  backdrop-filter:none !important;
+  height:auto !important; /* allow natural height */
+}
+
+.city-section .city-name {
+  font-size: 36px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.city-section .city-description {
+  font-size: 10px;
+  line-height: 1.6;
+  opacity: 0.8;
+  text-align: left;
+}
+
+.city-section .city-image {
+  width: 100% !important;
+  height: 80vh !important;
+  order:1;
+  overflow:hidden;
+  position: relative;
+}
+.city-section .city-image img {
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  opacity:0;
+  clip-path: inset(100% 0 0 0);
+  transition: opacity 1s ease-out, clip-path 1s ease-out;
+}
+.section-visible .city-section .city-image img {
+  opacity:1;
+  clip-path: inset(0 0 0 0);
+}
+
+.mothership-section .section-title {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  margin: 0 0 20px 40px !important; /* align with other titles */
+  text-align: left !important;
+}
+
+.mothership-section .section-content {
+  flex-direction: row !important; /* horizontal layout */
+  align-items: flex-start !important;
+  padding-left: 0 !important; /* rely on global 40px if desired, otherwise 0 */
+  padding-right: 0 !important;
+}
+
+.mothership-section .section-background {
+  position: relative;
+  width: 66.667% !important;
+  height: 80vh !important; /* 80% viewport height */
+  order: 1 !important; /* appear first/left */
+  overflow: hidden;
+  position: relative;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.mothership-section .section-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  clip-path: inset(100% 0 0 0);
+  transition: opacity 1s ease-out, clip-path 1s ease-out;
+}
+/* Reveal animation trigger (match section-visible on same element) */
+.mothership-section.section-visible .section-background img {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+}
+
+/* Content column on the right */
+.mothership-section .content-wrap {
+  width: 33.333% !important;
+  order: 2 !important; /* after image */
+  padding: 0 40px !important; /* horizontal padding to match others */
+  background: none !important;
+  backdrop-filter: none !important;
+  height: auto !important;
+}
+
+.mothership-section .ship-name {
+  font-size: 36px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.mothership-section .ship-description {
+  font-size: 10px;
+  line-height: 1.6;
+  opacity: 0.8;
+  text-align: left;
+}
+
+/* Weapon Section layout (mirror Mothership) */
+.weapon-section .section-title {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  margin: 0 0 20px 40px !important;
+  text-align: left !important;
+}
+
+.weapon-section .section-content {
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Image container left */
+.weapon-section .section-background.weapon-image,
+.weapon-section .section-background {
+  width: 66.667% !important;
+  height: 80vh !important;
+  order: 1 !important;
+  position: relative !important; /* override earlier absolute */
+  overflow: hidden;
+}
+.weapon-section .section-background.weapon-image img,
+.weapon-section .section-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  clip-path: inset(100% 0 0 0);
+  transition: opacity 1s ease-out, clip-path 1s ease-out;
+}
+/* Reveal anim */
+.weapon-section.section-visible .section-background img,
+.section-visible .weapon-section .section-background img {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+}
+
+/* Content column right */
+.weapon-section .content-wrap {
+  width: 33.333% !important;
+  order: 2 !important;
+  padding: 0 40px !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  height: auto !important;
+  align-self: flex-end !important;
+  justify-content: flex-end !important; /* keep inner items at bottom */
+  margin-bottom: 40px !important; /* same grid inset */
+}
+
+.weapon-section .weapon-name {
+  font-size: 36px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.weapon-section .weapon-description {
+  font-size: 10px;
+  line-height: 1.6;
+  opacity: 0.8;
+  text-align: left;
+}
+
+/* Ensure proper font size for body text in different sections */
+.city-section .city-description,
+.mothership-section .ship-description,
+.inhabitants-section .inhabitants-description,
+.inhabitants-section .leader-description,
+.weapon-section .weapon-description,
+.hero-section .planet-description,
+.location-item p {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: #A5A5A5;
+  text-align: left;
+}
+
+/* Override any existing specific paragraph styles */
+.location-item p {
+  font-size: 14px;
+}
+
+/* Control labels */
+.control-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  background-image: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+}
+
+.control-desc {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: #A5A5A5;
+  text-transform: uppercase;
+}
+
+/* Override any remaining gradient text in modal sections */
+.city-name, .ship-name, .inhabitants-name, .leader-name, .weapon-name {
+  color: #ffffff;
+  background-image: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+}
+
+/* Ensure consistent text sizing in modal sections */
+.city-section .city-name,
+.mothership-section .ship-name,
+.inhabitants-section .inhabitants-name,
+.inhabitants-section .leader-name,
+.weapon-section .weapon-name {
+  font-size: 24px;
+}
+
+/* Circular Insignia Section */
+.insignia-section {
+  height: 100vh !important;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0c0c0c;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 1;
+}
+
+.insignia-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.circular-text-container {
+  width: 500px;
+  height: 500px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circular-text-svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: rotate 60s linear infinite;
+  will-change: transform;
+}
+
+.circular-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 16px;
+  fill: #A5A5A5;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.centered-insignia {
+  position: absolute;
+  top: 50%; /* Add top: 50% */
+  left: 50%; /* Add left: 50% */
+  transform: translate(-50%, -50%); /* Add transform for centering */
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.planet-insignia-large {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: none !important;
+  transition: all 0.5s ease;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Add scroll interaction effect */
+.insignia-section .circular-text-svg {
+  transform-origin: center;
+  transition: transform 0.1s linear;
+}
+
+/* Added back the animation trigger rule */
+.section-visible .hero-image-container {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+}
+
+/* New blur-in animation */
+@keyframes blurIn {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+/* Apply blur-in to planet description when section is visible */
+.hero-section .planet-description {
+  /* opacity: 0; */ /* Remove initial hidden state */
+  /* filter: blur(10px); */ /* Remove initial blur */
+}
+
+.section-visible .hero-section .planet-description {
+  animation-name: blurIn;
+  animation-duration: 1.2s; /* Adjust duration as needed */
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-delay: 0.5s; /* Optional delay after section becomes visible */
+}
+
+/* Styling for individual words in the description */
+/* .description-word {
+  display: inline-block; 
+  opacity: 0; 
+} */ /* Remove old word styling */
+
+/* Animation for revealing words */
+/* @keyframes wordReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} */ /* Remove old word reveal keyframes */
+
+/* New rule for the column wrapper */
+.hero-columns-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 25vh;
+}
+
+/* Parallax & Motion Blur for Location Images */
+.location-image {
+  overflow: hidden; /* Clip overflowing part during translate */
+}
+.location-image img {
+  will-change: transform, filter;
+  transition: transform 0.3s ease-out, filter 0.2s ease-out;
+}
+/* Motion blur class toggled by JS */
+.location-image img.motion-blur {
+  filter: blur(4px);
+}
+/* Optional: Smooth out blur removal */
+.location-image img:not(.motion-blur) {
+  filter: blur(0px);
+}
+
+/* SVG icon size inside arrow buttons */
+.scroll-arrow svg {
+  width: 16px;
+  height: 16px;
+  color: white;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.scroll-arrow:hover svg {
+  opacity: 1;
+}
+
+/* Dotted grid background for planet modal */
+.planet-modal .modal-content {
+  background-image: url('images/background-grid-detail.svg') !important;
+  background-repeat: repeat !important;
+  background-size: 100px 100px !important; /* adjust tile size as needed */
+}
+
+/* Dotted overlay for hero and insignia sections */
+.hero-section, .insignia-section {
+  position: relative; /* ensure containing block */
+}
+.hero-section::after, .insignia-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 14px 14px;
+  pointer-events: none;
+  z-index: 0; /* sit behind inner content */
+}
+
+/* Tagline SVG around insignia */
+.planet-tagline {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%; 
+  height: 100%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transform-origin: center center;
+}
+
+.insignia-section .circular-text-svg {
+  display: none; /* hide old text-based circle */
+}
+
+/* ------------------------------------------------------------------
+   Remove global debug scrollbar colours; revert to neutral style
+------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 8px !important; /* standard width */
+  height: 8px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent !important; /* no bright colour */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.4) !important; /* subtle light thumb */
+  border-radius: 4px !important;
+}
+
+/* Reset Firefox scrollbar colors to default */
+* {
+  scrollbar-color: auto !important; /* platform default */
+}
+
+/* Restore custom dark scrollbar for modal content only */
+.modal-content::-webkit-scrollbar-track {
+  background: rgba(12,12,12,0.6) !important;
+}
+.modal-content::-webkit-scrollbar-thumb {
+  background: rgba(12,12,12,0.9) !important;
+}
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(12,12,12,1) !important;
+}
+
+/* Remove earlier debug forced display of scrollbars */
+::-webkit-scrollbar {
+  /* display property removed */
+}
+
+/* Force-hide horizontal scrollbar in locations scroller and list */
+.locations-section .section-content::-webkit-scrollbar,
+.locations-section .location-list::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------
+   Location controls: transparent bar and square adjoining buttons
+------------------------------------------------------------------- */
+.location-controls {
+  position: absolute !important;
+  top: 50%;
+  left: 20px;           /* snug against items */
+  transform: translateY(-50%);
+  height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 20px !important;
+  background: none !important;
+  padding: 0 !important;
+  z-index: 5;
+}
+
+.location-controls .scroll-arrow {
+  border-radius: 0 !important; /* make square */
+  width: 60px;                 /* retain size */
+  height: 60px;
+}
+
+/* ------------------------------------------------------------------
+   Location carousel widths: focused 70%, others 15%
+------------------------------------------------------------------- */
+.locations-section .location-item {
+  width: 15% !important;
+  transition: width 0.4s ease !important;
+}
+.locations-section .location-item.focused {
+  width: 70% !important;
+}
+
+/* ------------------------------------------------------------------
+   Smooth carousel tweaks
+------------------------------------------------------------------- */
+.locations-section .location-item {
+  transition: width 0.6s ease !important; /* slower, smoother */
+}
+
+/* Fade text/content in & out when item gains/loses focus */
+.locations-section .location-item .location-content {
+  display: none !important;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none !important; /* prevent interaction when hidden */
+}
+.locations-section .location-item.focused .location-content {
+  display: flex !important;
+  opacity: 1;
+  pointer-events: auto !important;
+}
+
+/* Align location controls to left */
+.location-controls {
+  justify-content: flex-start !important;
+}
+
+/* Add left padding to controls */
+.location-controls {
+  padding-left: 40px !important;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+}
+
+/* ------------------------------------------------------------------
+   Modal page controls (counter + arrows)
+------------------------------------------------------------------- */
+.modal-page-controls {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  display: flex; 
+  align-items: stretch;
+  z-index: 10000; /* ensure on top */
+  font-family: 'Nyxerin', sans-serif; /* Replaced Enfonix */
+}
+.page-counter {
+  background: rgba(12,12,12,0.6);
+  backdrop-filter: blur(8px);
+  width: 80px;
+  height: 60px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+}
+.page-counter .counter-current {
+  font-size: 1vw;
+}
+.page-counter .counter-total {
+  font-size: 0.5vw;
+  color: rgba(255,255,255,0.4);
+  margin-left: 2px;
+}
+.page-arrows {
+  display:flex;
+  flex-direction: column;
+}
+.page-arrow {
+  width:60px;
+  height:30px;
+  background: rgba(12,12,12,0.6);
+  backdrop-filter: blur(8px);
+  border:none;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+.page-arrow:disabled {
+  opacity:0.3;
+  cursor:default;
+}
+.page-arrow svg { pointer-events:none; }
+
+.page-counter span {
+  font-family: 'Nyxerin', sans-serif !important; /* Replaced Enfonix */
+  width: 80px;
+}
+
+/* ------------------------------------------------------------------
+   Major City Section Re-layout
+------------------------------------------------------------------- */
+.major-city-section .section-content {
+  flex-direction: column !important; /* stack image then text */
+  align-items: flex-start !important;
+  padding-left: 0 !important; /* align with locations layout */
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Image container fills width, 80% height */
+.major-city-section .image-content {
+  width: 100% !important;
+  height: 72vh !important; /* Reduced from 80vh by 10% */
+  order: 1; /* image first */
+  overflow: hidden;
+  position: relative;
+}
+
+.major-city-section .image-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  opacity: 0;
+  clip-path: inset(100% 0 0 0);
+  transition: opacity 1s ease-out, clip-path 1s ease-out;
+}
+/* Reveal animation once section is visible */
+.section-visible .major-city-section .image-content img {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+}
+
+/* Text content underneath, 33% width aligned left */
+.major-city-section .content-wrap {
+  order: 2;
+  width: 33.333% !important;
+  align-self: flex-start;
+  margin-top: 20px;
+  padding: 0 40px !important; /* horizontal padding like locations section title */
+  background: none !important; /* no translucent background */
+  backdrop-filter: none !important;
+}
+
+/* ------------------------------------------------------------------
+   City Section vertical stack layout
+------------------------------------------------------------------- */
+.city-section .section-content {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.city-section .section-background {
+  width: 100% !important;
+  height: 80vh !important;
+  order: 1;
+  overflow:hidden;
+  position: relative;
+}
+.city-section .section-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  opacity: 0;
+  clip-path: inset(100% 0 0 0);
+  transition: opacity 1s ease-out, clip-path 1s ease-out;
+}
+.section-visible .city-section .section-background img {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+}
+
+.city-section .content-wrap {
+  order: 2;
+  width: 33.333% !important;
+  align-self: flex-start;
+  margin-top:20px;
+  padding:0 40px;
+  background:none !important;
+  backdrop-filter:none !important;
+  height:auto !important; /* allow natural height */
+}
+
+/* Reveal when the city section itself becomes visible */
+.city-section.section-visible .section-background img,
+.city-section.section-visible .city-image img {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+}
+
+/* ------------------------------------------------------------------
+   Global section-content horizontal padding
+------------------------------------------------------------------- */
+.modal-section .section-content {
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  gap: 20px;
+}
+
+/* Remove inner padding on specific content columns that now inherit outer padding */
+.city-section .content-wrap,
+.major-city-section .content-wrap {
+  padding: 0 !important;
+}
+
+/* ------------------------------------------------------------------
+   Hero section: remove internal paddings
+------------------------------------------------------------------- */
+.hero-section .planet-name,
+.hero-content-wrap,
+.hero-section .hero-image-container {
+  padding: 0 !important;
+}
+
+/* ------------------------------------------------------------------
+   Generic reveal for section background images (applies to all sections)
+------------------------------------------------------------------- */
+.section-visible .section-background {
+  transform: scale(1) !important;
+  opacity: 1 !important;
+}
+.section-visible .section-background img {
+  filter: brightness(1) blur(0px) !important;
+}
+
+/* Ensure Mothership section children (title & content) align to left */
+.mothership-section {
+  align-items: flex-start !important;
+}
+
+/* ------------ Alignment fix: unify 40px grid ------------ */
+
+/* Remove inner padding on image containers */
+.city-section .section-background,
+.inhabitants-section .section-background {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Ensure outer section-content carries the 40px inset */
+.city-section .section-content,
+.major-city-section .section-content,
+.inhabitants-section .section-content {
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+}
+
+/* Layout for grouped inhabitants columns */
+.inhabitants-columns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between !important; /* push first and last to edges */
+  width: 100%;
+}
+.inhabitants-columns .content-wrap {
+  padding: 0 !important; /* remove inner padding */
+  width: 33.333% !important;
+}
+/* Hide placeholder column on small gap */
+.inhabitants-columns .content-wrap.empty-column {
+  background: none !important;
+  flex: 0 0 33.333%;
+}
+
+/* ------------------------------------------------------------------
+   Final ensure: Counter boxes border + Enfonix numerals
+------------------------------------------------------------------- */
+.page-counter,
+.page-arrow {
+  border: 1px solid rgba(255,255,255,0.2) !important;
+}
+.page-counter span {
+  font-family: 'Nyxerin', sans-serif !important;
+  width: 80px;
+}
+
+/* Align counter numerals bottom & square arrows */
+.page-counter {
+  align-items: flex-end !important;
+  padding: 8px !important; /* slight inset */
+}
+.page-arrow {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+/* ------------------------------------------------------------------
+   FINAL override: remove dark background + dotted overlay on insignia
+------------------------------------------------------------------- */
+.insignia-section {
+  background: none !important; /* clear #0c0c0c fallback */
+}
+
+.insignia-section::after {
+  content: none !important;          /* eliminate pseudo-element */
+  background: none !important;       /* ensure no colour */
+  background-image: none !important; /* strip dotted gradient */
+}
+
+/* ------------------------------------------------------------------
+   Add breathing room between modal sections
+------------------------------------------------------------------- */
+.modal-section {
+  margin-bottom: 10vh !important; /* space after each section */
+}
+
+.modal-section:last-child {
+  margin-bottom: 0 !important; /* no extra space at end */
+}
+
+/* ------------------------------------------------------------
+   Letter-by-letter slide-fade reveal for planet names
+------------------------------------------------------------- */
+.reveal-letter {
+  display: inline-block; 
+  opacity: 0; 
+  transform: translateY(20px);
+  animation: letterIn 0.6s cubic-bezier(0.3, 0.7, 0.4, 1.3) forwards;
+  font-family: 'Nyxerin', sans-serif !important; /* Replaced Enfonix */
+}
+
+@keyframes letterIn {
+  to {
+  opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Stellar Zoom-In modal entrance (Idea #1)
+------------------------------------------------------------------- */
+.planet-modal {
+  transform: scale(0.1);
+  filter: blur(20px);
+  opacity: 0;
+  transform-origin: center center;
+  border-radius: 50%; /* start as circle */
+}
+
+.planet-modal.visible {
+  animation: stellarZoom 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes stellarZoom {
+   0%   { transform: scale(0.1); filter: blur(20px); opacity: 0; border-radius: 50%; }
+   60%  { filter: blur(4px); }
+   100% { transform: scale(1); filter: blur(0); opacity: 1; border-radius: 0%; }
+}
+
+@keyframes stellarZoomReverse {
+   0%   { transform: scale(1); filter: blur(0); opacity: 1; border-radius: 0%; }
+   40%  { filter: blur(4px); }
+   100% { transform: scale(0.1); filter: blur(20px); opacity: 0; border-radius: 50%; }
+}
+
+/* Lens-flare sweep */
+.planet-modal::before {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: -60%;
+  width: 40%;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
+  transform: translateY(-50%);
+  pointer-events: none;
+  opacity: 0.6;
+  filter: blur(2px);
+}
+
+.planet-modal.visible::before {
+  animation: flareSweep 0.7s ease-out forwards;
+}
+
+@keyframes flareSweep {
+  from { left: -60%; }
+  to   { left: 120%; }
+}
+
+/* ------------------------------------------------------------------
+   Hide pagination controls until modal entrance animation ends
+------------------------------------------------------------------- */
+.modal-page-controls {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease 0.7s, transform 0.4s ease 0.7s; /* delay matches 0.7s zoom */
+}
+
+.planet-modal.visible .modal-page-controls {
+  opacity: 1;
+  pointer-events: auto;
+    transform: translateY(0);
+} 
+
+/* Reverse zoom on close */
+.planet-modal.closing {
+  animation: stellarZoomReverse 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes stellarZoomReverse {
+  0%   { transform: scale(1); filter: blur(0); opacity: 1; border-radius: 0%; }
+  40%  { filter: blur(4px); }
+  100% { transform: scale(0.1); filter: blur(20px); opacity: 0; border-radius: 50%; }
+}
+
+.planet-modal.closing::before {
+  animation: flareSweepReverse 0.6s ease-in forwards;
+}
+@keyframes flareSweepReverse {
+  from { left: 120%; }
+  to   { left: -60%; }
+} 
+
+/* ------------------------------------------------------------------
+   Typography tweaks: Enfonix for button & major city/locations names
+------------------------------------------------------------------- */
+.explore-button .planet-button-name,
+.city-name,
+.location-item h4 {
+  font-family: 'Nyxerin', sans-serif !important;
+} 
+
+/* ------------------------------------------------------------------
+   Prevent accidental horizontal panning of entire modal/page
+------------------------------------------------------------------- */
+body, html {
+  overflow-x: hidden !important;
+}
+#planet-modal,
+.planet-modal,
+.modal-content {
+  overflow-x: hidden !important;
+}
+
+/* ------------------------------------------------------------------
+   Shake animation for unexplored planet button
+------------------------------------------------------------------- */
+@keyframes btnShake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+.explore-button.shake {
+  animation: btnShake 0.4s linear;
+}
+
+/* -------------------------------------------------------------
+   Next Planet Preview Section Layout
+-------------------------------------------------------------- */
+.next-planet-section {
+  height: 100vh !important; /* full viewport */
+  position: relative;
+}
+
+/* Main wrapper becomes two columns */
+.next-planet-section .section-content {
+  position: relative;
+  height: 80%;
+  width: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 24px !important;
+  padding: 0 !important;
+}
+
+/* Left column: text */
+.next-planet-section .content-wrap {
+  width: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  z-index: 2 !important;
+}
+.next-planet-section .next-planet-name {
+  font-size: 3vw;
+  margin-bottom: 24px;
+  text-align: center !important;
+}
+
+/* Right column: planet image */
+.next-planet-section .next-planet-image {
+  position: relative !important;
+  inset: unset !important;           /* clear absolute centering */
+  width: 60% !important;
+  height: 60% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.next-planet-section .next-planet-image canvas,
+.next-planet-section .next-planet-image img {
+  width: 60vw !important;
+  height: 60vw !important;
+}
+
+/* ensure text overlay still above */
+.next-planet-section .content-wrap { z-index: 2 !important; }
+
+/* Title alignment */
+.next-planet-section .section-title {
+  text-align: left !important;
+  margin-left: 0 !important; /* align with other section titles */
+  font-size: 28px !important; /* same as other section titles */
+} 
+
+/* Use Nyxerin font for the planet name */
+.next-planet-section .next-planet-name {
+  font-family: 'Nyxerin', sans-serif !important;
+}
+
+/* Add perfect center overlay */
+.next-planet-section .content-wrap {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important; /* perfect centre overlay */
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* -------------------------------------------------------------
+   Explorer Planet Info Position Tweaks
+-------------------------------------------------------------- */
+#planet-info-main {
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important; /* center both axes */
+}
+
+#planet-info-main .planet-name {
+  text-align: center !important;
+}
+
+/* Transition placeholder removed; handled internally */
+
+/* ------------------------------------------------------------------
+   Modal Slide-Up Entrance (Replaces Stellar Zoom)
+   -------------------------------------------------------------- */
+.planet-modal {
+  /* Start fully below the viewport with blur */
+  transform: translateY(100vh);
+  filter: blur(20px);
+  opacity: 0;
+  border-radius: 0; /* ensure rectangular shape */
+}
+
+/* Slide-up appear */
+.planet-modal.visible {
+  animation: modalSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalSlideUp {
+  0%   { transform: translateY(100vh); filter: blur(20px); opacity: 0; }
+  60%  { filter: blur(4px); }
+  100% { transform: translateY(0);     filter: blur(0);   opacity: 1; }
+}
+
+/* Slide-down disappear */
+.planet-modal.closing {
+  animation: modalSlideDown 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes modalSlideDown {
+  0%   { transform: translateY(0);     filter: blur(0);   opacity: 1; }
+  40%  { filter: blur(4px); }
+  100% { transform: translateY(100vh); filter: blur(20px); opacity: 0; }
+}
+
+/* Sync lens-flare sweep with new duration */
+.planet-modal.visible::before {
+  animation: flareSweep 0.8s ease-out forwards;
+}
+
+/* Delay page-control reveal until slide-up completes */
+.modal-page-controls {
+  transition: opacity 0.4s ease 0.8s, transform 0.4s ease 0.8s;
+}
+
+/* ------------------------------------------------------------------
+   Location Controls: align with section title top-right
+------------------------------------------------------------------- */
+.locations-section .location-controls {
+  top: 40px !important;          /* same offset as section title */
+  right: 40px !important;        /* pin to container's right edge */
+  left: auto !important;         /* clear previous left setting */
+  transform: none !important;    /* cancel translateY */
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  padding: 0 !important;         /* remove extra padding */
+}
+
+/* ------------------------------------------------------------------
+   Location Controls: smaller arrow buttons
+------------------------------------------------------------------- */
+.locations-section .scroll-arrow {
+  width: 40px !important;
+  height: 40px !important;
+}
+.locations-section .scroll-arrow img,
+.locations-section .scroll-arrow svg {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+/* Fine-tune vertical position so arrow centre aligns with title baseline */
+.locations-section .location-controls {
+  top: 56px !important; /* adjust as needed for perfect alignment */
+} 
+
+/* ------------------------------------------------------------------
+   FINAL position tweak per request
+------------------------------------------------------------------- */
+.locations-section .location-controls {
+  top: 50px !important;   /* 10px lower than original 40px */
+  right: 60px !important; /* 20px further left inside container */
+  gap: 10px !important;   /* maintain 10px spacing between arrows */
+}
+
+/* ------------------------------------------------------------------
+   One more downward nudge
+------------------------------------------------------------------- */
+.locations-section .location-controls {
+  top: 60px !important;  /* 10px lower */
+}
+
+/* ------------------------------------------------------------------
+   Ensure numbered label appears for Major City section
+------------------------------------------------------------------- */
+.city-section .section-title::after {
+  content: '02';
+} 
+
+/* ------------------------------------------------------------------
+   Adjust modal grid tile size and eliminate gaps
+------------------------------------------------------------------- */
+.planet-modal .modal-content {
+  background-size: 20px 20px !important;
+  background-position: 0 0 !important; /* ensure grid aligns with edges */
+}
+
+/* ------------------------------------------------------------------
+   Final grid adjustment: 32 px tiles, seamless
+------------------------------------------------------------------- */
+.planet-modal .modal-content {
+  background-size: 32px 32px !important;
+  background-repeat: repeat !important;
+  background-position: 0 0 !important;
+  /* Hint to browser to render sharp edges so no antialias gaps */
+  image-rendering: crisp-edges;
+} 
+
+/* ------------------------------------------------------------------
+   Dark modal background + faint fixed grid pattern (32px)
+------------------------------------------------------------------- */
+.planet-modal .modal-content {
+  background-color: #000 !important; /* solid dark base */
+  background-image: none !important;    /* remove any previous background images */
+  position: relative !important;        /* ensure containing block for ::before */
+}
+
+.planet-modal .modal-content::before {
+  content: '';
+  position: fixed;          /* stays in viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('images/background-grid-detail.svg');
+  background-size: 32px 32px;
+  background-repeat: repeat;
+  background-position: 0 0;
+  opacity: 0.5;             /* 20% opacity */
+  pointer-events: none;     /* non-interactive */
+  z-index: 0;               /* behind content */
+}
+
+/* Lift modal inner content above the grid overlay */
+.planet-modal .modal-inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* ------------------------------------------------------------------
+   Small index number beside planet name (explorer overlay)
+------------------------------------------------------------------- */
+#planet-info-main .planet-name::after {
+  content: attr(data-index);
+  font-family: 'Nyxerin', sans-serif;
+  font-size: 0.5em;
+  color: rgba(255, 255, 255, 0.6);
+  margin-left: 0.3em;
+}
+
+/* Reduce planet name index size by 50% */
+#planet-info-main .planet-name::after {
+  font-size: 0.25em !important;
+}
+
+/* ------------------------------------------------------------------
+   Controls Pill & Overlay
+------------------------------------------------------------------- */
+.controls-info { display: none !important; }
+
+.controls-pill {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  color: #0c0c0c;
+  border: none;
+  border-radius: 9999px;
+  padding: 12px 32px;
+  font-family: 'Nyxerin', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  z-index: 3000;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.controls-pill:hover { background:#e6e6e6; transform:translateX(-50%) scale(1.04); }
+
+.controls-overlay {
+  position: fixed !important;   /* cover entire viewport */
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: #ffffff;
+  color: #000000;
+  transform: translateY(100%);
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  z-index: 4000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
+}
+.controls-overlay.visible { transform: translateY(0); }
+
+.controls-title {
+  font-family: 'Nyxerin', sans-serif !important; /* Ensure Nyxerin here */
+  font-size: 48px;
+  margin-bottom: 40px;
+  text-align: center;
+  color: #0c0c0c !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+/* Desktop styles for controls overlay list */
+.controls-overlay .controls-list {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 40px !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  padding: 0;
+  margin: 0;
+  width: auto;
+}
+
+.controls-overlay .control-item {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 16px !important;
+  text-align: left !important;
+  max-width: 250px; /* Increased slightly */
+  opacity: 1 !important;
+}
+
+.control-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.control-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.controls-list .control-item .control-label {
+  font-family: 'Nyxerin', sans-serif !important;
+  font-weight: 700 !important;
+  color: #000000 !important;
+  font-size: 14px !important;
+  margin-bottom: 2px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.controls-list .control-item .control-desc {
+  font-family: 'Space Mono', monospace !important;
+  font-size: 12px !important;
+  color: #333333 !important;
+  text-transform: uppercase;
+  font-weight: 400 !important;
+  text-align: left;
+}
+
+/* End of Desktop styles for controls list */
+
+.close-controls {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  width: 48px;
+  height: 48px;
+  background: #0c0c0c;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 8001;
+}
+.close-controls::before, .close-controls::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background: #ffffff;
+}
+.close-controls::before { transform: rotate(45deg); }
+.close-controls::after  { transform: rotate(-45deg); }
+
+/* Align close button bottom-center to overlap pill position */
+.controls-overlay .close-controls {
+  top: auto !important;
+  right: auto !important;
+  bottom: 20px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+/* ------------------------------------------------------------------
+   Style overlay close button as pill with SVG icon
+------------------------------------------------------------------- */
+.controls-overlay .close-controls {
+  width: auto !important;
+  height: auto !important;
+  padding: 12px 32px !important;
+  background: #0c0c0c !important;
+  border-radius: 9999px !important;
+  border: none !important;
+  color: #ffffff !important;
+  background-image: url('images/close-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px 20px;
+}
+
+/* Remove old cross pseudo-elements */
+.controls-overlay .close-controls::before,
+.controls-overlay .close-controls::after {
+  content: none !important;
+}
+
+/* Update pill close button to show text + icon */
+.controls-overlay .close-controls {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background-image: none !important; /* remove icon bg */
+}
+.controls-overlay .close-controls .close-icon {
+  width: 16px;
+  height: 16px;
+  filter: invert(1);
+}
+
+/* ------------------------------------------------------------------
+   Controls pill restyle: black base, white border, wipe hover effect
+------------------------------------------------------------------- */
+.controls-pill {
+  background: #0c0c0c !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+  overflow: hidden !important;
+}
+.controls-pill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  transform: translateX(-100%);
+  transition: transform 0.4s ease;
+  z-index: -1;
+}
+.controls-pill:hover::after {
+  transform: translateX(0);
+}
+.controls-pill:hover {
+  color: #0c0c0c !important;
+  background: #0c0c0c !important; /* base stays black, overlay covers */
+  transform: translateX(-50%) scale(1.04) !important; /* maintain hover scale */
+}
+
+/* Update controls-pill size and font */
+.controls-pill {
+  padding: 12px 28px !important; /* match explore button */
+  font-family: 'Nyxerin', sans-serif !important;
+}
+
+/* Close button pill adjustments */
+.controls-overlay .close-controls {
+  font-family: 'Nyxerin', sans-serif !important;
+  padding: 12px 28px !important; /* same size as explore */
+  border: 1px solid #ffffff !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+.controls-overlay .close-controls::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  transform: translateX(-100%);
+  transition: transform 0.4s ease;
+  z-index: -1;
+}
+.controls-overlay .close-controls:hover::after {
+  transform: translateX(0);
+}
+.controls-overlay .close-controls:hover {
+  color: #0c0c0c !important;
+}
+.controls-overlay .close-controls .close-icon {
+  filter: invert(1);
+  transition: filter 0.4s ease;
+}
+.controls-overlay .close-controls:hover .close-icon {
+  filter: invert(0);
+}
+
+/* Ensure controls pill sits below modal z-layer */
+.controls-pill {
+  z-index: 5 !important;
+}
+
+/* ------------------------------------------------------------------
+   Close pill: remove wipe hover, keep white text/icon, bottom-center
+------------------------------------------------------------------- */
+.controls-overlay .close-controls {
+  background: #0c0c0c !important;
+  color: #ffffff !important;
+  overflow: visible !important;
+}
+.controls-overlay .close-controls::after { content: none !important; }
+.controls-overlay .close-controls:hover {
+  background: #0c0c0c !important;
+  color: #ffffff !important;
+}
+.controls-overlay .close-controls:hover .close-icon {
+  filter: invert(1) !important;
+}
+
+/* Fix close button position: absolute bottom-center */
+.controls-overlay .close-controls {
+  position: absolute !important;
+  bottom: 20px !important;
+  top: auto !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+}
+
+/* ------------------------------------------------------------------
+   Use black cursor within controls overlay
+------------------------------------------------------------------- */
+.controls-overlay, .controls-overlay * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="black" stroke-width="1" stroke-dasharray="20,2"><rect x="3" y="3" width="30" height="30" rx="12" ry="12" fill="none" /><circle cx="18" cy="18" r="1" fill="black" /></svg>') 18 18, auto !important;
+}
+
+/* ------------------------------------------------------------------
+   Close button hover pop & green cursor
+------------------------------------------------------------------- */
+.controls-overlay .close-controls {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.controls-overlay .close-controls:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 10px rgba(0,255,0,0.6);
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="lime" stroke-width="1" stroke-dasharray="20,2"><rect x="3" y="3" width="30" height="30" rx="12" ry="12" fill="none" /><circle cx="18" cy="18" r="1" fill="lime" /></svg>') 18 18, pointer !important;
+}
+
+/* Make controls overlay title black */
+.controls-title {
+  color: #0c0c0c !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+/* Use Nyxerin font for controls labels */
+.controls-list .control-item span {
+  font-family: 'Nyxerin', sans-serif !important;
+}
+
+/* ------------------------------------------------------------------
+   Controls overlay enhancements: icons, horizontal row, grid bg
+------------------------------------------------------------------- */
+.controls-overlay {
+  position: fixed !important; /* ensure full-screen overlay */
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  overflow: hidden !important;
+}
+.controls-overlay::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('images/background-grid-detail-light.svg');
+  background-repeat: repeat;
+  background-size: 32px 32px;
+  background-position: 0 0;
+  opacity: 0.3; /* subtle */
+  pointer-events: none;
+  z-index: 0;
+}
+/* lift inner elements above grid */
+.controls-overlay > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Horizontal layout for controls list */
+.controls-overlay .controls-list {
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 40px !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+}
+
+.controls-overlay .control-item {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  gap: 16px !important;
+  text-align: left !important;
+  max-width: 200px;
+}
+
+.control-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.control-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.controls-overlay .control-label {
+  font-family: 'Nyxerin', sans-serif !important;
+  font-size: 14px !important;
+  color: #0c0c0c !important;
+  margin-bottom: 2px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.controls-overlay .control-desc {
+  font-family: 'Space Mono', monospace !important;
+  font-size: 12px !important;
+  color: #333333 !important;
+  text-transform: uppercase;
+  font-weight: 400 !important;
+}
+
+/* ------------------------------------------------------------------
+   Font fix: ensure labels Nyxerin, descriptions Space Mono
+------------------------------------------------------------------- */
+.controls-list .control-label {
+  font-family: 'Nyxerin', sans-serif !important;
+}
+.controls-list .control-desc {
+  font-family: 'Space Mono', monospace !important;
+}
+
+/* FINAL override: force Space Mono on descriptions */
+.controls-list .control-desc {
+  font-family: 'Space Mono', monospace !important;
+}
+
+.controls-list .control-desc {
+  font-family: 'Space Mono', monospace !important;
+}
+
+/* ABSOLUTE override: fonts for label/description */
+.controls-list .control-item .control-label {
+  font-family: 'Nyxerin', sans-serif !important;
+}
+.controls-list .control-item .control-desc {
+  font-family: 'Space Mono', monospace !important;
+}
+
+/* Center icon and text vertically */
+.controls-overlay .control-item {
+  align-items: center !important;
+}
+
+/* FINAL override: control labels in Space Mono bold, black */
+.controls-list .control-item .control-label {
+  font-family: 'Space Mono', monospace !important;
+  font-weight: 700 !important;
+  color: #000000 !important;
+} 
+
+/* ------------------------------------------------------------------
+   Controls overlay: hide close icon only text visible
+------------------------------------------------------------------- */
+.controls-overlay .close-controls .close-icon {
+  display: none !important;
+} 
+
+/* ------------------------------------------------------------------
+   Align both close buttons top-right & use Nyxerin font
+------------------------------------------------------------------- */
+.close-modal,
+.controls-overlay .close-controls {
+  top: 32px !important;
+  right: 32px !important;
+  bottom: auto !important;
+  left: auto !important;
+  transform: none !important;
+  font-family: 'Nyxerin', sans-serif !important;
+}
+
+/* Move CONTROLS pill to top-right */
+.controls-pill {
+  top: 32px !important;
+  right: 32px !important;
+  bottom: auto !important;
+  left: auto !important;
+  transform: none !important;
+}
+
+/* Prevent jump on hover: keep scale only */
+.controls-pill:hover {
+  transform: scale(1.04) !important;
+}
+
+/* Hide all scene-detailing images except centre-middle */
+.scene-frame img:not(.centre-middle) {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------
+   Fixed Planet-X logo top-left
+------------------------------------------------------------------- */
+.scene-logo {
+  position: fixed;
+  top: 20px !important; 
+  left: 20px !important; 
+  width: 80px;
+  height: auto;
+  z-index: 9000;
+  /* pointer-events: none; /* Removed this line */
+  filter: invert(0%) brightness(100%);
+  transition: filter 0.3s ease;
+}
+
+/* Turn logo black when overlay is visible */
+.controls-overlay.visible ~ .scene-logo {
+  filter: invert(100%) brightness(0%);
+}
+
+/* JS-added black variant */
+.scene-logo.logo-black {
+  filter: invert(100%) brightness(0%);
+}
+
+/* Align logo with top-right controls button */
+.scene-logo {
+  top: 32px !important;
+  left: 32px !important;
+}
+
+/* ------------------------------------------------------------------
+   Explorer Scene Tagline (top-center)
+------------------------------------------------------------------- */
+.scene-tagline {
+  position: fixed;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Nyxerin', sans-serif !important;
+  font-size: 12px !important;
+  color: #ffffff !important;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  z-index: 9000;
+  pointer-events: none;
+  user-select: none;
+}
+.scene-tagline .dud {
+  opacity: 0.3;
+}
+
+.scene-tagline {
+  line-height: 12px !important; /* match font-size so top edge aligns precisely */
+}
+
+/* ------------------------------------------------------------------
+   Engine status bottom-left
+------------------------------------------------------------------- */
+.scene-engine {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  font-family: 'Nyxerin', sans-serif !important;
+  font-size: 12px !important;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ffffff !important;
+  z-index: 10;
+  pointer-events: none;
+  user-select: none;
+}
+.scene-engine .label { opacity: 0.5; }
+
+/* Ensure Nyxerin font on engine status */
+.scene-engine {
+  font-family: 'Nyxerin', sans-serif !important;
+}
+
+/* FINAL font override for engine status */
+.scene-engine, .scene-engine span {
+  font-family: 'Nyxerin', sans-serif !important;
+}
+
+/* Position engine status bottom-right */
+.scene-engine {
+  right: 32px !important;
+  left: auto !important;
+}
+
+/* ------------------------------------------------------------------
+   Planets explored progress bottom-left
+------------------------------------------------------------------- */
+.explore-progress {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  font-family: 'Nyxerin', sans-serif !important;
+  font-size: 12px !important;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ffffff !important;
+  z-index: 10;
+  pointer-events: none;
+  user-select: none;
+}
+.explore-progress .label { opacity: 0.5; }
+
+/* FINAL font override for explore progress */
+.explore-progress, .explore-progress span {
+  font-family: 'Nyxerin', sans-serif !important;
+} 
+
+/* ------------------------------------------------------------------
+   Zoom indicators (left & right vertical bars)
+------------------------------------------------------------------- */
+.zoom-indicator {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 20vh;
+  background: rgba(255,255,255,0.2);
+  z-index: 1;
+  pointer-events: none;
+}
+.zoom-indicator.left { left: 32px; }
+.zoom-indicator.right { right: 32px; }
+.zoom-indicator .fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: rgba(255,255,255,1);
+  transition: height 0.1s linear;
+} 
+
+/* Remove unintended opacity on controls-overlay items */
+.controls-overlay .control-item {
+  opacity: 1 !important;
+}
+
+/* ------------------------------------------------------------------
+   Top gradient overlay behind logo, tagline, close button
+------------------------------------------------------------------- */
+.top-gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px; /* covers header area */
+  background: linear-gradient(to bottom, rgba(12,12,12,0.95) 0%, rgba(12,12,12,0.6) 40%, rgba(12,12,12,0) 100%);
+  pointer-events: none;
+  z-index: 8000; /* below logo(9000) & close button(10000) but above modal content(10) */
+} 
+
+.top-gradient { display:none; }
+
+/* Tablet breakpoint tweaks */
+@media (max-width: 900px) {
+  /* Hide pagination dots on tablet */
+  .pagination-dots { display: none !important; }
+
+  /* Reduce horizontal padding for all modal sections */
+  .modal-section,
+  .modal-section .section-content {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* Ensure text containers span full width */
+  .modal-section .content-wrap { width: 100% !important; }
+
+  /* Stack Mothership + Weapon sections vertically */
+  .mothership-section .section-content,
+  .weapon-section .section-content {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .mothership-section .content-wrap,
+  .weapon-section .content-wrap {
+    width: 100% !important;
+  }
+
+  /* ------------------------------------------------------------
+     Hero Section: stack planet description and stats vertically
+     ------------------------------------------------------------ */
+  .hero-section .hero-columns-wrapper {
+    flex-direction: column !important;  /* vertical stack */
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .hero-content-wrap,
+  .hero-right-column {
+    width: 100% !important;            /* full width containers */
+    padding-left: 0 !important;        /* remove side padding */
+    padding-right: 0 !important;
+    align-items: flex-start !important; /* left-align content */
+  }
+
+  /* Make the stats grid span full width */
+  .hero-section .planet-stats {
+    width: 100% !important;
+    max-width: none !important;        /* remove 1200px cap */
+    margin-top: 20px !important;       /* slight spacing below description */
+  }
+
+  /* Hero image adapts naturally on tablet */
+  .hero-section .hero-image-container {
+    height: 100% !important;
+  }
+
+  /* Ensure any generic planet-stats block spans full width */
+  .planet-stats {
+    width: 100% !important;
+    max-width: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* ------------------------------------------------------------
+     Locations Section padding + controls alignment
+     ------------------------------------------------------------ */
+  .locations-section .section-content {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .locations-section .location-controls {
+    left: auto !important;
+    right: 20px !important;            /* pin to right edge */
+    transform: none !important;        /* reset centering */
+  }
+
+  /* ------------------------------------------------------------
+     Section titles: remove left margin & set readable sizes
+     ------------------------------------------------------------ */
+  .section-title {
+    margin-left: 0 !important;         /* no side margin */
+    font-size: 28px !important;        /* fixed px for tablet */
+  }
+  .section-title::after {
+    font-size: 12px !important;        /* small index */
+  }
+
+  /* Controls overlay: vertical list on tablet */
+  .controls-overlay .controls-list {
+    flex-direction: column !important;
+    align-items: flex-start !important; /* This is the correct version */
+    gap: 24px !important;
+    width: auto; 
+  }
+  .controls-overlay .control-item { 
+    width: 100%; 
+    max-width: 400px; 
+  }
+}
+
+/* Ensure Mothership & Weapon titles follow same rule */
+.mothership-section .section-title,
+.weapon-section .section-title {
+  margin: 0 0 20px 0 !important;
+  font-size: 28px !important;
+  text-align: left !important;
+}
+
+/* Make Mothership & Weapon images span full width */
+.mothership-section .section-background,
+.weapon-section .section-background {
+  width: 100% !important;
+}
+.mothership-section .section-background img,
+.weapon-section .section-background img {
+  width: 100% !important;
+}
+
+/* Make Mothership & Weapon images span full width */
+.mothership-section .section-background,
+.weapon-section .section-background.weapon-image {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.mothership-section .section-background img,
+.weapon-section .section-background img {
+  width: 100% !important;
+}
+
+/* Remove side padding on Mothership & Weapon text blocks */
+.mothership-section .content-wrap,
+.weapon-section .content-wrap {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Page counter font sizes */
+.page-counter .counter-current {
+  font-size: 20px !important;
+}
+.page-counter .counter-total {
+  font-size: 12px !important;
+}
+
+/* ------------------------------------------------------------
+   Controls overlay: vertical list on tablet
+   ------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .controls-overlay .controls-list {
+    flex-direction: column !important;
+    align-items: flex-start !important; /* This is the correct version */
+    gap: 24px !important;
+    width: auto; 
+  }
+  .controls-overlay .control-item { 
+    width: 100%; 
+    max-width: 400px; 
+  }
+}
+
+/* Ensure desktop (≥901px) retains horizontal layout */
+@media (min-width: 901px) {
+  .controls-overlay .controls-list {
+    flex-direction: row !important;
+    gap: 40px !important;
+    align-items: flex-start !important;
+  }
+}
+
+/* ------------------------------------------------------------
+   Restore desktop defaults (≥ 901px)
+------------------------------------------------------------- */
+@media (min-width: 901px) {
+  /* Up-Next planet original size */
+  .next-planet-section .next-planet-image canvas,
+  .next-planet-section .next-planet-image img {
+    width: 60vw !important;
+    height: 40vw !important;
+  }
+
+  /* Mothership & Weapon revert to side-by-side layout */
+  .mothership-section .section-background,
+  .weapon-section .section-background,
+  .weapon-section .section-background.weapon-image {
+    width: 66.667% !important;
+  }
+
+  .mothership-section .content-wrap,
+.weapon-section .content-wrap {
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+  }
+
+  .mothership-section .section-title,
+  .weapon-section .section-title {
+    margin: 0 0 20px 40px !important;
+  }
+}
+
+/* ------------------------------------------------------------
+   Mobile breakpoint (≤ 600px)
+------------------------------------------------------------- */
+@media (max-width: 600px) {
+  /* --- HERO IMAGE MOBILE ADJUSTMENTS --- */
+  .hero-section .hero-image-container {
+    width: 100% !important;
+    height: 100vh !important; /* fill the viewport height */
+    margin-bottom: 0 !important; /* remove gap below image */
+    padding: 0 !important; /* remove side paddings so image can fully stretch */
+  }
+
+  /* Ensure the hero image itself occupies the full container */
+  .hero-image {
+    margin-bottom: 0 !important; /* remove original 48px margin */
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* In case <img> is used inside .hero-image, make it cover */
+  .hero-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  /* Limit section images to 60vh */
+  .modal-section .section-background,
+  .modal-section .image-content {
+    max-height: 60vh !important;
+    height: 60vh !important;
+  }
+  .modal-section .section-background img,
+  .modal-section .image-content img {
+    max-height: 60vh !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  /* Hero image container */
+  .hero-section .hero-image-container {
+    height: 100% !important;
+  }
+} 
+
+/* ------------------------------------------------------------
+   Mobile layout refinements per latest request
+   ------------------------------------------------------------ */
+
+/* Universal horizontal gutters */
+.modal-section,
+.modal-section .section-content {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+/* Hide horizontal location arrows / controls */
+.locations-section .location-controls {
+  display: none !important;
+}
+
+/* Move scramble tagline only on mobile */
+@media (max-width: 600px) {
+  .scene-tagline {
+    top: auto !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    transform: none !important;
+    text-align: left !important;
+  }
+}
+
+/* Expand location text content full width */
+.locations-section .location-item .location-content {
+  width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Restore tagline top-center for ≥ 601px */
+@media (min-width: 601px) {
+  .scene-tagline {
+    top: 32px !important;
+    bottom: auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    text-align: center !important;
+  }
+}
+
+/* --- Remove left margin from section titles on desktop --- */
+@media (min-width: 901px) {
+  .section-title {
+    margin-left: 0 !important;
+  }
+  .mothership-section .section-title,
+  .weapon-section .section-title {
+    margin-left: 0 !important;
+  }
+}
+
+/* --- GLOBAL override: remove horizontal padding on section content --- */
+.modal-section .section-content {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+@media (max-width: 900px) {
+  /* Remove tablet left/right padding on section content */
+  .modal-section .section-content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Remove mobile left/right padding on section content */
+  .modal-section .section-content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+/* ===== Unified 20px edge offsets for fixed UI elements ===== */
+.scene-logo { top: 20px !important; left: 20px !important; }
+.scene-tagline { top: 20px !important; }
+/* Mobile tagline already bottom 20 left 20 */
+.scene-engine { bottom: 20px !important; right: 20px !important; }
+.controls-pill { top: 20px !important; right: 20px !important; }
+.close-modal { top: 20px !important; right: 20px !important; }
+.controls-overlay .close-controls { top: 20px !important; right: 20px !important; bottom: auto !important; left: auto !important; transform: none !important; }
+.pagination-dots { right: 20px !important; }
+.modal-page-controls { bottom: 20px !important; right: 20px !important; }
+.zoom-indicator.left { left: 20px !important; }
+.zoom-indicator.right { right: 20px !important; }
+.top-gradient { height: 120px; /* unchanged, offsets remain top 0 */ }
+
+/* ===== Global max width for text blocks ===== */
+.modal-section .content-wrap,
+.text-content,
+.location-item .location-content,
+.hero-content-wrap {
+  max-width: 500px !important;
+}
+
+/* Desktop typographic scale (≥901px) using vw units */
+@media (min-width: 901px) {
+  .section-title,
+  .next-planet-section .section-title,
+  .mothership-section .section-title,
+  .weapon-section .section-title {
+    font-size: 2vw !important; /* responsive with viewport */
+  }
+
+  #planet-info-main .planet-name {
+    font-size: 6vw !important; /* slightly smaller */
+  }
+}
+
+/* Tablet & mobile typographic scale (≤900px) using px units */
+@media (max-width: 900px) {
+  .section-title,
+  .next-planet-section .section-title {
+    font-size: 28px !important;
+  }
+
+  #planet-info-main .planet-name,
+  .hero-section .planet-name {
+    font-size: 40px !important;
+  }
+}
+
+/* adjust small index */
+#planet-info-main .planet-name::after {
+  font-size: 0.2em !important;
+}
+
+.desktop-only { display: none !important; }
+.touch-only { display: none !important; }
+
+@media (min-width: 901px) {
+  .desktop-only { display: flex !important; }
+}
+
+@media (max-width: 900px) {
+  .touch-only { display: flex !important; }
+}
+
+/* --- FINAL visibility overrides for control hint groups --- */
+@media (min-width: 901px) {
+  .desktop-only { display: flex !important; }
+  .touch-only { display: none !important; }
+}
+@media (max-width: 900px) {
+  .desktop-only { display: none !important; }
+  .touch-only { display: flex !important; }
+}
+
+@media (min-width: 901px) {
+  .controls-overlay .touch-only,
+  .controls-info   .touch-only { display:none !important; }
+}
+@media (max-width: 900px) {
+  .controls-overlay .desktop-only,
+  .controls-info   .desktop-only { display:none !important; }
+}
+
+@media (max-width: 600px) {
+  /* ... existing mobile rules ... */
+  /* Hide engine status on mobile */
+  .scene-engine { display: none !important; }
+
+  /* Move planets explored progress to bottom-right */
+  .explore-progress {
+    left: auto !important;
+    right: 20px !important;
+    bottom: 20px !important;
+  }
+  /* Tagline is already bottom-left via earlier rule */
+}
+
+/* FINAL mobile tagline position override */
+@media (max-width:600px){
+  .scene-tagline{
+    top:auto !important;
+    bottom:20px !important;
+    left:20px !important;
+    transform:none !important;
+    text-align:left !important;
+  }
+}
+
+@media (max-width:600px){
+  /* Hide zoom indicators */
+  .zoom-indicator { display:none !important; }
+} 
+
+@media (max-width:600px){
+  .inhabitants-columns {
+    flex-direction: column !important;
+    gap: 20px !important;
+    width: 100% !important;
+  }
+  .inhabitants-columns .content-wrap {
+    width: 100% !important;
+  }
+  .inhabitants-columns .content-wrap.empty-column { display:none !important; }
+}
+
+@media (max-width: 900px) {
+  /* Add 20px gap between inhabitants text blocks */
+  .inhabitants-columns {
+    gap: 20px !important;
+  }
+} 
+
+@media (max-width: 600px) {
+  /* Increase Up-Next planet name size */
+  .next-planet-section .next-planet-name {
+    font-size: 32px !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Loading Screen Overlay
+------------------------------------------------------------------- */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  background: #ffffff; /* Base background color */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  font-family: 'Nyxerin', sans-serif;
+  color: #000000;
+  /* Removed direct background-image, background-size, background-repeat */
+}
+
+.loading-screen::before {
+  content: '';
+  position: fixed; /* Match controls-overlay::before behavior */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('images/background-grid-detail-light.svg');
+  background-repeat: repeat;
+  background-size: 32px 32px;
+  background-position: 0 0;
+  opacity: 0.3; /* Match controls-overlay opacity */
+  pointer-events: none;
+  z-index: 0; /* Behind loading screen content */
+}
+
+/* Ensure loading screen content is above the ::before pseudo-element */
+.loading-screen > * {
+  position: relative;
+  z-index: 1;
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+.loading-logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 80px;
+  height: auto;
+  filter: invert(1) brightness(0);
+}
+.loading-percentage {
+  font-size: clamp(64px, 12vw, 160px);
+  font-weight: 700;
+  letter-spacing: 4px;
+  margin-bottom: 16px;
+  font-family: 'Nyxerin', sans-serif !important; /* Ensure Nyxerin */
+}
+.loading-bar {
+  width: 80vw;
+  max-width: 600px;
+  height: 16px; /* outer box thickness */
+  padding: 2px; /* inner padding */
+  background: none;
+  border: 1px solid #000;
+  box-sizing: border-box;
+  margin-bottom: 24px;
+}
+.loading-bar-fill {
+  width: 0%;
+  height: 100%; /* bar thickness */
+  background: #000;
+}
+.loading-text {
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+  font-family: 'Nyxerin', sans-serif !important; /* Ensure Nyxerin */
+}
+.loading-controls {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  gap: 40px;
+  font-family: 'Nyxerin', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.loading-controls .control-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  font-family: 'Nyxerin', sans-serif !important; /* Ensure Nyxerin for hint text */
+}
+.loading-controls .control-hint img {
+  width: 24px;
+  height: 24px;
+  filter: invert(1) brightness(0);
+}
+@media (max-width: 600px) {
+  .loading-bar { width: 70vw; }
+  .loading-controls { display: none; }
+}
+
+/* ------------------------------------------------------------
+   TEMP OVERRIDES: hide controls & set universal font to Nyxerin
+------------------------------------------------------------- */
+
+/* Hide all control UI temporarily */
+.controls-info,
+.loading-controls,
+.location-controls {
+  display: none !important;
+} 
+
+/* Mute/Unmute Button */
+#mute-button {
+  position: fixed;
+  bottom: 20px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: #0c0c0c;
+  border: 1px solid #ffffff;
+  border-radius: 50%; /* Makes it a circle */
+  cursor: inherit; /* Changed from pointer to inherit */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001; /* Ensure it's above most other UI */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease-out;
+}
+
+#mute-button:hover {
+  transform: translateX(-50%) scale(1.1);
+}
+
+#audio-lottie-container {
+  width: 30px; /* Adjust size of Lottie animation within the button */
+  height: 30px;
+  overflow: hidden;
+}
+
+/* Ensure Lottie SVG scales well */
+#audio-lottie-container svg {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  margin: auto;
+}
+
+@media (max-width: 600px) {
+  #mute-button {
+    left: 20px;
+    bottom: 45px; /* Positioned above the tagline which is at bottom: 20px */
+    transform: none; /* Override the translateX(-50%) */
+  }
+  #mute-button:hover {
+    transform: scale(1.1); /* Only apply scale, no translateX */
+  }
+} 
+
+/* Enforce min-height for modal images (except insignia) */
+.modal-section:not(.insignia-section) img,
+.modal-section:not(.insignia-section) canvas {
+  min-height: 100vh !important; /* This is very strong */
+  object-fit: cover;
+}
+
+/* Allow relevant sections and image containers to expand with 100vh images */
+.modal-section:not(.insignia-section),
+.modal-section:not(.insignia-section) .section-background,
+.modal-section:not(.insignia-section) .image-content,
+.modal-section.hero-section .hero-image-container,
+.modal-section.next-planet-section .next-planet-image {
+  height: auto !important;
+  max-height: none !important; /* Override any conflicting max-heights */
+}
+
+/* Override min-height for images within location items */
+.locations-section .location-item .location-image img,
+.locations-section .location-item .location-image canvas {
+  min-height: auto !important; /* Allow natural height or container-defined height */
+  height: 100% !important;    /* Fill their direct parent (.location-image) */
+  object-fit: cover;         /* Maintain aspect ratio */
+}
+
+/* Ensure images within specifically resized containers also adapt */
+.hero-section .hero-image-container img,
+.hero-section .hero-image-container canvas,
+.major-city-section .image-content img,
+.major-city-section .image-content canvas,
+.major-city-section .section-background img, /* If city also uses section-background */
+.major-city-section .section-background canvas,
+.inhabitants-section .section-background img,
+.inhabitants-section .section-background canvas {
+  min-height: auto !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+/* DIAGNOSTIC: Force visibility of specific section images */
+.city-section .section-background img,
+.mothership-section .section-background img,
+.inhabitants-section .section-background img,
+.weapon-section .section-background.weapon-image img,
+.weapon-section .section-background img {
+  /* opacity: 1 !important;      REMOVED for testing reveal animation */
+  /* clip-path: none !important; REMOVED for testing reveal animation */
+  display: block !important;
+  width: 100% !important; /* Ensure image tries to fill container */
+  height: 100% !important; /* Ensure image tries to fill container */
+}
+
+/* Tablet breakpoint tweaks */
+@media (max-width: 900px) {
+  /* ... existing code ... */
+}
+
+/* DIAGNOSTIC: Force visibility of specific section images and their containers */
+.city-section .section-background,
+.mothership-section .section-background,
+.inhabitants-section .section-background,
+.weapon-section .section-background.weapon-image,
+.weapon-section .section-background {
+  display: block !important; /* Or flex, if they are flex containers */
+  min-height: 300px !important; /* Give them some height to be visible */
+  width: 100% !important;
+ 
+  position: relative !important;
+  z-index: 99998 !important;
+}
+
+.city-section .section-background img,
+.mothership-section .section-background img,
+.inhabitants-section .section-background img,
+.weapon-section .section-background.weapon-image img,
+.weapon-section .section-background img {
+  /* opacity: 1 !important;      REMOVED for testing reveal animation */
+  /* clip-path: none !important; REMOVED for testing reveal animation */
+  display: block !important;
+  width: 100% !important; /* Ensure image tries to fill container */
+  height: 100% !important; /* Ensure image tries to fill container */
+  min-height: inherit !important; /* Inherit min-height from parent if possible */
+  object-fit: cover !important; /* Or contain, to see if image shows at all */
+  position: relative !important; /* Or absolute, depending on desired layout */
+  z-index: 99999 !important; /* Ensure image is on top */
+  
+}
+
+/* Tablet breakpoint tweaks */
+@media (max-width: 900px) {
+  /* ... existing code ... */
+} 

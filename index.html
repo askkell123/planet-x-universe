@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planet-X Universe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <!-- Logo top-left for brand consistency -->
+        <img class="loading-logo" src="logos/planet-x.svg" alt="Planet X Logo" />
+
+        <!-- Percentage in the middle -->
+        <div class="loading-percentage">0%</div>
+
+        <!-- Progress bar -->
+        <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+        <div class="loading-text">LOADING</div>
+
+        <!-- Quick control hints row (desktop only) -->
+        <div class="loading-controls desktop-only">
+            <div class="control-hint"><img src="icons/arrows-icon.svg" alt="Arrows" />&nbsp;ARROWS</div>
+            <div class="control-hint"><img src="icons/scroll-icon.svg" alt="Scroll" />&nbsp;SCROLL</div>
+            <div class="control-hint"><img src="icons/l-click-icon.svg" alt="Drag" />&nbsp;L-CLICK&nbsp;+&nbsp;DRAG</div>
+            <div class="control-hint"><img src="icons/r-click-icon.svg" alt="Pan" />&nbsp;R-CLICK&nbsp;+&nbsp;DRAG</div>
+        </div>
+    </div>
+
+    <!-- Nebula Background -->
+    <div class="nebula-background">
+        <div class="nebula-overlay"></div>
+        <div class="nebula-stars"></div>
+        <div class="nebula-dust"></div>
+    </div>
+    
+    <div id="scene-container"></div>
+
+    <!-- Scene Detailing -->
+    <div class="scene-frame">
+        <img class="top-left" src="scene_detailing/top-left.svg" alt="Top Left Detail">
+        <img class="top-middle" src="scene_detailing/top-middle.svg" alt="Top Middle Detail">
+        <img class="top-right" src="scene_detailing/top-right.svg" alt="Top Right Detail">
+        <img class="bottom-left" src="scene_detailing/bottom-left.svg" alt="Bottom Left Detail">
+        <img class="bottom-middle" src="scene_detailing/bottom-middle.svg" alt="Bottom Middle Detail">
+        <img class="bottom-right" src="scene_detailing/bottom-right.svg" alt="Bottom Right Detail">
+        <img class="centre-middle" src="scene_detailing/centre-middle.svg" alt="Centre Middle Detail">
+    </div>
+
+    <!-- Fixed Planet-X Logo -->
+    <a id="scene-logo" class="scene-logo" href="https://www.playplanetx.com" target="_blank" aria-label="Visit Planet-X website">
+        <img src="logos/planet-x.svg" alt="Planet X Logo">
+    </a>
+
+    <!-- Explorer Tagline -->
+    <div id="scene-tagline" class="scene-tagline">EXPLORE THE UNIVERSE</div>
+
+    <!-- Engine Status -->
+    <div id="scene-engine" class="scene-engine"><span class="label">ENGINES:</span>&nbsp;<span class="value">ONLINE</span></div>
+
+    <!-- Planets Explored Progress -->
+    <div id="explore-progress" class="explore-progress"><span class="label">EXPLORED:</span>&nbsp;<span class="value">0/11</span></div>
+
+    <!-- Minimal Planet Info -->
+    <div id="planet-info-main" class="planet-info">
+        <h2 class="planet-name">PLANET</h2>
+        <button class="explore-button">
+            <span class="planet-button-name">EXPLORE</span>
+            <div class="icon-box">
+                <img src="image_detailing/explore-icon.svg" alt="Explore" class="explore-icon">
+            </div>
+        </button>
+    </div>
+
+    <!-- Full Screen Modal -->
+    <div id="planet-modal" class="planet-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <!-- Top gradient overlay inside modal -->
+            <div class="top-gradient"></div>
+            <button class="close-modal" aria-label="Close modal">CLOSE</button>
+            
+            <!-- Pagination Dots -->
+            <div class="pagination-dots">
+                <div class="pagination-dot active" data-section="insignia-section">
+                    <img src="images/pagination-dot-active.svg" alt="Active page" class="dot-active">
+                    <img src="images/pagination-dot-inactive.svg" alt="Inactive page" class="dot-inactive">
+                </div>
+                <div class="pagination-dot" data-section="hero-section">
+                    <img src="images/pagination-dot-active.svg" alt="Active page" class="dot-active">
+                    <img src="images/pagination-dot-inactive.svg" alt="Inactive page" class="dot-inactive">
+                </div>
+                <div class="pagination-dot" data-section="locations-section">
+                    <img src="images/pagination-dot-active.svg" alt="Active page" class="dot-active">
+                    <img src="images/pagination-dot-inactive.svg" alt="Inactive page" class="dot-inactive">
+                </div>
+                <div class="pagination-dot" data-section="city-section">
+                    <img src="images/pagination-dot-active.svg" alt="Active page" class="dot-active">
+                    <img src="images/pagination-dot-inactive.svg" alt="Inactive page" class="dot-inactive">
+                </div>
+                <div class="pagination-dot" data-section="mothership-section">
+                    <img src="images/pagination-dot-active.svg" alt="Active page" class="dot-active">
+                    <img src="images/pagination-dot-inactive.svg" alt="Inactive page" class="dot-inactive">
+                </div>
+                <div class="pagination-dot" data-section="inhabitants-section">
+                    <img src="images/pagination-dot-active.svg" alt="Active page" class="dot-active">
+                    <img src="images/pagination-dot-inactive.svg" alt="Inactive page" class="dot-inactive">
+                </div>
+                <div class="pagination-dot" data-section="weapon-section">
+                    <img src="images/pagination-dot-active.svg" alt="Active page" class="dot-active">
+                    <img src="images/pagination-dot-inactive.svg" alt="Inactive page" class="dot-inactive">
+                </div>
+                <div class="pagination-dot" data-section="next-planet-section">
+                    <img src="images/pagination-dot-active.svg" alt="Active page" class="dot-active">
+                    <img src="images/pagination-dot-inactive.svg" alt="Inactive page" class="dot-inactive">
+                </div>
+            </div>
+            
+            <div class="modal-inner">
+                <!-- Section 0: Circular Insignia -->
+                <section class="modal-section insignia-section">
+                    <div class="insignia-content">
+                        <div class="circular-text-container">
+                            <svg viewBox="0 0 500 500" class="circular-text-svg">
+                                <path id="circle-path" d="M250,400 a150,150 0 1,1 0,-300a150,150 0 1,1 0,300" fill="none" />
+                                <text class="circular-text">
+                                    <textPath xlink:href="#circle-path" startOffset="0%" class="planet-subtitle-text">
+                                        <!-- This will be filled by JavaScript -->
+                                    </textPath>
+                                </text>
+                            </svg>
+                            <div class="centered-insignia">
+                                <img class="planet-insignia-large" src="" alt="Planet Insignia">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Section 1: Hero -->
+                <section class="modal-section hero-section">
+                    <div class="section-background"></div>
+                    <div class="section-content">
+                        <!-- Hero image container -->
+                        <div class="hero-image-container">
+                            <div class="hero-image"></div>
+                        </div>
+                        <h1 class="planet-name"></h1>
+
+                        <div class="hero-columns-wrapper">
+                            <!-- Left Column - 33vw -->
+                            <div class="hero-content-wrap">
+                                <div class="hero-bottom-content">
+                                    <p class="planet-description"></p>
+                                </div>
+                            </div>
+                            
+                            <!-- Right Column - 66vw -->
+                            <div class="hero-right-column">
+                                <div>
+                                    <div class="planet-stats">
+                                        <div class="stat-item">
+                                            <h4>TEMPERATURE</h4>
+                                            <div class="stat-value"></div>
+                                        </div>
+                                        <div class="stat-item">
+                                            <h4>POPULATION</h4>
+                                            <div class="stat-value"></div>
+                                        </div>
+                                        <div class="stat-item">
+                                            <h4>DAY LENGTH</h4>
+                                            <div class="stat-value"></div>
+                                        </div>
+                                        <div class="stat-item">
+                                            <h4>RADIUS</h4>
+                                            <div class="stat-value"></div>
+                                        </div>
+                                        <div class="stat-item">
+                                            <h4>MAJOR CITY</h4>
+                                            <div class="stat-value"></div>
+                                        </div>
+                                        <div class="stat-item">
+                                            <h4>MOTHERSHIP</h4>
+                                            <div class="stat-value"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Hero image container moved from here -->
+                </section>
+                
+                <!-- Section 2: Key Locations -->
+                <section class="modal-section locations-section">
+                    <h2 class="section-title">KEY LOCATIONS</h2>
+                    <div class="section-content">
+                        <div class="location-list"></div>
+                    </div>
+                    <div class="location-controls">...</div>
+                </section>
+                
+                <!-- Section 3: Major City -->
+                <section class="modal-section city-section">
+                    <h2 class="section-title">MAJOR CITY</h2>
+                    <div class="section-content">
+                        <div class="section-background city-image"></div>
+                        <div class="content-wrap">
+                            <h3 class="city-name"></h3>
+                            <p class="city-description"></p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Section 4: Mothership -->
+                <section class="modal-section mothership-section">
+                    <h2 class="section-title">MOTHERSHIP</h2>
+                    <div class="section-content">
+                        <div class="content-wrap">
+                            <h3 class="ship-name"></h3>
+                            <p class="ship-description"></p>
+                        </div>
+                        <div class="section-background ship-image"></div>
+                    </div>
+                </section>
+                
+                <!-- Section 5: Inhabitants -->
+                <section class="modal-section inhabitants-section">
+                    <h2 class="section-title">INHABITANTS</h2>
+                    <div class="section-content">
+                        <!-- Image container first (matches city layout) -->
+                        <div class="section-background inhabitants-image"></div>
+
+                        <!-- Text columns grouped horizontally -->
+                        <div class="inhabitants-columns">
+                            <div class="content-wrap inhabitants-wrap">
+                                <h3 class="inhabitants-name"></h3>
+                                <p class="inhabitants-description"></p>
+                            </div>
+                            <div class="content-wrap empty-column"></div>
+                            <div class="content-wrap leader-wrap">
+                                <h3 class="leader-name"></h3>
+                                <p class="leader-description"></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Section 6: Core Weapon -->
+                <section class="modal-section weapon-section">
+                    <h2 class="section-title">CORE WEAPON</h2>
+                    <div class="section-content">
+                        <!-- Image on the left -->
+                        <div class="section-background weapon-image"></div>
+
+                        <!-- Text column on the right -->
+                        <div class="content-wrap">
+                            <h3 class="weapon-name"></h3>
+                            <p class="weapon-description"></p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 7: Next Planet Preview -->
+                <section class="modal-section next-planet-section">
+                    <h2 class="section-title">UP&nbsp;NEXT</h2>
+                    <div class="section-content">
+                        <!-- Planet preview image (left) -->
+                        <div class="section-background next-planet-image"></div>
+
+                        <!-- Planet name & CTA (right) -->
+                        <div class="content-wrap">
+                            <h3 class="next-planet-name"></h3>
+                            <button class="explore-button explore-next-planet-button">
+                                <span class="planet-button-name">EXPLORE</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls-info">
+        <div class="control-item desktop-only">
+            <span>Arrows</span>
+            Navigate planets
+        </div>
+        <div class="control-item desktop-only">
+            <span>Mouse scroll</span>
+            Zoom in/out
+        </div>
+        <div class="control-item desktop-only">
+            <span>L-click + drag</span>
+            Rotate view
+        </div>
+        <div class="control-item desktop-only">
+            <span>R-click + drag</span>
+            Pan camera
+        </div>
+    </div>
+
+    <!-- Controls Pill Button -->
+    <button id="controls-btn" class="controls-pill">CONTROLS</button>
+
+    <!-- Fullscreen Controls Overlay -->
+    <div id="controls-overlay" class="controls-overlay">
+      <button class="close-controls" aria-label="Close controls"><img src="images/close-icon.svg" alt="X" class="close-icon"> CLOSE</button>
+      <h2 class="controls-title">CONTROLS</h2>
+      <div class="controls-list">
+        <div class="control-item desktop-only">
+          <img src="icons/arrows-icon.svg" alt="Arrows" class="control-icon" />
+          <div class="control-text">
+            <span class="control-label">Arrows</span>
+            <span class="control-desc">Navigate planets</span>
+          </div>
+        </div>
+        <div class="control-item desktop-only">
+          <img src="icons/scroll-icon.svg" alt="Mouse scroll" class="control-icon" />
+          <div class="control-text">
+            <span class="control-label">Mouse scroll</span>
+            <span class="control-desc">Zoom in/out</span>
+          </div>
+        </div>
+        <div class="control-item desktop-only">
+          <img src="icons/l-click-icon.svg" alt="Left click and drag" class="control-icon" />
+          <div class="control-text">
+            <span class="control-label">L-click + drag</span>
+            <span class="control-desc">Rotate view</span>
+          </div>
+        </div>
+        <div class="control-item desktop-only">
+          <img src="icons/r-click-icon.svg" alt="Right click and drag" class="control-icon" />
+          <div class="control-text">
+            <span class="control-label">R-click + drag</span>
+            <span class="control-desc">Pan camera</span>
+          </div>
+        </div>
+        <!-- Touch gesture controls -->
+        <div class="control-item touch-only">
+          <img src="icons/tap-icon.svg" alt="Tap" class="control-icon" />
+          <div class="control-text">
+            <span class="control-label">Tap</span>
+            <span class="control-desc">Select</span>
+          </div>
+        </div>
+        <div class="control-item touch-only">
+          <img src="icons/pinch-icon.svg" alt="Pinch" class="control-icon" />
+          <div class="control-text">
+            <span class="control-label">Pinch</span>
+            <span class="control-desc">Zoom</span>
+          </div>
+        </div>
+        <div class="control-item touch-only">
+          <img src="icons/drag-icon.svg" alt="Drag" class="control-icon" />
+          <div class="control-text">
+            <span class="control-label">Drag</span>
+            <span class="control-desc">Rotate</span>
+          </div>
+        </div>
+        <div class="control-item touch-only">
+          <img src="icons/2drag-icon.svg" alt="Two-finger Drag" class="control-icon" />
+          <div class="control-text">
+            <span class="control-label">2-Finger Drag</span>
+            <span class="control-desc">Pan</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zoom Indicators -->
+    <div class="zoom-indicator left"><div class="fill"></div></div>
+    <div class="zoom-indicator right"><div class="fill"></div></div>
+
+    <script type="module" src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+    <script type="module" src="script.js"></script>
+
+    <!-- Mute/Unmute Button -->
+    <div id="mute-button">
+        <div id="audio-lottie-container"></div>
+    </div>
+
+    <!-- Background Audio -->
+    <audio id="background-audio" src="sfx/background-sfx.mp3" loop></audio>
+
+    <!-- Button Click Sound Effect -->
+    <audio id="click-sfx" src="sfx/button-click.mp3"></audio>
+
+    <!-- Explosion Sound Effect -->
+    <audio id="explosion-sfx" src="sfx/explosion.mp3"></audio>
+</body>
+</html> 

@@ -1,0 +1,35 @@
+OVERVIEW:
+Hestia is a world of untamed beauty, a lush paradise where nature thrives in its purest form. Towering trees with glowing canopies stretch toward the sky, while enormous vines coil around floating landmasses that drift effortlessly above the jungle floor. The air is rich with the scent of blooming flora, and the ground pulses with life beneath an intricate web of roots and bioluminescent fungi. Every part of Hestia is interconnected, forming a living, breathing ecosystem where the Verdants reign as both protectors and children of the land.
+
+STATS:
+Temperature: 45°C
+Population: 4bn
+Day Length: 36h
+Radius: 8,200km
+Major City: Verdanara
+Mothership: Viperion
+
+LOCATIONS:
+- The Heart of the Forest: A colossal ancient tree that towers over the landscape, its vast branches serving as the spiritual and political center of the Verdants. This tree is said to house the wisdom of ages, its roots stretching deep into the planet’s core.
+- The Swamps of Entropy: A vast expanse of glowing fungi, thick vines, and toxic flora. The Verdants have mastered the ability to extract both medicine and lethal toxins from these lands, using them to heal their own or to poison intruders.
+- The Floating Isles: A network of hovering islands connected by glowing vine bridges. These sacred sites are home to Verdant temples, where knowledge of nature’s mysteries is preserved.
+
+MAJOR CITY:
+NAME: Verdanara
+DESCRIPTION: Verdanara, the Living Metropolis, is a massive, living organism—a symbiotic collection of trees, plants, and vines that have grown into structures. Homes and halls are woven from nature itself, shifting and adapting to the needs of the inhabitants. It is both a sanctuary and a fortress, seamlessly blending into the jungle.
+
+MOTHERSHIP:
+NAME: Viperion
+DESCRIPTION: A colossal, bio-organic mothership that grows like a living tree, allowing it to change shape between cruising, defensive, or attacking modes. Its roots and branches intertwine to form a network of smaller vessels. The ship possesses a living core that pulses with natural energy, maintaining its own self-sustaining ecosystem. Its surface is covered in bioluminescent flora, allowing it to camouflage among the stars or emit signals across vast distances. Capable of spreading Verdant spores to terraform barren planets, seeding them with life.
+
+INHABITANTS:
+NAME: The Verdants
+DESCRIPTION: A race of sentient plant-based beings, their bodies composed of interwoven vines, bark-like skin, and luminescent leaves. Relatively small—never growing above 5 feet. Their connection to the planet allows them to manipulate flora, sensing disturbances and commanding plant life with ease. Their bark-like exteriors provide natural armor, making them resistant to physical attacks. They thrive in harmony with nature, viewing themselves as caretakers rather than conquerors. Can rapidly regenerate by drawing energy from the planet’s soil and sunlight.
+
+LEADER:
+NAME: Myrthos, the Rootmind
+DESCRIPTION: Myrthos is not a singular entity but an extension of Hestia itself—his consciousness woven into the roots of the planet. He exists as both a physical form and an omnipresent force, able to communicate through trees, vines, and even the wind. His power allows him to control entire forests, turning nature itself into a living weapon or an impenetrable shield. With a wisdom spanning centuries, he leads the Verdants with a quiet but unshakable resolve, ensuring that Hestia remains untouched by those who would exploit its riches.
+
+WEAPON:
+NAME: Spore Gun
+DESCRIPTION: A twisting, vine-like weapon adorned with luminescent spores and shifting flower petals that change color as the weapon is fired. It fires toxic spores that create a dense, glowing mist, obscuring vision and disorienting enemies. The spores slowly drain the health of those caught in their effect, weakening and leaving them vulnerable. Can trigger rapid plant growth upon impact, entangling foes and restricting movement. The Verdants can modify the spores for healing or destruction, depending on their needs.
