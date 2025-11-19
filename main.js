@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
 // Main application class
 class PlanetExplorer {
@@ -66,6 +65,21 @@ class PlanetExplorer {
     this.planetInfoPanel = document.getElementById('planet-info-main');
     this.planetDetailsPanel = document.getElementById('planet-details');
     this.planetStatsPanel = document.getElementById('planet-stats');
+    
+    // ---- REUSABLE PREVIEW RENDERER (Optimization) ----
+    this._previewRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    this._previewRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    this._previewScene = new THREE.Scene();
+    this._previewCamera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+    this._previewCamera.position.z = 3;
+    
+    const previewLight = new THREE.DirectionalLight(0xffffff, 1);
+    previewLight.position.set(1, 1, 1);
+    this._previewScene.add(previewLight);
+    
+    this._previewMesh = null;
+    this._previewAnimId = null;
+    this._previewContainer = null;
     
     // Initialize
     this.init();
@@ -136,7 +150,8 @@ class PlanetExplorer {
     const renderPass = new RenderPass(this.scene, this.camera);
     this.composer.addPass(renderPass);
     
-    // Add bloom pass
+    // Add bloom pass - REMOVED per user request
+    /*
     const bloomPass = new UnrealBloomPass(
       new THREE.Vector2(window.innerWidth, window.innerHeight),
       0.4,    // strength
@@ -144,6 +159,7 @@ class PlanetExplorer {
       0.85    // threshold
     );
     this.composer.addPass(bloomPass);
+    */
   }
   
   init() {
@@ -764,7 +780,7 @@ class PlanetExplorer {
         // Update selected planet
         this.selectedPlanet = planet;
         this.isZoomedOut = false;
-
+        
         // Now that the camera is in position, show the planet info
         if (planetName) {
           // Get the name from planet if it wasn't provided
@@ -838,10 +854,10 @@ class PlanetExplorer {
         });
       } else {
         // Normal behaviour
-        newButton.addEventListener('click', () => {
-          this.showPlanetModal(planetName);
-        });
-      }
+      newButton.addEventListener('click', () => {
+        this.showPlanetModal(planetName);
+      });
+    }
     }
     
     // After updating name, fit within width (tablet)
@@ -1061,8 +1077,8 @@ class PlanetExplorer {
     });
     
     if (!modalWasVisible) {
-      const insigniaSection = modal.querySelector('.insignia-section');
-      if (insigniaSection) {
+    const insigniaSection = modal.querySelector('.insignia-section');
+    if (insigniaSection) {
         const modalContent = modal.querySelector('.modal-content');
         // Override via inline style with !important
         if (modalContent) modalContent.style.setProperty('scroll-behavior', 'auto', 'important');
@@ -1236,49 +1252,36 @@ class PlanetExplorer {
     // ----------------- end helper -----------------
 
     if (modalContent && rotateTarget) {
-       // Clean up any existing listeners first
-       if (this.scrollListener) {
-         modalContent.removeEventListener('scroll', this.scrollListener);
-       }
-       
-       // Create a new scroll listener
-       this.scrollListener = () => {
+      // Clean up any existing listeners first
+      if (this.scrollListener) {
+        modalContent.removeEventListener('scroll', this.scrollListener);
+      }
+      
+      // Create a new scroll listener
+      this.scrollListener = () => {
          // Recompute offset to keep alignment on layout shifts
          alignTagline();
 
-         const scrollPos = modalContent.scrollTop;
-         const rotationAngle = scrollPos / 5;
+        const scrollPos = modalContent.scrollTop;
+        const rotationAngle = scrollPos / 5;
          if (this._taglineBaseTransform) {
            rotateTarget.style.transform = `${this._taglineBaseTransform} rotate(${rotationAngle}deg)`;
          }
-       };
-       modalContent.addEventListener('scroll', this.scrollListener);
-     }
+      };
+      modalContent.addEventListener('scroll', this.scrollListener);
+    }
     
     // Update hero image and planet description
     const heroImage = modal.querySelector('.hero-image');
     if (heroImage) {
-      // Use images folder for Drakko, Planet-X, Lyra, Aeronis, Toppo, and Hestia
-      const useImagesFolder = planetName.toLowerCase() === 'drakko' || 
-                              planetName.toLowerCase() === 'planet-x' ||
-                              planetName.toLowerCase() === 'lyra' ||
-                              planetName.toLowerCase() === 'aeronis' ||
-                              planetName.toLowerCase() === 'toppo' ||
-                              planetName.toLowerCase() === 'hestia' ||
-                              planetName.toLowerCase() === 'zepharo' ||
-                              planetName.toLowerCase() === 'rath' ||
-                              planetName.toLowerCase() === 'galeon' ||
-                              planetName.toLowerCase() === 'akaria' ||
-                              planetName.toLowerCase() === 'solara';
-      const imageUrl = useImagesFolder
-        ? `images/${planetName.toLowerCase()}-hero.png` 
-        : `textures/${planetName.toLowerCase()}-surface.jpg`;
+      const imageUrl = `images/${planetName.toLowerCase()}-hero.png`;
         
       // Clear any existing content
       heroImage.innerHTML = '';
       
       // Create and add the image element
       const img = document.createElement('img');
+      img.loading = 'lazy';
       img.src = imageUrl;
       img.alt = `${planetName} surface`;
       img.style.width = '100%';
@@ -1290,21 +1293,7 @@ class PlanetExplorer {
     // Also update the background image for consistency
     const sectionBackground = modal.querySelector('.hero-section .section-background');
     if (sectionBackground) {
-      const useImagesFolder = planetName.toLowerCase() === 'drakko' || 
-                          planetName.toLowerCase() === 'planet-x' ||
-                          planetName.toLowerCase() === 'lyra' ||
-                          planetName.toLowerCase() === 'aeronis' ||
-                          planetName.toLowerCase() === 'toppo' ||
-                          planetName.toLowerCase() === 'hestia' ||
-                          planetName.toLowerCase() === 'zepharo' ||
-                          planetName.toLowerCase() === 'rath' ||
-                          planetName.toLowerCase() === 'galeon' ||
-                          planetName.toLowerCase() === 'akaria' ||
-                          planetName.toLowerCase() === 'solara';
-      const imageUrl = useImagesFolder
-        ? `images/${planetName.toLowerCase()}-hero.png` 
-        : `textures/${planetName.toLowerCase()}-surface.jpg`;
-        
+      const imageUrl = `images/${planetName.toLowerCase()}-hero.png`;
       sectionBackground.style.backgroundImage = `url('${imageUrl}')`;
     }
     
@@ -1410,12 +1399,12 @@ class PlanetExplorer {
           planetName.toLowerCase() === 'galeon' ||
           planetName.toLowerCase() === 'akaria' ||
           planetName.toLowerCase() === 'solara') {
-        // Special case for Drakko, Planet-X, Lyra, Aeronis, Toppo, and Hestia to use the images folder
+        // Use images folder for all planets
         locationsHTML = planetData.locations.map((location, index) => {
           return `
             <div class="location-item">
               <div class="location-image">
-                <img src="images/${planetName.toLowerCase()}-location-${index + 1}.png" alt="${location.name}">
+                <img loading="lazy" src="images/${planetName.toLowerCase()}-location-${index + 1}.png" alt="${location.name}">
               </div>
               <div class="location-content">
                 <h4>${location.name.toUpperCase()}</h4>
@@ -1425,12 +1414,12 @@ class PlanetExplorer {
           `;
         }).join('');
       } else {
-        // Standard case for other planets
+        // Standard case for other planets (now using same logic)
         locationsHTML = planetData.locations.map((location, index) => {
           return `
             <div class="location-item">
               <div class="location-image">
-                <img src="textures/${planetName.toLowerCase()}-location${index + 1}.jpg" alt="${location.name}">
+                <img loading="lazy" src="images/${planetName.toLowerCase()}-location-${index + 1}.png" alt="${location.name}">
               </div>
               <div class="location-content">
                 <h4>${location.name.toUpperCase()}</h4>
@@ -1446,7 +1435,7 @@ class PlanetExplorer {
         locationsHTML = `
           <div class="location-item">
             <div class="location-image">
-              <img src="images/drakko-location-1.png" alt="The Ashen Wastes">
+              <img loading="lazy" src="images/drakko-location-1.png" alt="The Ashen Wastes">
             </div>
             <div class="location-content">
               <h4>THE ASHEN WASTES</h4>
@@ -1455,7 +1444,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img src="images/drakko-location-2.png" alt="The Molten Chasm">
+              <img loading="lazy" src="images/drakko-location-2.png" alt="The Molten Chasm">
             </div>
             <div class="location-content">
               <h4>THE MOLTEN CHASM</h4>
@@ -1464,7 +1453,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img src="images/drakko-location-3.png" alt="The Crucible Peaks">
+              <img loading="lazy" src="images/drakko-location-3.png" alt="The Crucible Peaks">
             </div>
             <div class="location-content">
               <h4>THE CRUCIBLE PEAKS</h4>
@@ -1476,7 +1465,7 @@ class PlanetExplorer {
         locationsHTML = `
           <div class="location-item">
             <div class="location-image">
-              <img src="images/planet-x-location-1.png" alt="Isle of Eternis">
+              <img loading="lazy" src="images/planet-x-location-1.png" alt="Isle of Eternis">
             </div>
             <div class="location-content">
               <h4>ISLE OF ETERNIS</h4>
@@ -1485,7 +1474,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img src="images/planet-x-location-2.png" alt="Isle of Aurelia">
+              <img loading="lazy" src="images/planet-x-location-2.png" alt="Isle of Aurelia">
             </div>
             <div class="location-content">
               <h4>ISLE OF AURELIA</h4>
@@ -1494,7 +1483,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img src="images/planet-x-location-3.png" alt="Isle of Navalis">
+              <img loading="lazy" src="images/planet-x-location-3.png" alt="Isle of Navalis">
             </div>
             <div class="location-content">
               <h4>ISLE OF NAVALIS</h4>
@@ -1506,7 +1495,7 @@ class PlanetExplorer {
         locationsHTML = `
           <div class="location-item">
             <div class="location-image">
-              <img src="images/lyra-location-1.png" alt="The Azure Depths">
+              <img loading="lazy" src="images/lyra-location-1.png" alt="The Azure Depths">
             </div>
             <div class="location-content">
               <h4>THE AZURE DEPTHS</h4>
@@ -1515,7 +1504,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img src="images/lyra-location-2.png" alt="Coral Spires">
+              <img loading="lazy" src="images/lyra-location-2.png" alt="Coral Spires">
             </div>
             <div class="location-content">
               <h4>CORAL SPIRES</h4>
@@ -1524,7 +1513,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img src="images/lyra-location-3.png" alt="The Tidal Forests">
+              <img loading="lazy" src="images/lyra-location-3.png" alt="The Tidal Forests">
             </div>
             <div class="location-content">
               <h4>THE TIDAL FORESTS</h4>
@@ -1536,7 +1525,7 @@ class PlanetExplorer {
         locationsHTML = `
           <div class="location-item">
             <div class="location-image">
-              <img src="images/aeronis-location-1.png" alt="The Floating Isles">
+              <img loading="lazy" src="images/aeronis-location-1.png" alt="The Floating Isles">
             </div>
             <div class="location-content">
               <h4>THE FLOATING ISLES</h4>
@@ -1545,7 +1534,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img src="images/aeronis-location-2.png" alt="The Cloudfall Canyons">
+              <img loading="lazy" src="images/aeronis-location-2.png" alt="The Cloudfall Canyons">
             </div>
             <div class="location-content">
               <h4>THE CLOUDFALL CANYONS</h4>
@@ -1554,7 +1543,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img src="images/aeronis-location-3.png" alt="The Wind Spires">
+              <img loading="lazy" src="images/aeronis-location-3.png" alt="The Wind Spires">
             </div>
             <div class="location-content">
               <h4>THE WIND SPIRES</h4>
@@ -1566,7 +1555,7 @@ class PlanetExplorer {
         locationsHTML = `
           <div class="location-item">
             <div class="location-image">
-              <img src="images/toppo-location-1.png" alt="The Quantum Fields">
+              <img loading="lazy" src="images/toppo-location-1.png" alt="The Quantum Fields">
             </div>
             <div class="location-content">
               <h4>THE QUANTUM FIELDS</h4>
@@ -1575,7 +1564,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img src="images/toppo-location-2.png" alt="The Algorithmic Citadel">
+              <img loading="lazy" src="images/toppo-location-2.png" alt="The Algorithmic Citadel">
             </div>
             <div class="location-content">
               <h4>THE ALGORITHMIC CITADEL</h4>
@@ -1584,7 +1573,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img src="images/toppo-location-3.png" alt="The Resonance Caverns">
+              <img loading="lazy" src="images/toppo-location-3.png" alt="The Resonance Caverns">
             </div>
             <div class="location-content">
               <h4>THE RESONANCE CAVERNS</h4>
@@ -1596,7 +1585,7 @@ class PlanetExplorer {
         locationsHTML = `
           <div class="location-item">
             <div class="location-image">
-              <img src="images/hestia-location-1.png" alt="The Eternal Flames">
+              <img loading="lazy" src="images/hestia-location-1.png" alt="The Eternal Flames">
             </div>
             <div class="location-content">
               <h4>THE ETERNAL FLAMES</h4>
@@ -1605,7 +1594,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img src="images/hestia-location-2.png" alt="The Ashlands">
+              <img loading="lazy" src="images/hestia-location-2.png" alt="The Ashlands">
             </div>
             <div class="location-content">
               <h4>THE ASHLANDS</h4>
@@ -1614,7 +1603,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img src="images/hestia-location-3.png" alt="The Magma Forges">
+              <img loading="lazy" src="images/hestia-location-3.png" alt="The Magma Forges">
             </div>
             <div class="location-content">
               <h4>THE MAGMA FORGES</h4>
@@ -1626,7 +1615,7 @@ class PlanetExplorer {
         locationsHTML = `
           <div class="location-item">
             <div class="location-image">
-              <img src="textures/${planetName.toLowerCase()}-location1.jpg" alt="Primary Settlement">
+              <img loading="lazy" src="images/${planetName.toLowerCase()}-location-1.png" alt="Primary Settlement">
             </div>
             <div class="location-content">
               <h4>Primary Settlement</h4>
@@ -1635,7 +1624,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img src="textures/${planetName.toLowerCase()}-location2.jpg" alt="Resource Zone">
+              <img loading="lazy" src="images/${planetName.toLowerCase()}-location-2.png" alt="Resource Zone">
             </div>
             <div class="location-content">
               <h4>Resource Zone</h4>
@@ -1644,7 +1633,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img src="textures/${planetName.toLowerCase()}-location3.jpg" alt="Strategic Point">
+              <img loading="lazy" src="images/${planetName.toLowerCase()}-location-3.png" alt="Strategic Point">
             </div>
             <div class="location-content">
               <h4>Strategic Point</h4>
@@ -1680,21 +1669,8 @@ class PlanetExplorer {
       
       // Create and add the image element
       const img = document.createElement('img');
-      // Use images folder for Drakko, Planet-X, Lyra, Aeronis, Toppo, and Hestia
-      const useImagesFolder = planetName.toLowerCase() === 'drakko' || 
-                              planetName.toLowerCase() === 'planet-x' ||
-                              planetName.toLowerCase() === 'lyra' ||
-                              planetName.toLowerCase() === 'aeronis' ||
-                              planetName.toLowerCase() === 'toppo' ||
-                              planetName.toLowerCase() === 'hestia' ||
-                              planetName.toLowerCase() === 'zepharo' ||
-                              planetName.toLowerCase() === 'rath' ||
-                              planetName.toLowerCase() === 'galeon' ||
-                              planetName.toLowerCase() === 'akaria' ||
-                              planetName.toLowerCase() === 'solara';
-      img.src = useImagesFolder 
-        ? `images/${planetName.toLowerCase()}-major-city.png` 
-        : `textures/${planetName.toLowerCase()}-city.jpg`;
+      img.loading = 'lazy';
+      img.src = `images/${planetName.toLowerCase()}-major-city.png`;
       img.alt = `${majorCity} city`;
       cityImage.appendChild(img);
     }
@@ -1718,21 +1694,8 @@ class PlanetExplorer {
       
       // Create and add the image element
       const img = document.createElement('img');
-      // Use images folder for Drakko, Planet-X, Lyra, Aeronis, Toppo, and Hestia
-      const useImagesFolder = planetName.toLowerCase() === 'drakko' || 
-                              planetName.toLowerCase() === 'planet-x' ||
-                              planetName.toLowerCase() === 'lyra' ||
-                              planetName.toLowerCase() === 'aeronis' ||
-                              planetName.toLowerCase() === 'toppo' ||
-                              planetName.toLowerCase() === 'hestia' ||
-                              planetName.toLowerCase() === 'zepharo' ||
-                              planetName.toLowerCase() === 'rath' ||
-                              planetName.toLowerCase() === 'galeon' ||
-                              planetName.toLowerCase() === 'akaria' ||
-                              planetName.toLowerCase() === 'solara';
-      img.src = useImagesFolder 
-        ? `images/${planetName.toLowerCase()}-mothership.png` 
-        : `textures/${planetName.toLowerCase()}-ship.jpg`;
+      img.loading = 'lazy';
+      img.src = `images/${planetName.toLowerCase()}-mothership.png`;
       img.alt = `${mothership}`;
       shipImage.appendChild(img);
     }
@@ -1800,21 +1763,8 @@ class PlanetExplorer {
       
       // Create and add the image element
       const img = document.createElement('img');
-      // Use images folder for Drakko, Planet-X, Lyra, Aeronis, Toppo, and Hestia
-      const useImagesFolder = planetName.toLowerCase() === 'drakko' || 
-                              planetName.toLowerCase() === 'planet-x' ||
-                              planetName.toLowerCase() === 'lyra' ||
-                              planetName.toLowerCase() === 'aeronis' ||
-                              planetName.toLowerCase() === 'toppo' ||
-                              planetName.toLowerCase() === 'hestia' ||
-                              planetName.toLowerCase() === 'zepharo' ||
-                              planetName.toLowerCase() === 'rath' ||
-                              planetName.toLowerCase() === 'galeon' ||
-                              planetName.toLowerCase() === 'akaria' ||
-                              planetName.toLowerCase() === 'solara';
-      img.src = useImagesFolder 
-        ? `images/${planetName.toLowerCase()}-inhabitants.png` 
-        : `textures/${planetName.toLowerCase()}-inhabitants.jpg`;
+      img.loading = 'lazy';
+      img.src = `images/${planetName.toLowerCase()}-inhabitants.png`;
       img.alt = `${inhabitantsName.textContent}`;
       inhabitantsImage.appendChild(img);
     }
@@ -1860,38 +1810,8 @@ class PlanetExplorer {
       
       // Create and add the image element
       const img = document.createElement('img');
-      // Use images folder for Drakko, Planet-X, Lyra, Aeronis, Toppo, and Hestia
-      const useImagesFolder = planetName.toLowerCase() === 'drakko' || 
-                              planetName.toLowerCase() === 'planet-x' ||
-                              planetName.toLowerCase() === 'lyra' ||
-                              planetName.toLowerCase() === 'aeronis' ||
-                              planetName.toLowerCase() === 'toppo' ||
-                              planetName.toLowerCase() === 'hestia' ||
-                              planetName.toLowerCase() === 'zepharo' ||
-                              planetName.toLowerCase() === 'rath' ||
-                              planetName.toLowerCase() === 'galeon' ||
-                              planetName.toLowerCase() === 'akaria' ||
-                              planetName.toLowerCase() === 'solara';
-      
-      // Special handling for aeronis weapon image due to possible typo in filename
-      let imagePath;
-      if (planetName.toLowerCase() === 'aeronis') {
-        // Try both possible filenames
-        imagePath = 'images/aeronis-weapon.png';
-        // Create an image to test if the file exists
-        const testImg = new Image();
-        testImg.onerror = () => {
-          // If the file doesn't exist, try the alternative filename
-          img.src = 'images/aeroinis-weapon.png';
-        };
-        testImg.src = imagePath;
-        img.src = imagePath;
-      } else if (useImagesFolder) {
+      img.loading = 'lazy';
         img.src = `images/${planetName.toLowerCase()}-weapon.png`;
-      } else {
-        img.src = `textures/${planetName.toLowerCase()}-weapon.jpg`;
-      }
-      
       img.alt = weaponName.textContent;
       weaponImage.appendChild(img);
     }
@@ -1943,7 +1863,7 @@ class PlanetExplorer {
       nextPlanetImage.innerHTML = '';
       this.createPlanetPreview(nextPlanetImage, nextPlanetName);
     }
-
+    
     // Show modal
     modal.classList.add('visible');
     
@@ -1956,7 +1876,7 @@ class PlanetExplorer {
     }
     const locScroller = modal.querySelector('.locations-section .section-content');
     if (locScroller) locScroller.scrollLeft = 0;
-
+    
     // Disable controls while modal is open
     this.controls.enabled = false;
     
@@ -2348,13 +2268,13 @@ class PlanetExplorer {
       });
     },observerOptions);
     sections.forEach(sec=>counterObserver.observe(sec));
- 
-     // Return cleanup function to remove observer
-     return () => {
-       sections.forEach(section => {
-         observer.unobserve(section);
-       });
-     };
+    
+    // Return cleanup function to remove observer
+    return () => {
+      sections.forEach(section => {
+        observer.unobserve(section);
+      });
+    };
   }
   
   getCityDescription(planetName) {
@@ -2486,7 +2406,7 @@ class PlanetExplorer {
 
       // Wait for animation to finish then fully hide
       setTimeout(() => {
-        modal.classList.remove('visible');
+      modal.classList.remove('visible');
         modal.classList.remove('closing');
         // Hide gradient overlay once modal closed
         const grad = document.querySelector('.top-gradient');
@@ -2688,14 +2608,14 @@ class PlanetExplorer {
     // Only update and render if enough time has passed for target FPS
     if (delta >= this._frameInterval) {
       this._lastFrameTime = now - (delta % this._frameInterval);
-
-      // Update controls
-      this.controls.update();
-
-      // Rotate planets
+    
+    // Update controls
+    this.controls.update();
+    
+    // Rotate planets
       this.planets.forEach(planet => {
         if (planet.userData && typeof planet.userData.rotationSpeed === 'number') {
-          planet.rotation.y += planet.userData.rotationSpeed;
+        planet.rotation.y += planet.userData.rotationSpeed;
         } else {
           planet.rotation.y += 0.005; // Default rotation if not specified
         }
@@ -2734,8 +2654,8 @@ class PlanetExplorer {
       }
       
       // Animate X-shaped asteroid belts around Planet-X
-      if (this.asteroidBelts) {
-        this.asteroidBelts.forEach(belt => {
+    if (this.asteroidBelts) {
+      this.asteroidBelts.forEach(belt => {
           if (belt.userData && belt.userData.planetRef && belt.userData.rotationAxis && belt.userData.rotationSpeed) {
             // Rotate around the planet's current position
             belt.position.copy(belt.userData.planetRef.position); 
@@ -2789,7 +2709,7 @@ class PlanetExplorer {
       }
 
       // Render scene with post-processing
-      this.composer.render();
+    this.composer.render();
     }
 
     // Request next frame
@@ -3081,11 +3001,11 @@ class PlanetExplorer {
     btnRight.addEventListener('click', rightClickListener);
 
     // Store references for cleanup
-    this._locationsContainerForListener = locationsContainer;
-    this._locationControlsDiv = controlsDiv;
-    this._locationArrowLeft = btnLeft;
+    this._locationsContainerForListener = locationsContainer; 
+    this._locationControlsDiv = controlsDiv; 
+    this._locationArrowLeft = btnLeft; 
     this._locationArrowRight = btnRight;
-    this._leftClickListener = leftClickListener;
+    this._leftClickListener = leftClickListener; 
     this._rightClickListener = rightClickListener;
     // no scroll listener needed for this carousel approach
     this._locationsScrollHandler = null;
@@ -3211,13 +3131,17 @@ class PlanetExplorer {
      3-D Planet Preview (Next-Planet Section)
   --------------------------------------------------------- */
   createPlanetPreview(container, planetName) {
-    // Ensure previous preview disposed
+    // Ensure previous preview disposed/stopped
     this.removePlanetPreview();
 
     if (!container) return;
+    
+    // Reuse renderer
+    const renderer = this._previewRenderer;
+    const scene = this._previewScene;
+    const camera = this._previewCamera;
 
-    // Setup renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    // Size calculations
     let width = container.clientWidth;
     let height = container.clientHeight;
     if (!width || width === 0) {
@@ -3226,42 +3150,38 @@ class PlanetExplorer {
     if (!height || height === 0) {
       height = width; // make square
     }
+    
+    // Attach to new container
     renderer.setSize(width, height);
-    // Match main renderer cap – keeps preview light on battery.
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     container.appendChild(renderer.domElement);
+    this._previewContainer = container; // Keep track
 
-    // Scene/camera
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    camera.position.z = 3;
-
-    // Lighting
-    const light = new THREE.DirectionalLight(0xffffff, 1);
-    light.position.set(1, 1, 1);
-    scene.add(light);
-
-    // Planet mesh
+    // Planet mesh setup
     const texture = this.textureLoader.load(`textures/${planetName.toLowerCase()}-texture.png`);
     const geometry = new THREE.SphereGeometry(1, 32, 32);
     const material = new THREE.MeshStandardMaterial({ map: texture });
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
+    
+    // Store for cleanup (rotation, removal)
+    this._previewMesh = mesh;
 
     // Animation loop
     const animate = () => {
-      // Slow rotation (5x slower)
-      mesh.rotation.y += 0.002;
+      // Slow rotation
+      if (this._previewMesh) {
+          this._previewMesh.rotation.y += 0.002;
+      }
       renderer.render(scene, camera);
       this._previewAnimId = requestAnimationFrame(animate);
     };
     animate();
 
-    // Store for cleanup
-    this._planetPreview = { renderer, scene, mesh, geometry, material, texture, container };
-
     // Ensure renderer matches displayed size after CSS rules applied
     const resizePreview = () => {
+      // If detached, stop
+      if (!renderer.domElement.parentElement) return; 
+      
       const cw = renderer.domElement.clientWidth;
       const ch = renderer.domElement.clientHeight;
       if (cw && ch) {
@@ -3274,23 +3194,37 @@ class PlanetExplorer {
     // Call initially (next tick to ensure layout) and on resize
     requestAnimationFrame(resizePreview);
     window.addEventListener('resize', resizePreview);
+    this._previewResizeHandler = resizePreview;
   }
 
   removePlanetPreview() {
-    if (!this._planetPreview) return;
-
-    cancelAnimationFrame(this._previewAnimId);
-    const { renderer, mesh, geometry, material, texture, container } = this._planetPreview;
-
-    renderer.dispose();
-    texture.dispose();
-    geometry.dispose();
-    material.dispose();
-    if (renderer.domElement && container.contains(renderer.domElement)) {
-      container.removeChild(renderer.domElement);
+    // Stop loop
+    if (this._previewAnimId) {
+        cancelAnimationFrame(this._previewAnimId);
+        this._previewAnimId = null;
+    }
+    
+    // Remove resize listener
+    if (this._previewResizeHandler) {
+        window.removeEventListener('resize', this._previewResizeHandler);
+        this._previewResizeHandler = null;
     }
 
-    this._planetPreview = null;
+    // Detach renderer
+    if (this._previewContainer && this._previewRenderer.domElement.parentElement === this._previewContainer) {
+        this._previewContainer.removeChild(this._previewRenderer.domElement);
+    }
+    this._previewContainer = null;
+
+    // Cleanup mesh logic
+    if (this._previewMesh) {
+        this._previewScene.remove(this._previewMesh);
+        this._previewMesh.geometry.dispose();
+        this._previewMesh.material.map?.dispose(); // Dispose texture
+        this._previewMesh.material.dispose();
+        this._previewMesh = null;
+    }
+    // Do NOT dispose renderer or scene as they are reused
   }
 
   /* ------------------------------------------------
