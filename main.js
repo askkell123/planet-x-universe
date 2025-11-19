@@ -869,12 +869,12 @@ class PlanetExplorer {
     try {
       const response = await fetch(`text/${planetName.toLowerCase()}-text.txt`);
       if (!response.ok) {
-        console.error(`Failed to load data for ${planetName}`);
-        return null;
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
       
       const text = await response.text();
       const data = this.parsePlanetText(text, planetName);
+      // console.log(`Loaded data for ${planetName}:`, data);
       return data;
     } catch (error) {
       console.error(`Error loading planet data for ${planetName}:`, error);
@@ -1192,7 +1192,7 @@ class PlanetExplorer {
       // Create new SVG img
       const tagImg = document.createElement('img');
       tagImg.className = 'planet-tagline';
-      tagImg.src = `taglines/${planetName.toLowerCase()}-tagline.svg`;
+      tagImg.src = `taglines/${planetName.toUpperCase()}-tagline.svg`;
       tagImg.alt = `${planetName} tagline`;
       circularContainer.appendChild(tagImg);
 
@@ -1404,7 +1404,7 @@ class PlanetExplorer {
           return `
             <div class="location-item">
               <div class="location-image">
-                <img loading="lazy" src="images/${planetName.toLowerCase()}-location-${index + 1}.png" alt="${location.name}">
+                <img src="images/${planetName.toLowerCase()}-location-${index + 1}.png" alt="${location.name}">
               </div>
               <div class="location-content">
                 <h4>${location.name.toUpperCase()}</h4>
@@ -1419,7 +1419,7 @@ class PlanetExplorer {
           return `
             <div class="location-item">
               <div class="location-image">
-                <img loading="lazy" src="images/${planetName.toLowerCase()}-location-${index + 1}.png" alt="${location.name}">
+                <img src="images/${planetName.toLowerCase()}-location-${index + 1}.png" alt="${location.name}">
               </div>
               <div class="location-content">
                 <h4>${location.name.toUpperCase()}</h4>
@@ -1435,7 +1435,7 @@ class PlanetExplorer {
         locationsHTML = `
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/drakko-location-1.png" alt="The Ashen Wastes">
+              <img src="images/drakko-location-1.png" alt="The Ashen Wastes">
             </div>
             <div class="location-content">
               <h4>THE ASHEN WASTES</h4>
@@ -1444,7 +1444,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/drakko-location-2.png" alt="The Molten Chasm">
+              <img src="images/drakko-location-2.png" alt="The Molten Chasm">
             </div>
             <div class="location-content">
               <h4>THE MOLTEN CHASM</h4>
@@ -1453,7 +1453,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/drakko-location-3.png" alt="The Crucible Peaks">
+              <img src="images/drakko-location-3.png" alt="The Crucible Peaks">
             </div>
             <div class="location-content">
               <h4>THE CRUCIBLE PEAKS</h4>
@@ -1465,7 +1465,7 @@ class PlanetExplorer {
         locationsHTML = `
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/planet-x-location-1.png" alt="Isle of Eternis">
+              <img src="images/planet-x-location-1.png" alt="Isle of Eternis">
             </div>
             <div class="location-content">
               <h4>ISLE OF ETERNIS</h4>
@@ -1474,7 +1474,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/planet-x-location-2.png" alt="Isle of Aurelia">
+              <img src="images/planet-x-location-2.png" alt="Isle of Aurelia">
             </div>
             <div class="location-content">
               <h4>ISLE OF AURELIA</h4>
@@ -1483,7 +1483,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/planet-x-location-3.png" alt="Isle of Navalis">
+              <img src="images/planet-x-location-3.png" alt="Isle of Navalis">
             </div>
             <div class="location-content">
               <h4>ISLE OF NAVALIS</h4>
@@ -1495,7 +1495,7 @@ class PlanetExplorer {
         locationsHTML = `
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/lyra-location-1.png" alt="The Azure Depths">
+              <img src="images/lyra-location-1.png" alt="The Azure Depths">
             </div>
             <div class="location-content">
               <h4>THE AZURE DEPTHS</h4>
@@ -1504,7 +1504,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/lyra-location-2.png" alt="Coral Spires">
+              <img src="images/lyra-location-2.png" alt="Coral Spires">
             </div>
             <div class="location-content">
               <h4>CORAL SPIRES</h4>
@@ -1513,7 +1513,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/lyra-location-3.png" alt="The Tidal Forests">
+              <img src="images/lyra-location-3.png" alt="The Tidal Forests">
             </div>
             <div class="location-content">
               <h4>THE TIDAL FORESTS</h4>
@@ -1525,7 +1525,7 @@ class PlanetExplorer {
         locationsHTML = `
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/aeronis-location-1.png" alt="The Floating Isles">
+              <img src="images/aeronis-location-1.png" alt="The Floating Isles">
             </div>
             <div class="location-content">
               <h4>THE FLOATING ISLES</h4>
@@ -1534,7 +1534,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/aeronis-location-2.png" alt="The Cloudfall Canyons">
+              <img src="images/aeronis-location-2.png" alt="The Cloudfall Canyons">
             </div>
             <div class="location-content">
               <h4>THE CLOUDFALL CANYONS</h4>
@@ -1543,7 +1543,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/aeronis-location-3.png" alt="The Wind Spires">
+              <img src="images/aeronis-location-3.png" alt="The Wind Spires">
             </div>
             <div class="location-content">
               <h4>THE WIND SPIRES</h4>
@@ -1555,7 +1555,7 @@ class PlanetExplorer {
         locationsHTML = `
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/toppo-location-1.png" alt="The Quantum Fields">
+              <img src="images/toppo-location-1.png" alt="The Quantum Fields">
             </div>
             <div class="location-content">
               <h4>THE QUANTUM FIELDS</h4>
@@ -1564,7 +1564,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/toppo-location-2.png" alt="The Algorithmic Citadel">
+              <img src="images/toppo-location-2.png" alt="The Algorithmic Citadel">
             </div>
             <div class="location-content">
               <h4>THE ALGORITHMIC CITADEL</h4>
@@ -1573,7 +1573,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/toppo-location-3.png" alt="The Resonance Caverns">
+              <img src="images/toppo-location-3.png" alt="The Resonance Caverns">
             </div>
             <div class="location-content">
               <h4>THE RESONANCE CAVERNS</h4>
@@ -1585,7 +1585,7 @@ class PlanetExplorer {
         locationsHTML = `
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/hestia-location-1.png" alt="The Eternal Flames">
+              <img src="images/hestia-location-1.png" alt="The Eternal Flames">
             </div>
             <div class="location-content">
               <h4>THE ETERNAL FLAMES</h4>
@@ -1594,7 +1594,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/hestia-location-2.png" alt="The Ashlands">
+              <img src="images/hestia-location-2.png" alt="The Ashlands">
             </div>
             <div class="location-content">
               <h4>THE ASHLANDS</h4>
@@ -1603,7 +1603,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/hestia-location-3.png" alt="The Magma Forges">
+              <img src="images/hestia-location-3.png" alt="The Magma Forges">
             </div>
             <div class="location-content">
               <h4>THE MAGMA FORGES</h4>
@@ -1615,7 +1615,7 @@ class PlanetExplorer {
         locationsHTML = `
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/${planetName.toLowerCase()}-location-1.png" alt="Primary Settlement">
+              <img src="images/${planetName.toLowerCase()}-location-1.png" alt="Primary Settlement">
             </div>
             <div class="location-content">
               <h4>Primary Settlement</h4>
@@ -1624,7 +1624,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/${planetName.toLowerCase()}-location-2.png" alt="Resource Zone">
+              <img src="images/${planetName.toLowerCase()}-location-2.png" alt="Resource Zone">
             </div>
             <div class="location-content">
               <h4>Resource Zone</h4>
@@ -1633,7 +1633,7 @@ class PlanetExplorer {
           </div>
           <div class="location-item">
             <div class="location-image">
-              <img loading="lazy" src="images/${planetName.toLowerCase()}-location-3.png" alt="Strategic Point">
+              <img src="images/${planetName.toLowerCase()}-location-3.png" alt="Strategic Point">
             </div>
             <div class="location-content">
               <h4>Strategic Point</h4>
@@ -1669,7 +1669,6 @@ class PlanetExplorer {
       
       // Create and add the image element
       const img = document.createElement('img');
-      img.loading = 'lazy';
       img.src = `images/${planetName.toLowerCase()}-major-city.png`;
       img.alt = `${majorCity} city`;
       cityImage.appendChild(img);
@@ -1694,7 +1693,6 @@ class PlanetExplorer {
       
       // Create and add the image element
       const img = document.createElement('img');
-      img.loading = 'lazy';
       img.src = `images/${planetName.toLowerCase()}-mothership.png`;
       img.alt = `${mothership}`;
       shipImage.appendChild(img);
@@ -1763,7 +1761,6 @@ class PlanetExplorer {
       
       // Create and add the image element
       const img = document.createElement('img');
-      img.loading = 'lazy';
       img.src = `images/${planetName.toLowerCase()}-inhabitants.png`;
       img.alt = `${inhabitantsName.textContent}`;
       inhabitantsImage.appendChild(img);
@@ -1810,8 +1807,7 @@ class PlanetExplorer {
       
       // Create and add the image element
       const img = document.createElement('img');
-      img.loading = 'lazy';
-        img.src = `images/${planetName.toLowerCase()}-weapon.png`;
+      img.src = `images/${planetName.toLowerCase()}-weapon.png`;
       img.alt = weaponName.textContent;
       weaponImage.appendChild(img);
     }
