@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:91000993c1cb5ac91a6b842c436073990c9a524c39ec6c18a04be26959dc6e8a
-size 490
+{
+  "name": "planet-x-universe",
+  "version": "1.0.0",
+  "description": "Interactive 3D experience exploring the Planet-X universe",
+  "main": "main.js",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "three": "^0.162.0"
+  },
+  "devDependencies": {
+    "sharp-cli": "^5.1.0",
+    "vite": "^5.1.4",
+    "vite-plugin-pwa": "^1.0.0",
+    "workbox-precaching": "^7.3.0"
+  }
+}
