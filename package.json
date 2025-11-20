@@ -4,7 +4,7 @@
   "description": "Interactive 3D experience exploring the Planet-X universe",
   "main": "main.js",
   "scripts": {
-    "start": "vite",
+    "start": "vite preview --port 8080 --host",
     "build": "vite build",
     "preview": "vite preview"
   },
