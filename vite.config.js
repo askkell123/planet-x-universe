@@ -24,6 +24,12 @@ export default defineConfig({
     open: false,
     host: true,
   },
+  preview: {
+    allowedHosts: [
+      'px-universe-explorer-ioj4b.ondigitalocean.app',
+      'localhost'
+    ]
+  },
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
