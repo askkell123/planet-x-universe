@@ -29,7 +29,9 @@ self.addEventListener('fetch', (event) => {
   const attemptFetch = (index) => {
     if (index >= tryFormats.length) return fetch(request);
     const { dir, ext } = tryFormats[index];
-    const altPath = basePath.replace('/images/', `/${dir}/`) + ext;
+    // Construct path: /images-avif/original/path/file.avif
+    // e.g. /textures/planet.png -> /images-avif/textures/planet.avif
+    const altPath = `/${dir}${basePath}${ext}`;
     const altRequest = new Request(url.origin + altPath, request);
     return fetch(altRequest).then(r => (r.ok ? r : attemptFetch(index + 1)))
       .catch(() => attemptFetch(index + 1));
