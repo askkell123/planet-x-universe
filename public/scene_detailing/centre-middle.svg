@@ -1,3 +1,18 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:190796baaab28725c2c58e0c68bab67237ca5dd06a447b15e9867c6716c4cd64
-size 1180
+<svg width="1980" height="871" viewBox="0 0 1980 871" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 435.567L974.29 435.567M1979.58 435.567L1006.5 435.567" stroke="url(#paint0_linear_21550_288592)" stroke-width="0.5" stroke-dasharray="13 13"/>
+<path d="M990.486 870.336L990.486 452M990.487 -0.000244141L990.486 419.168" stroke="url(#paint1_linear_21550_288592)" stroke-width="0.5" stroke-dasharray="13 13"/>
+<defs>
+<linearGradient id="paint0_linear_21550_288592" x1="1" y1="435.567" x2="1979.58" y2="435.567" gradientUnits="userSpaceOnUse">
+<stop stop-color="white" stop-opacity="0"/>
+<stop offset="0.15" stop-color="white" stop-opacity="0.5"/>
+<stop offset="0.85" stop-color="white" stop-opacity="0.5"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21550_288592" x1="990.486" y1="-0.000244141" x2="990.486" y2="870.336" gradientUnits="userSpaceOnUse">
+<stop stop-color="white" stop-opacity="0"/>
+<stop offset="0.15" stop-color="white" stop-opacity="0.5"/>
+<stop offset="0.85" stop-color="white" stop-opacity="0.5"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg>

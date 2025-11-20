@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:76b8eaf1fb1b76e27b83fa701d9fe666ae8f9abbfdfc187c3725a732922140b1
-size 552
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_4659_8495)">
+<rect width="32" height="32" stroke="#1D1D1D" stroke-width="0.5"/>
+<path d="M4 0H0V4" stroke="#484848" stroke-width="0.5"/>
+<path d="M4 32H0V28" stroke="#484848" stroke-width="0.5"/>
+<path d="M28 0H32V4" stroke="#484848" stroke-width="0.5"/>
+<path d="M28 32H32V28" stroke="#484848" stroke-width="0.5"/>
+</g>
+<defs>
+<clipPath id="clip0_4659_8495">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>

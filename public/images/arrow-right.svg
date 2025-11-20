@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:28679a969806a34ad0752727a6f74adcdff99cd2a7a8cc87ae999b114bf37c25
-size 530
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_4643_1600)">
+<g clip-path="url(#clip1_4643_1600)">
+<path d="M11 8L5 13L5 3L11 8ZM7 10L9 8L7 6L7 10Z" fill="white"/>
+<path d="M6 8L5 9L5 7L6 8Z" fill="#111111"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_4643_1600">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+<clipPath id="clip1_4643_1600">
+<rect width="16" height="16" fill="white" transform="translate(0 16) rotate(-90)"/>
+</clipPath>
+</defs>
+</svg>
