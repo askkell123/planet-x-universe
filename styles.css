@@ -4053,14 +4053,173 @@ body, html {
   margin: auto;
 }
 
+/* Mobile Navigation Row - Hidden on desktop */
+.mobile-nav-row {
+  display: none;
+}
+
+.nav-arrow-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #ffffff;
+  background: #0c0c0c;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-arrow-btn:hover {
+  background: #ffffff;
+  color: #0c0c0c;
+  transform: scale(1.05);
+}
+
+.mobile-planet-name {
+  flex: 1;
+  text-align: center;
+  font-family: 'Nyxerin', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
 @media (max-width: 600px) {
-  #mute-button {
+  /* Show mobile navigation row */
+  .mobile-nav-row {
+    display: flex !important;
+    position: fixed;
+    top: 80px;
     left: 20px;
-    bottom: 45px; /* Positioned above the tagline which is at bottom: 20px */
-    transform: none; /* Override the translateX(-50%) */
+    right: 20px;
+    align-items: center;
+    gap: 12px;
+    z-index: 3000;
   }
+  
+  /* Mobile Header Layout: Logo left, Controls and Sound right */
+  .scene-logo {
+    top: 20px !important;
+    left: 20px !important;
+  }
+  
+  /* Move mute button to top right, beside controls */
+  #mute-button {
+    top: 20px !important;
+    right: 76px !important; /* Leave space for controls button */
+    left: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    width: 40px;
+    height: 40px;
+  }
+  
   #mute-button:hover {
-    transform: scale(1.1); /* Only apply scale, no translateX */
+    transform: scale(1.1) !important;
+  }
+  
+  /* Change controls button to info icon in circle */
+  .controls-pill {
+    top: 20px !important;
+    right: 20px !important;
+    width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    font-size: 0 !important; /* Hide text */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  .controls-pill::before {
+    content: 'i';
+    font-size: 20px !important;
+    font-weight: bold;
+    font-family: 'Space Mono', monospace;
+  }
+  
+  .controls-pill:hover {
+    transform: scale(1.1) !important;
+  }
+  
+  /* Change close buttons to icon-only with cross */
+  .close-modal,
+  .controls-overlay .close-controls {
+    width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    font-size: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  .close-modal::before,
+  .controls-overlay .close-controls::before {
+    content: '×';
+    font-size: 28px !important;
+    font-weight: normal;
+    line-height: 1;
+  }
+  
+  .close-modal .close-icon,
+  .controls-overlay .close-controls .close-icon {
+    display: none !important;
+  }
+  
+  /* Hide original "EXPLORE THE UNIVERSE" tagline */
+  .scene-tagline {
+    display: none !important;
+  }
+  
+  /* Centre explored counter at bottom */
+  .explore-progress {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    bottom: 20px !important;
+  }
+  
+  /* Planet stats: 3 rows of 2 */
+  .planet-stats {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: repeat(3, auto) !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+  
+  /* Remove border radius from images */
+  .modal-section img,
+  .location-image img,
+  .hero-image img,
+  .section-background img {
+    border-radius: 0 !important;
+  }
+  
+  /* Remove grey background from images */
+  .image-container {
+    background: none !important;
+  }
+  
+  /* Reduce key locations gap to 4px */
+  .locations-section .section-content {
+    gap: 4px !important;
+  }
+  
+  /* Fix next planet section */
+  .next-planet-section {
+    padding: 20px !important;
+  }
+  
+  .next-planet-preview {
+    width: 90% !important;
+    height: auto !important;
+    margin: 0 auto !important;
   }
 } 
 
