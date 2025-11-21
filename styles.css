@@ -7,14 +7,14 @@
 
 @font-face {
   font-family: 'Nyxerin';
-  src: url('fonts/NYXERIN.otf') format('opentype');
+  src: url('/fonts/NYXERIN.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Space Mono';
-  src: url('fonts/SpaceMono-Regular.ttf') format('truetype');
+  src: url('/fonts/SpaceMono-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
