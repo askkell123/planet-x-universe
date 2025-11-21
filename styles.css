@@ -50,6 +50,47 @@ h3, h4, h5, .location-item h4 {
   filter: drop-shadow(0px 2px 20px rgba(0, 0, 0, 0.5));
   background-image: none;
   -webkit-background-clip: initial;
+}
+
+/* Image loading states and animations */
+.modal-section img {
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.modal-section img.loaded {
+  opacity: 1;
+}
+
+.image-container {
+  position: relative;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0c0c0c 100%);
+}
+
+.image-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.image-container.loaded::before {
+  opacity: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
   background-clip: initial;
 }
 

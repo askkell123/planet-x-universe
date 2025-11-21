@@ -35,6 +35,10 @@ class PlanetExplorer {
     // Texture loader
     this.textureLoader = new THREE.TextureLoader();
     
+    // Image preloading cache
+    this.imagePreloadCache = new Map();
+    this.preloadedPlanets = new Set();
+    
     // Controls
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.enableDamping = true;
@@ -124,6 +128,10 @@ class PlanetExplorer {
     manager.onLoad = () => {
       if (loadingPercentEl) loadingPercentEl.textContent = '100%';
       if (loadingBarFillEl) loadingBarFillEl.style.width = '100%';
+      
+      // Preload images for the initially focused planet (Planet-X)
+      this.preloadPlanetImages('planet-x');
+      
       setTimeout(() => {
         loadingScreenEl?.classList.add('hidden');
       }, 400);
@@ -637,6 +645,71 @@ class PlanetExplorer {
     
     const texture = new THREE.CanvasTexture(canvas);
     return texture;
+  }
+  
+  // Helper method to create optimized images with loading states
+  createOptimizedImage(imagePath, altText, width, height) {
+    const img = document.createElement('img');
+    img.alt = altText;
+    img.style.width = width || '100%';
+    img.style.height = height || '100%';
+    img.style.objectFit = 'cover';
+    
+    // Set explicit dimensions to prevent layout shift
+    if (width && height) {
+      img.width = parseInt(width);
+      img.height = parseInt(height);
+    }
+    
+    // Add loaded class when image finishes loading
+    img.addEventListener('load', () => {
+      img.classList.add('loaded');
+      const container = img.closest('.image-container');
+      if (container) {
+        container.classList.add('loaded');
+      }
+    });
+    
+    // Check if already preloaded
+    if (this.imagePreloadCache.has(imagePath)) {
+      img.src = imagePath;
+      // If already in cache, image loads instantly
+      setTimeout(() => {
+        img.classList.add('loaded');
+        const container = img.closest('.image-container');
+        if (container) container.classList.add('loaded');
+      }, 50);
+    } else {
+      img.src = imagePath;
+    }
+    
+    return img;
+  }
+  
+  // Preload planet images
+  preloadPlanetImages(planetName) {
+    if (this.preloadedPlanets.has(planetName)) return;
+    
+    const imagePaths = [
+      `images/${planetName}-hero.png`,
+      `images/${planetName}-major-city.png`,
+      `images/${planetName}-mothership.png`,
+      `images/${planetName}-inhabitants.png`,
+      `images/${planetName}-weapon.png`,
+      `images/${planetName}-location-1.png`,
+      `images/${planetName}-location-2.png`,
+      `images/${planetName}-location-3.png`
+    ];
+    
+    imagePaths.forEach(path => {
+      if (!this.imagePreloadCache.has(path)) {
+        const img = new Image();
+        img.src = path;
+        this.imagePreloadCache.set(path, img);
+      }
+    });
+    
+    this.preloadedPlanets.add(planetName);
   }
   
   onMouseClick(event) {
@@ -1279,14 +1352,11 @@ class PlanetExplorer {
       // Clear any existing content
       heroImage.innerHTML = '';
       
-      // Create and add the image element
-      const img = document.createElement('img');
-      img.loading = 'lazy';
-      img.src = imageUrl;
-      img.alt = `${planetName} surface`;
-      img.style.width = '100%';
-      img.style.height = '100%';
-      img.style.objectFit = 'cover';
+      // Add loading container class
+      heroImage.classList.add('image-container');
+      
+      // Create and add the optimized image element
+      const img = this.createOptimizedImage(imageUrl, `${planetName} surface`, '100%', '100%');
       heroImage.appendChild(img);
     }
     
@@ -1667,10 +1737,16 @@ class PlanetExplorer {
       // Clear any existing content
       cityImage.innerHTML = '';
       
-      // Create and add the image element
-      const img = document.createElement('img');
-      img.src = `images/${planetName.toLowerCase()}-major-city.png`;
-      img.alt = `${majorCity} city`;
+      // Add loading container class
+      cityImage.classList.add('image-container');
+      
+      // Create and add the optimized image element
+      const img = this.createOptimizedImage(
+        `images/${planetName.toLowerCase()}-major-city.png`,
+        `${majorCity} city`,
+        '100%',
+        '100%'
+      );
       cityImage.appendChild(img);
     }
     
@@ -1691,10 +1767,16 @@ class PlanetExplorer {
       // Clear any existing content
       shipImage.innerHTML = '';
       
-      // Create and add the image element
-      const img = document.createElement('img');
-      img.src = `images/${planetName.toLowerCase()}-mothership.png`;
-      img.alt = `${mothership}`;
+      // Add loading container class
+      shipImage.classList.add('image-container');
+      
+      // Create and add the optimized image element
+      const img = this.createOptimizedImage(
+        `images/${planetName.toLowerCase()}-mothership.png`,
+        `${mothership}`,
+        '100%',
+        '100%'
+      );
       shipImage.appendChild(img);
     }
     
@@ -1759,10 +1841,16 @@ class PlanetExplorer {
       // Clear any existing content
       inhabitantsImage.innerHTML = '';
       
-      // Create and add the image element
-      const img = document.createElement('img');
-      img.src = `images/${planetName.toLowerCase()}-inhabitants.png`;
-      img.alt = `${inhabitantsName.textContent}`;
+      // Add loading container class
+      inhabitantsImage.classList.add('image-container');
+      
+      // Create and add the optimized image element
+      const img = this.createOptimizedImage(
+        `images/${planetName.toLowerCase()}-inhabitants.png`,
+        `${inhabitantsName.textContent}`,
+        '100%',
+        '100%'
+      );
       inhabitantsImage.appendChild(img);
     }
     
@@ -1805,10 +1893,16 @@ class PlanetExplorer {
       // Clear any existing content
       weaponImage.innerHTML = '';
       
-      // Create and add the image element
-      const img = document.createElement('img');
-      img.src = `images/${planetName.toLowerCase()}-weapon.png`;
-      img.alt = weaponName.textContent;
+      // Add loading container class
+      weaponImage.classList.add('image-container');
+      
+      // Create and add the optimized image element
+      const img = this.createOptimizedImage(
+        `images/${planetName.toLowerCase()}-weapon.png`,
+        weaponName.textContent,
+        '100%',
+        '100%'
+      );
       weaponImage.appendChild(img);
     }
     
@@ -2873,6 +2967,13 @@ class PlanetExplorer {
       if (this.planets.includes(planetObj)) {
         // Add hover class to scene container
         sceneContainer.classList.add('hovering-planet');
+        
+        // Preload images for this planet on hover
+        const planetName = planetObj.userData.name;
+        if (planetName) {
+          this.preloadPlanetImages(planetName);
+        }
+        
         return;
       }
     }
