@@ -661,26 +661,27 @@ class PlanetExplorer {
       img.height = parseInt(height);
     }
     
-    // Add loaded class when image finishes loading
-    img.addEventListener('load', () => {
+    const markLoaded = () => {
       img.classList.add('loaded');
       const container = img.closest('.image-container');
       if (container) {
         container.classList.add('loaded');
       }
+    };
+
+    // Add loaded class when image finishes loading
+    img.addEventListener('load', markLoaded);
+    img.addEventListener('error', () => {
+      console.warn('Failed to load image:', imagePath);
+      // Still mark as loaded to show alt text/placeholder instead of infinite spinner
+      markLoaded();
     });
     
-    // Check if already preloaded
-    if (this.imagePreloadCache.has(imagePath)) {
-      img.src = imagePath;
-      // If already in cache, image loads instantly
-      setTimeout(() => {
-        img.classList.add('loaded');
-        const container = img.closest('.image-container');
-        if (container) container.classList.add('loaded');
-      }, 50);
-    } else {
-      img.src = imagePath;
+    img.src = imagePath;
+
+    // Check if already complete (e.g. from cache)
+    if (img.complete) {
+      markLoaded();
     }
     
     return img;
