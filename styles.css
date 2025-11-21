@@ -53,12 +53,12 @@ h3, h4, h5, .location-item h4 {
 }
 
 /* Image loading states and animations */
-.modal-section img {
+.image-container img {
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
 }
 
-.modal-section img.loaded {
+.image-container img.loaded {
   opacity: 1;
 }
 
