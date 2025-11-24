@@ -4053,173 +4053,14 @@ body, html {
   margin: auto;
 }
 
-/* Mobile Navigation Row - Hidden on desktop */
-.mobile-nav-row {
-  display: none;
-}
-
-.nav-arrow-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid #ffffff;
-  background: #0c0c0c;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.nav-arrow-btn:hover {
-  background: #ffffff;
-  color: #0c0c0c;
-  transform: scale(1.05);
-}
-
-.mobile-planet-name {
-  flex: 1;
-  text-align: center;
-  font-family: 'Nyxerin', sans-serif;
-  font-size: 12px;
-  letter-spacing: 2px;
-  color: #ffffff;
-  text-transform: uppercase;
-}
-
 @media (max-width: 600px) {
-  /* Show mobile navigation row */
-  .mobile-nav-row {
-    display: flex !important;
-    position: fixed;
-    top: 80px;
-    left: 20px;
-    right: 20px;
-    align-items: center;
-    gap: 12px;
-    z-index: 3000;
-  }
-  
-  /* Mobile Header Layout: Logo left, Controls and Sound right */
-  .scene-logo {
-    top: 20px !important;
-    left: 20px !important;
-  }
-  
-  /* Move mute button to top right, beside controls */
   #mute-button {
-    top: 20px !important;
-    right: 76px !important; /* Leave space for controls button */
-    left: auto !important;
-    bottom: auto !important;
-    transform: none !important;
-    width: 40px;
-    height: 40px;
+    left: 20px;
+    bottom: 45px; /* Positioned above the tagline which is at bottom: 20px */
+    transform: none; /* Override the translateX(-50%) */
   }
-  
   #mute-button:hover {
-    transform: scale(1.1) !important;
-  }
-  
-  /* Change controls button to info icon in circle */
-  .controls-pill {
-    top: 20px !important;
-    right: 20px !important;
-    width: 40px !important;
-    height: 40px !important;
-    padding: 0 !important;
-    border-radius: 50% !important;
-    font-size: 0 !important; /* Hide text */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  
-  .controls-pill::before {
-    content: 'i';
-    font-size: 20px !important;
-    font-weight: bold;
-    font-family: 'Space Mono', monospace;
-  }
-  
-  .controls-pill:hover {
-    transform: scale(1.1) !important;
-  }
-  
-  /* Change close buttons to icon-only with cross */
-  .close-modal,
-  .controls-overlay .close-controls {
-    width: 40px !important;
-    height: 40px !important;
-    padding: 0 !important;
-    border-radius: 50% !important;
-    font-size: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  
-  .close-modal::before,
-  .controls-overlay .close-controls::before {
-    content: '×';
-    font-size: 28px !important;
-    font-weight: normal;
-    line-height: 1;
-  }
-  
-  .close-modal .close-icon,
-  .controls-overlay .close-controls .close-icon {
-    display: none !important;
-  }
-  
-  /* Hide original "EXPLORE THE UNIVERSE" tagline */
-  .scene-tagline {
-    display: none !important;
-  }
-  
-  /* Centre explored counter at bottom */
-  .explore-progress {
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    bottom: 20px !important;
-  }
-  
-  /* Planet stats: 3 rows of 2 */
-  .planet-stats {
-    grid-template-columns: repeat(2, 1fr) !important;
-    grid-template-rows: repeat(3, auto) !important;
-    gap: 12px !important;
-    width: 100% !important;
-  }
-  
-  /* Remove border radius from images */
-  .modal-section img,
-  .location-image img,
-  .hero-image img,
-  .section-background img {
-    border-radius: 0 !important;
-  }
-  
-  /* Remove grey background from images */
-  .image-container {
-    background: none !important;
-  }
-  
-  /* Reduce key locations gap to 4px */
-  .locations-section .section-content {
-    gap: 4px !important;
-  }
-  
-  /* Fix next planet section */
-  .next-planet-section {
-    padding: 20px !important;
-  }
-  
-  .next-planet-preview {
-    width: 90% !important;
-    height: auto !important;
-    margin: 0 auto !important;
+    transform: scale(1.1); /* Only apply scale, no translateX */
   }
 } 
 
@@ -4315,3 +4156,234 @@ body, html {
 @media (max-width: 900px) {
   /* ... existing code ... */
 } 
+/* ==========================================================================
+   MOBILE OPTIMIZATIONS (New Request)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* 1. Header Layout */
+  .mobile-header {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    pointer-events: none; /* Allow clicks through header area */
+  }
+  
+  .mobile-logo, .header-right-controls {
+    pointer-events: auto; /* Re-enable clicks on buttons */
+  }
+
+  .header-right-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  /* Mute Button in Header */
+  #mute-button {
+    position: static !important; /* Remove fixed positioning */
+    width: 40px !important;
+    height: 40px !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.5);
+    margin: 0 !important;
+    transform: none !important;
+  }
+
+  /* Info Icon Button */
+  .info-icon-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-style: italic;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  /* Hide original controls pill */
+  #controls-btn {
+    display: none !important;
+  }
+
+  /* 2. Mobile Nav Row */
+  #mobile-nav-row {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 70px; /* Above explored counter */
+    left: 20px;
+    right: 20px;
+    z-index: 90; /* Below modal */
+    pointer-events: none;
+  }
+  
+  /* Hide nav row when modal is open */
+  body.modal-open #mobile-nav-row {
+    display: none !important;
+  }
+
+  .nav-arrow-btn {
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+  
+  .nav-arrow-btn img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .mobile-nav-text {
+    text-align: center;
+    pointer-events: auto;
+  }
+  
+  .nav-label {
+    font-family: 'Nyxerin', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 4px;
+  }
+  
+  .nav-planet-name {
+    font-family: 'Nyxerin', sans-serif;
+    font-size: 18px;
+    color: white;
+    text-transform: uppercase;
+  }
+
+  /* Hide desktop tagline */
+  .scene-tagline, .scene-engine {
+    display: none !important;
+  }
+  
+  /* Hide the old "PLANET / EXPLORE" center widget on mobile since we have the nav row */
+  #planet-info-main {
+    display: none !important;
+  }
+
+  /* 3. Explored Counter */
+  #explore-progress {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    bottom: 25px !important;
+    right: auto !important;
+    top: auto !important;
+    width: auto !important;
+    text-align: center !important;
+  }
+
+  /* 4. Modal Optimizations */
+  
+  /* Close Button as X Icon */
+  .close-modal, .close-controls {
+    font-size: 0 !important; /* Hide text */
+    width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 50% !important;
+    background-color: rgba(0,0,0,0.5) !important;
+    background-image: url('images/close-icon.svg') !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: 14px !important;
+    top: 20px !important;
+    right: 20px !important;
+    left: auto !important;
+  }
+  
+  .close-controls img {
+    display: none !important;
+  }
+
+  /* Remove border radius and grey background */
+  .section-background, 
+  .hero-image-container,
+  .location-image,
+  .image-content {
+    border-radius: 0 !important;
+    background-color: transparent !important;
+    border: none !important; /* Remove grey borders if any */
+  }
+  
+  .image-container {
+    background: none !important; /* Remove loading background */
+  }
+
+  /* 5. Stats Layout (3 rows of 2) */
+  .planet-stats {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 15px !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  
+  .stat-item {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* 6. Key Locations Gap */
+  .locations-section .location-list {
+    gap: 4px !important;
+  }
+  
+  .location-item {
+    margin-bottom: 0 !important;
+  }
+
+  /* 7. Next Planet Layout */
+  .next-planet-section .section-content {
+    flex-direction: column !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+  .next-planet-image {
+    width: 90% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1; /* Keep it square-ish */
+    margin: 0 auto 20px auto !important;
+    object-fit: contain !important;
+  }
+  
+  .explore-next-planet-button {
+    width: 100% !important;
+  }
+  
+  /* Ensure modal images fill width */
+  .modal-section img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+  }
+}
