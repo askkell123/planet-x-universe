@@ -4283,9 +4283,15 @@ body, html {
     display: none !important;
   }
   
-  /* Hide the old "PLANET / EXPLORE" center widget on mobile since we have the nav row */
+  /* Restore center widget on mobile, positioned above nav */
   #planet-info-main {
-    display: none !important;
+    display: flex !important; /* Restore flex display */
+    bottom: 160px !important; /* Move up to clear nav row */
+    z-index: 80 !important;
+  }
+  
+  #planet-info-main .planet-name {
+    font-size: 32px !important; /* Smaller font for mobile */
   }
 
   /* 3. Explored Counter */
