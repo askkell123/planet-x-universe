@@ -4073,6 +4073,58 @@ body, html {
   object-fit: cover;
 }
 
+/* Mobile Navigation Arrows */
+.mobile-nav-arrows {
+  display: none; /* Hidden by default (desktop) */
+  position: fixed;
+  bottom: 60px; /* Above explored counter (approx 20px + height) */
+  right: 20px;
+  z-index: 10000;
+  gap: 15px;
+  align-items: center;
+}
+
+.nav-arrow-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.nav-arrow-btn:active {
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-arrow-btn img {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+/* Hide arrows when modal is open */
+body.modal-open .mobile-nav-arrows {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .mobile-nav-arrows {
+    display: flex;
+  }
+  
+  /* Adjust position of explored counter if needed to make room? 
+     Counter is at bottom: 20px. 
+     Arrows at bottom: 60px. 
+     Should be fine. */
+}
+
 /* Allow relevant sections and image containers to expand with 100vh images */
 .modal-section:not(.insignia-section),
 .modal-section:not(.insignia-section) .section-background,

@@ -202,6 +202,9 @@ class PlanetExplorer {
     // Mouse move event to track when the cursor is over a planet
     window.addEventListener('mousemove', (event) => this.onMouseMove(event));
     
+    // Setup mobile navigation arrows
+    this.setupMobileNavigation();
+    
     // Start animation loop
     this.animate();
 
@@ -2808,32 +2811,61 @@ class PlanetExplorer {
   }
   
   // Handle arrow key navigation
+  // Setup mobile navigation arrow listeners
+  setupMobileNavigation() {
+    const prevBtn = document.getElementById('nav-prev');
+    const nextBtn = document.getElementById('nav-next');
+    
+    if (prevBtn && nextBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent map click
+        this.navigatePlanet('left');
+      });
+      
+      nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.navigatePlanet('right');
+      });
+    }
+  }
+
+  // Helper to navigate between planets
+  navigatePlanet(direction) {
+    if (this.animating) return;
+    
+    // First hide the current planet info with animation
+    this.hidePlanetInfo();
+    
+    // After a delay, navigate to the next planet
+    setTimeout(() => {
+      // Navigate left or right in the planets array
+      if (direction === 'left') {
+        this.currentPlanetIndex = (this.currentPlanetIndex - 1 + this.planets.length) % this.planets.length;
+      } else if (direction === 'right') {
+        this.currentPlanetIndex = (this.currentPlanetIndex + 1) % this.planets.length;
+      }
+      
+      // Get the target planet
+      const targetPlanet = this.planets[this.currentPlanetIndex];
+      
+      // Get planet name from userData
+      const planetName = targetPlanet.name || targetPlanet.userData.name;
+      
+      // Move camera to new planet - will show info when animation completes
+      this.moveCamera(targetPlanet, planetName);
+      
+    }, 600); // Wait for 600ms to allow panels to slide out
+  }
+  
+  // Handle arrow key navigation
   onKeyDown(event) {
     // Handle navigation with arrow keys
     if (this.animating) return; // Prevent rapid navigation during camera animation
     
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-      // First hide the current planet info with animation
-      this.hidePlanetInfo();
-      
-      // After a delay, navigate to the next planet
-      setTimeout(() => {
-        // Navigate left or right in the planets array
-        if (event.key === 'ArrowLeft') {
-          this.currentPlanetIndex = (this.currentPlanetIndex - 1 + this.planets.length) % this.planets.length;
-        } else if (event.key === 'ArrowRight') {
-          this.currentPlanetIndex = (this.currentPlanetIndex + 1) % this.planets.length;
-        }
-        
-        // Get the target planet
-        const targetPlanet = this.planets[this.currentPlanetIndex];
-        
-        // Get planet name from userData
-        const planetName = targetPlanet.name || targetPlanet.userData.name;
-        
-        // Move camera to new planet - will show info when animation completes
-        this.moveCamera(targetPlanet, planetName);
-      }, 600); // Wait for 600ms to allow panels to slide out
+    if (event.key === 'ArrowLeft') {
+      this.navigatePlanet('left');
+    } else if (event.key === 'ArrowRight') {
+      this.navigatePlanet('right');
     }
   }
   
