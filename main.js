@@ -205,37 +205,10 @@ class PlanetExplorer {
     // Start animation loop
     this.animate();
 
-    /* ---------------- Mobile Controls & Navigation ---------------- */
-    const mobileControlsBtn = document.getElementById('mobile-controls-btn');
-    const controlsOverlay = document.getElementById('controls-overlay');
-    const closeControlsBtn = document.querySelector('.close-controls');
-    
-    if (mobileControlsBtn && controlsOverlay) {
-      mobileControlsBtn.addEventListener('click', () => {
-        controlsOverlay.classList.add('visible');
-        const logo = document.getElementById('scene-logo');
-        if (logo) logo.classList.add('logo-black');
-      });
-    }
-
-    // Mobile Navigation Arrows
-    const prevBtn = document.getElementById('mobile-prev-planet');
-    const nextBtn = document.getElementById('mobile-next-planet');
-    
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        this.navigatePlanet(-1);
-      });
-    }
-    
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        this.navigatePlanet(1);
-      });
-    }
-
     /* ---------------- Controls Overlay ---------------- */
     const controlsBtn = document.getElementById('controls-btn');
+    const controlsOverlay = document.getElementById('controls-overlay');
+    const closeControlsBtn = document.querySelector('.close-controls');
 
     if (controlsBtn && controlsOverlay && closeControlsBtn) {
       controlsBtn.addEventListener('click', () => {
@@ -674,52 +647,6 @@ class PlanetExplorer {
     return texture;
   }
   
-  // Mobile Navigation Logic
-  navigatePlanet(direction) {
-    if (this.animating) return;
-    
-    // Get current planet index
-    let currentIndex = -1;
-    if (this.selectedPlanet) {
-      currentIndex = this.planets.indexOf(this.selectedPlanet);
-    }
-    
-    // Calculate next index
-    let nextIndex;
-    if (currentIndex === -1) {
-      // If no planet focused, start at 0 (Planet-X) or end depending on direction
-      nextIndex = direction > 0 ? 0 : this.planets.length - 1;
-    } else {
-      nextIndex = (currentIndex + direction + this.planets.length) % this.planets.length;
-    }
-    
-    // Focus the new planet
-    const targetPlanet = this.planets[nextIndex];
-    
-    // Hide current info first
-    this.hidePlanetInfo();
-    
-    // Move camera to planet (this sets selectedPlanet and calls showPlanetInfo)
-    this.moveCamera(targetPlanet, targetPlanet.userData.name);
-  }
-
-  updateMobileNav() {
-    const navName = document.querySelector('.nav-planet-name');
-    const navLabel = document.querySelector('.nav-label');
-    
-    if (navName && navLabel) {
-      if (this.selectedPlanet) {
-        // Show planet name
-        navLabel.textContent = "CURRENT SYSTEM";
-        navName.textContent = this.selectedPlanet.userData.name.toUpperCase();
-      } else {
-        // Reset to default
-        navLabel.textContent = "EXPLORE THE UNIVERSE";
-        navName.textContent = "";
-      }
-    }
-  }
-
   // Helper method to create optimized images with loading states
   createOptimizedImage(imagePath, altText, width, height) {
     const img = document.createElement('img');
@@ -944,9 +871,6 @@ class PlanetExplorer {
   }
   
   showPlanetInfo(planetName) {
-    // Update Mobile Nav
-    this.updateMobileNav();
-
     // Ensure planet name fits within tablet viewport width
     const fitName = () => {
       if (window.innerWidth > 900) return; // only tablet/mobile
@@ -2602,11 +2526,11 @@ class PlanetExplorer {
       this.scrambleText(taglineEl, 'EXPLORE THE UNIVERSE');
     }
     
+    // Remove corona effect - THIS LINE SHOULD HAVE BEEN REMOVED
+    // this.removeCorona(); // <<< Ensure this line is deleted
+    
     // Hide modal if it's open
     this.hideModal();
-    
-    // Update mobile nav
-    this.updateMobileNav();
   }
   
   updatePlanetStats(planetName) {
