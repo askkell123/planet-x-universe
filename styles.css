@@ -7,18 +7,16 @@
 
 @font-face {
   font-family: 'Nyxerin';
-  src: url('/fonts/NYXERIN.otf') format('opentype');
+  src: url('fonts/NYXERIN.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
 }
 
 @font-face {
   font-family: 'Space Mono';
-  src: url('/fonts/SpaceMono-Regular.ttf') format('truetype');
+  src: url('fonts/SpaceMono-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
 }
 
 body {
@@ -4073,58 +4071,6 @@ body, html {
   object-fit: cover;
 }
 
-/* Mobile Navigation Arrows */
-.mobile-nav-arrows {
-  display: none; /* Hidden by default (desktop) */
-  position: fixed;
-  bottom: 60px; /* Above explored counter (approx 20px + height) */
-  right: 20px;
-  z-index: 10000;
-  gap: 15px;
-  align-items: center;
-}
-
-.nav-arrow-btn {
-  width: 44px;
-  height: 44px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  padding: 0;
-}
-
-.nav-arrow-btn:active {
-  transform: scale(0.95);
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.nav-arrow-btn img {
-  width: 16px;
-  height: 16px;
-  display: block;
-}
-
-/* Hide arrows when modal is open */
-body.modal-open .mobile-nav-arrows {
-  display: none !important;
-}
-
-@media (max-width: 768px) {
-  .mobile-nav-arrows {
-    display: flex;
-  }
-  
-  /* Adjust position of explored counter if needed to make room? 
-     Counter is at bottom: 20px. 
-     Arrows at bottom: 60px. 
-     Should be fine. */
-}
-
 /* Allow relevant sections and image containers to expand with 100vh images */
 .modal-section:not(.insignia-section),
 .modal-section:not(.insignia-section) .section-background,
@@ -4210,3 +4156,110 @@ body.modal-open .mobile-nav-arrows {
 @media (max-width: 900px) {
   /* ... existing code ... */
 } 
+/* ------------------------------------------------------------------
+   RESTORED & FIXED: Mobile Navigation & Styles
+   -------------------------------------------------------------------- */
+
+/* Mobile Navigation Arrows */
+.mobile-nav-arrows {
+  display: none;
+  position: fixed;
+  bottom: 60px; /* Above explored counter */
+  right: 20px;
+  z-index: 95; /* Below modal/controls */
+  gap: 15px;
+  align-items: center;
+}
+
+.nav-arrow-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50% !important;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.nav-arrow-btn:active {
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-arrow-btn img {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+/* Hide arrows when modal is open */
+body.modal-open .mobile-nav-arrows {
+  display: none !important;
+}
+
+/* Hide arrows when controls overlay is visible */
+body.controls-open .mobile-nav-arrows {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .mobile-nav-arrows {
+    display: flex;
+  }
+  
+  /* Next Planet Section - Mobile Update */
+  .next-planet-section .section-content {
+    flex-direction: column !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+  .next-planet-image {
+    width: 90% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto 20px auto !important;
+    object-fit: contain !important;
+  }
+  
+  .explore-next-planet-button {
+    width: 100% !important;
+  }
+  
+  /* Ensure modal images fill width */
+  .modal-section img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+  }
+}
+
+/* GLOBAL BORDER RADIUS UPDATE */
+.hero-image-container,
+.location-item,
+.location-item .location-image,
+.image-content,
+.section-background,
+.next-planet-image,
+.content-wrap,
+.modal-section img,
+.modal-section canvas {
+  border-radius: 2px !important;
+}
+
+/* Specific overrides */
+.nav-arrow-btn,
+#mute-button,
+.pagination-dot,
+.close-modal,
+.explore-button {
+  border-radius: 50% !important;
+}
+
+.explore-button, .controls-pill {
+  border-radius: 9999px !important;
+}

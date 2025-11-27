@@ -216,11 +216,13 @@ class PlanetExplorer {
     if (controlsBtn && controlsOverlay && closeControlsBtn) {
       controlsBtn.addEventListener('click', () => {
         controlsOverlay.classList.add('visible');
+        document.body.classList.add('controls-open');
         const logo = document.getElementById('scene-logo');
         if (logo) logo.classList.add('logo-black');
       });
       closeControlsBtn.addEventListener('click', () => {
         controlsOverlay.classList.remove('visible');
+        document.body.classList.remove('controls-open');
         const logo = document.getElementById('scene-logo');
         if (logo) logo.classList.remove('logo-black');
       });
@@ -1135,6 +1137,9 @@ class PlanetExplorer {
   async showPlanetModal(planetName) {
     const modal = document.getElementById('planet-modal');
     if (!modal) return;
+    
+    // Add body class for UI state management
+    document.body.classList.add('modal-open');
     
     const modalWasVisible = modal.classList.contains('visible');
     
@@ -2500,8 +2505,9 @@ class PlanetExplorer {
 
       // Wait for animation to finish then fully hide
       setTimeout(() => {
-      modal.classList.remove('visible');
+        modal.classList.remove('visible');
         modal.classList.remove('closing');
+        document.body.classList.remove('modal-open');
         // Hide gradient overlay once modal closed
         const grad = document.querySelector('.top-gradient');
         if (grad) grad.style.display = 'none';
