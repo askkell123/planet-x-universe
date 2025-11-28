@@ -4025,8 +4025,8 @@ body, html {
   transform: translateX(-50%);
   width: 40px;
   height: 40px;
-  background-color: #0c0c0c;
-  border: 1px solid #ffffff;
+  background-color: rgba(0, 0, 0, 0.5); /* Matched to arrows */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Matched to arrows */
   border-radius: 50%; /* Makes it a circle */
   cursor: inherit; /* Changed from pointer to inherit */
   display: flex;
@@ -4166,7 +4166,7 @@ body, html {
 .mobile-nav-arrows {
   display: none;
   position: fixed;
-  bottom: 60px; /* Above explored counter */
+  bottom: 45px; /* Aligned with Mute button */
   right: 20px;
   z-index: 95; /* Below modal/controls */
   gap: 15px;
@@ -4174,8 +4174,8 @@ body, html {
 }
 
 .nav-arrow-btn {
-  width: 44px;
-  height: 44px;
+  width: 40px; /* Match Mute button size */
+  height: 40px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50% !important;
   background: rgba(0, 0, 0, 0.5);
@@ -4257,11 +4257,55 @@ body.controls-open .mobile-nav-arrows {
 .nav-arrow-btn,
 #mute-button,
 .pagination-dot,
-.close-modal,
 .explore-button {
   border-radius: 50% !important;
 }
 
-.explore-button, .controls-pill {
+.explore-button, .controls-pill, .close-modal {
   border-radius: 9999px !important;
+}
+
+/* ==========================================================================
+   FINAL MOBILE OVERRIDES (Force Application)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* 1. Close Modal Button - Pill Shape */
+  .close-modal {
+    border-radius: 9999px !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 12px 24px !important;
+    aspect-ratio: auto !important;
+    font-size: 12px !important; /* Ensure text is visible */
+    background-image: none !important; /* Remove icon if it was set */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  /* 2. Arrow Buttons - Align with Mute */
+  .mobile-nav-arrows {
+    bottom: 45px !important; /* Match #mute-button mobile bottom */
+    right: 20px !important;
+    display: flex !important;
+    z-index: 95 !important;
+  }
+
+  /* 3. Arrow Buttons - Style Match Mute */
+  .nav-arrow-btn {
+    width: 40px !important;
+    height: 40px !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 50% !important;
+  }
+  
+  /* 4. Mute Button - Ensure consistency */
+  #mute-button {
+    background: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    bottom: 45px !important;
+    left: 20px !important;
+  }
 }
