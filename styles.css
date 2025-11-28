@@ -4309,3 +4309,50 @@ body.controls-open .mobile-nav-arrows {
     left: 20px !important;
   }
 }
+
+/* ==========================================================================
+   MOBILE NEXT PLANET SECTION REFINEMENT
+   ========================================================================== */
+@media (max-width: 768px) {
+  .modal-section.next-planet-section {
+    min-height: 100vh !important;
+    padding: 40px 20px !important;
+    box-sizing: border-box !important;
+  }
+
+  .next-planet-section .section-content {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 30px !important;
+  }
+
+  .next-planet-image {
+    width: 90% !important;
+    height: auto !important;
+    max-height: 50vh !important;
+    object-fit: contain !important;
+    margin: 0 auto !important;
+    flex: 0 0 auto !important;
+  }
+
+  .next-planet-section .content-wrap {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* Center text/button */
+    text-align: center !important;
+    background: none !important; /* Ensure transparency if needed */
+    padding: 0 !important;
+  }
+
+  .explore-next-planet-button {
+    width: auto !important; /* Hug text width */
+    min-width: auto !important;
+    padding: 12px 32px !important; /* Restore padding */
+    display: inline-flex !important;
+    margin-top: 20px !important;
+  }
+}
