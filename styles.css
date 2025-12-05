@@ -4357,70 +4357,109 @@ body.controls-open .mobile-nav-arrows {
   }
 }
 
-/* Mobile Key Locations Refinement - Accordion Layout */
+/* Mobile Key Locations - Data Card Layout */
 @media (max-width: 768px) {
-  /* Prevent horizontal scrolling and ensure full width */
+  /* Container: Horizontal Scroll with Snap */
   .locations-section .section-content {
+    display: flex !important;
     width: 100% !important;
-    overflow-x: hidden !important;
-    padding: 0 20px !important; /* Optional: Keep side padding for aesthetic framing */
-    box-sizing: border-box !important;
+    height: auto !important;
+    min-height: 80vh !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory;
+    /* Center the 85vw cards: (100vw - 85vw) / 2 = 7.5vw padding */
+    padding: 0 7.5vw !important; 
+    scroll-behavior: smooth;
+    align-items: center !important;
+    /* Hide scrollbar */
+    scrollbar-width: none; 
+  }
+  .locations-section .section-content::-webkit-scrollbar {
+    display: none;
   }
 
+  /* List wrapper */
   .locations-section .location-list {
-    width: 100% !important;
-    height: 100% !important;
     display: flex !important;
-    flex-direction: row !important;
-    gap: 4px !important; /* 4px gap as requested */
+    width: max-content !important;
+    gap: 20px !important;
     margin: 0 !important;
     padding: 0 !important;
+    height: 100% !important;
+    align-items: center !important;
   }
   
-  /* Base state for all items (unfocused) */
+  /* The Data Card */
   .locations-section .location-item {
-    width: auto !important;
-    height: 100% !important;
-    margin: 0 !important;
-    flex: 1 1 0% !important; /* Grow to fill space, shrink if needed */
-    flex-shrink: 1 !important;
-    transition: flex 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease !important;
-    border-radius: 4px !important;
-    opacity: 0.4 !important; /* Dim unfocused items */
+    width: 85vw !important;
+    height: 70vh !important; 
+    flex: 0 0 85vw !important; /* Fixed width, no shrinking */
+    scroll-snap-align: center;
+    background: rgba(12, 12, 12, 0.9) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 16px !important;
     overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
     position: relative !important;
+    margin: 0 !important;
+    
+    /* Active/Inactive State - defaulting to visible for usability without scroll-sync JS */
+    opacity: 1 !important;
+    transform: none !important;
+    transition: border-color 0.3s ease;
   }
 
-  /* Focused item state (80% width) */
+  /* Add a glow to the focused item if JS sets it (from clicks) */
   .locations-section .location-item.focused {
-    flex: 0 0 80% !important; /* Force 80% width */
-    opacity: 1 !important; /* Full visibility */
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5) !important;
   }
-  
-  /* Hide content in unfocused items to prevent clutter */
-  .locations-section .location-item .location-content {
-     opacity: 0 !important;
-     transition: opacity 0.3s ease !important;
-     pointer-events: none !important;
-  }
-  
-  /* Show content only in focused item */
-  .locations-section .location-item.focused .location-content {
-     opacity: 1 !important;
-     pointer-events: auto !important;
-     transition-delay: 0.3s !important;
-  }
-  
-  /* Ensure image fills the container height */
+
+  /* Image Area */
   .locations-section .location-item .location-image {
-    height: 100% !important;
     width: 100% !important;
+    height: 60% !important;
+    position: relative !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   }
   
   .locations-section .location-item .location-image img {
-    height: 100% !important;
     width: 100% !important;
+    height: 100% !important;
     object-fit: cover !important;
+  }
+
+  /* Content Area */
+  .locations-section .location-item .location-content {
+    width: 100% !important;
+    height: 40% !important;
+    padding: 24px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    background: none !important;
+  }
+  
+  .locations-section .location-item h4 {
+    font-size: 20px !important;
+    margin-bottom: 12px !important;
+    color: #fff !important;
+    letter-spacing: 1px;
+  }
+
+  .locations-section .location-item p {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    color: #A5A5A5 !important;
+    /* Ellipsis for long text */
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 
