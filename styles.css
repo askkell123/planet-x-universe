@@ -1485,6 +1485,27 @@ button:hover,
   animation: nebula-move 120s infinite linear;
 }
 
+.nebula-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(1px 1px at 10% 10%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 20% 20%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 30% 30%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 40% 40%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 50% 50%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 60% 60%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 70% 70%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 80% 80%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 90% 90%, rgba(255, 255, 255, 0.8) 50%, transparent 100%);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.3;
+  animation: nebula-stars 30s infinite linear;
+}
 
 .nebula-dust {
   position: absolute;
@@ -1514,6 +1535,10 @@ button:hover,
   100% { background-position: 0% 0%; }
 }
 
+@keyframes nebula-stars {
+  0% { background-position: 0px 0px; }
+  100% { background-position: 200px 200px; }
+}
 
 @keyframes nebula-dust {
   0% { background-position: 0px 0px; }
@@ -4332,57 +4357,70 @@ body.controls-open .mobile-nav-arrows {
   }
 }
 
-/* Mobile Key Locations Refinement: Vertical Stack */
+/* Mobile Key Locations Refinement - Accordion Layout */
 @media (max-width: 768px) {
-  /* Allow section to expand naturally */
-  .locations-section {
-    height: auto !important;
-    min-height: 100vh !important;
-    overflow: visible !important;
+  /* Prevent horizontal scrolling and ensure full width */
+  .locations-section .section-content {
+    width: 100% !important;
+    overflow-x: hidden !important;
+    padding: 0 20px !important; /* Optional: Keep side padding for aesthetic framing */
+    box-sizing: border-box !important;
   }
 
-  /* Change list to vertical column */
   .locations-section .location-list {
-    display: flex !important;
-    flex-direction: column !important;
     width: 100% !important;
-    height: auto !important;
-    overflow-x: hidden !important;
-    gap: 40px !important; /* Space between locations */
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 4px !important; /* 4px gap as requested */
+    margin: 0 !important;
     padding: 0 !important;
   }
   
-  /* Individual location card */
+  /* Base state for all items (unfocused) */
   .locations-section .location-item {
-    width: 100% !important;
-    height: 80vh !important; /* Fixed height as requested */
+    width: auto !important;
+    height: 100% !important;
     margin: 0 !important;
-    flex-shrink: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
+    flex: 1 1 0% !important; /* Grow to fill space, shrink if needed */
+    flex-shrink: 1 !important;
+    transition: flex 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease !important;
+    border-radius: 4px !important;
+    opacity: 0.4 !important; /* Dim unfocused items */
+    overflow: hidden !important;
+    position: relative !important;
+  }
+
+  /* Focused item state (80% width) */
+  .locations-section .location-item.focused {
+    flex: 0 0 80% !important; /* Force 80% width */
+    opacity: 1 !important; /* Full visibility */
   }
   
-  /* Image fills remaining space */
-  .locations-section .location-item .location-image {
-    flex: 1 1 auto !important;
-    height: auto !important;
-    width: 100% !important;
-    min-height: 0 !important;
-  }
-
-  /* Content takes auto height */
+  /* Hide content in unfocused items to prevent clutter */
   .locations-section .location-item .location-content {
-    flex: 0 0 auto !important;
-    height: auto !important;
-    width: 100% !important;
-    padding: 20px 0 !important; /* Vertical padding only */
+     opacity: 0 !important;
+     transition: opacity 0.3s ease !important;
+     pointer-events: none !important;
   }
-
-  /* Ensure text doesn't overflow horizontally */
-  .locations-section .location-item h4,
-  .locations-section .location-item p {
-    white-space: normal !important;
+  
+  /* Show content only in focused item */
+  .locations-section .location-item.focused .location-content {
+     opacity: 1 !important;
+     pointer-events: auto !important;
+     transition-delay: 0.3s !important;
+  }
+  
+  /* Ensure image fills the container height */
+  .locations-section .location-item .location-image {
+    height: 100% !important;
     width: 100% !important;
+  }
+  
+  .locations-section .location-item .location-image img {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover !important;
   }
 }
 
