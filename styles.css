@@ -4356,3 +4356,29 @@ body.controls-open .mobile-nav-arrows {
     margin-top: 20px !important;
   }
 }
+
+/* Mobile Key Locations Refinement */
+@media (max-width: 768px) {
+  .locations-section .location-list {
+    gap: 0 !important; /* Reset flex gap if any, use margin */
+  }
+  
+  .locations-section .location-item {
+    width: 80vw !important;
+    margin-right: 4px !important;
+    flex-shrink: 0 !important;
+  }
+  
+  /* Remove margin from the last item */
+  .locations-section .location-item:last-child {
+    margin-right: 20px !important; /* Keep some end padding */
+  }
+}
+
+/* Align Logo with Mute Button on Mobile */
+@media (max-width: 768px) {
+  .scene-logo {
+    left: 20px !important;
+    top: 20px !important;
+  }
+}

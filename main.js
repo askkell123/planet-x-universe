@@ -2532,7 +2532,7 @@ class PlanetExplorer {
     // Revert tagline to default
     const taglineEl = document.getElementById('scene-tagline');
     if (taglineEl) {
-      this.scrambleText(taglineEl, 'EXPLORE THE UNIVERSE');
+      this.scrambleText(taglineEl, 'EXPLORE');
     }
     
     // Remove corona effect - THIS LINE SHOULD HAVE BEEN REMOVED
