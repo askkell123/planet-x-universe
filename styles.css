@@ -4357,109 +4357,97 @@ body.controls-open .mobile-nav-arrows {
   }
 }
 
-/* Mobile Key Locations - Data Card Layout */
+/* Mobile Key Locations Refinement - Vertical Stack */
 @media (max-width: 768px) {
-  /* Container: Horizontal Scroll with Snap */
+  /* Allow vertical scrolling for the content area */
   .locations-section .section-content {
-    display: flex !important;
     width: 100% !important;
     height: auto !important;
-    min-height: 80vh !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    scroll-snap-type: x mandatory;
-    /* Center the 85vw cards: (100vw - 85vw) / 2 = 7.5vw padding */
-    padding: 0 7.5vw !important; 
-    scroll-behavior: smooth;
-    align-items: center !important;
-    /* Hide scrollbar */
-    scrollbar-width: none; 
-  }
-  .locations-section .section-content::-webkit-scrollbar {
-    display: none;
+    max-height: 85vh !important; /* Scrollable area within modal */
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding: 0 20px 80px 20px !important; /* Extra bottom padding for scroll */
+    box-sizing: border-box !important;
+    display: block !important; /* Reset flex/grid */
   }
 
-  /* List wrapper */
+  /* Stack items vertically */
   .locations-section .location-list {
-    display: flex !important;
-    width: max-content !important;
-    gap: 20px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    height: 100% !important;
-    align-items: center !important;
-  }
-  
-  /* The Data Card */
-  .locations-section .location-item {
-    width: 85vw !important;
-    height: 70vh !important; 
-    flex: 0 0 85vw !important; /* Fixed width, no shrinking */
-    scroll-snap-align: center;
-    background: rgba(12, 12, 12, 0.9) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    border-radius: 16px !important;
-    overflow: hidden !important;
+    width: 100% !important;
+    height: auto !important;
     display: flex !important;
     flex-direction: column !important;
-    position: relative !important;
+    gap: 40px !important; /* Generous spacing between locations */
     margin: 0 !important;
-    
-    /* Active/Inactive State - defaulting to visible for usability without scroll-sync JS */
-    opacity: 1 !important;
-    transform: none !important;
-    transition: border-color 0.3s ease;
+    padding: 0 !important;
+  }
+  
+  /* Individual Location Card */
+  .locations-section .location-item {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    flex: none !important; /* Disable flex scaling */
+    opacity: 1 !important; /* Always fully visible */
+    background: none !important;
+    border-radius: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    pointer-events: auto !important;
   }
 
-  /* Add a glow to the focused item if JS sets it (from clicks) */
+  /* Remove focused state visual differences */
   .locations-section .location-item.focused {
-    border-color: rgba(255, 255, 255, 0.5) !important;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5) !important;
+    flex: none !important;
+    width: 100% !important;
+    opacity: 1 !important;
   }
 
-  /* Image Area */
+  /* Image: Full width, fixed height for consistency */
   .locations-section .location-item .location-image {
     width: 100% !important;
-    height: 60% !important;
-    position: relative !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    height: 220px !important; /* Good height for mobile context */
+    border-radius: 4px !important;
+    margin-bottom: 16px !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
   }
   
   .locations-section .location-item .location-image img {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
+    margin: 0 !important;
+    margin-left: 0 !important; /* Reset any negative margins */
   }
 
-  /* Content Area */
+  /* Text Content: Below image, full visibility */
   .locations-section .location-item .location-content {
-    width: 100% !important;
-    height: 40% !important;
-    padding: 24px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: flex-start !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    background: none !important;
+     width: 100% !important;
+     opacity: 1 !important;
+     pointer-events: auto !important;
+     padding: 0 !important;
+     display: block !important;
+     white-space: normal !important; /* Allow text wrap */
+     transition: none !important;
+  }
+
+  .locations-section .location-item .location-content h4 {
+    margin-bottom: 8px !important;
+    font-size: 18px !important;
+    color: #fff !important;
   }
   
-  .locations-section .location-item h4 {
-    font-size: 20px !important;
-    margin-bottom: 12px !important;
-    color: #fff !important;
-    letter-spacing: 1px;
-  }
-
-  .locations-section .location-item p {
+  .locations-section .location-item .location-content p {
     font-size: 12px !important;
-    line-height: 1.5 !important;
+    line-height: 1.6 !important;
     color: #A5A5A5 !important;
-    /* Ellipsis for long text */
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    text-align: left !important;
+  }
+  
+  /* Hide the desktop/horizontal navigation arrows */
+  .locations-section .location-controls {
+    display: none !important;
   }
 }
 
