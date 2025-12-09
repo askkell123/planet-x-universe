@@ -4357,59 +4357,52 @@ body.controls-open .mobile-nav-arrows {
   }
 }
 
-/* Mobile Key Locations Refinement - Vertical Stack */
+/* Mobile Key Locations Refinement - Tidy Carousel */
 @media (max-width: 768px) {
-  /* Allow vertical scrolling for the content area */
+  /* Scroll Container */
   .locations-section .section-content {
     width: 100% !important;
-    height: auto !important;
-    max-height: 85vh !important; /* Scrollable area within modal */
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    padding: 0 20px 80px 20px !important; /* Extra bottom padding for scroll */
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    padding: 0 20px !important; /* Padding for start/end spacing */
+    scrollbar-width: none !important;
     box-sizing: border-box !important;
-    display: block !important; /* Reset flex/grid */
-  }
-
-  /* Stack items vertically */
-  .locations-section .location-list {
-    width: 100% !important;
-    height: auto !important;
     display: flex !important;
-    flex-direction: column !important;
-    gap: 40px !important; /* Generous spacing between locations */
-    margin: 0 !important;
-    padding: 0 !important;
+    align-items: center !important;
   }
   
-  /* Individual Location Card */
-  .locations-section .location-item {
-    width: 100% !important;
-    height: auto !important;
+  .locations-section .section-content::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .locations-section .location-list {
+    display: flex !important;
+    flex-direction: row !important;
+    width: max-content !important;
+    gap: 16px !important; /* Clean consistent gap */
     margin: 0 !important;
-    flex: none !important; /* Disable flex scaling */
-    opacity: 1 !important; /* Always fully visible */
-    background: none !important;
-    border-radius: 0 !important;
+    padding-right: 20px !important; /* Extra padding at end */
+  }
+  
+  /* Individual Cards */
+  .locations-section .location-item {
+    width: 85vw !important; /* Optimal mobile width */
+    height: 75vh !important; /* Tidy height */
+    flex-shrink: 0 !important;
+    scroll-snap-align: center !important; /* Snap to center */
+    margin-right: 0 !important;
+    border-radius: 8px !important;
+    background: rgba(12, 12, 12, 0.9) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     display: flex !important;
     flex-direction: column !important;
-    pointer-events: auto !important;
+    overflow: hidden !important;
   }
-
-  /* Remove focused state visual differences */
-  .locations-section .location-item.focused {
-    flex: none !important;
-    width: 100% !important;
-    opacity: 1 !important;
-  }
-
-  /* Image: Full width, fixed height for consistency */
+  
+  /* Image Section */
   .locations-section .location-item .location-image {
     width: 100% !important;
-    height: 220px !important; /* Good height for mobile context */
-    border-radius: 4px !important;
-    margin-bottom: 16px !important;
-    overflow: hidden !important;
+    height: 60% !important; /* Balanced split */
     flex-shrink: 0 !important;
   }
   
@@ -4417,37 +4410,32 @@ body.controls-open .mobile-nav-arrows {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
-    margin: 0 !important;
-    margin-left: 0 !important; /* Reset any negative margins */
+    border-radius: 0 !important; /* Flush with container */
   }
 
-  /* Text Content: Below image, full visibility */
+  /* Content Section */
   .locations-section .location-item .location-content {
-     width: 100% !important;
-     opacity: 1 !important;
-     pointer-events: auto !important;
-     padding: 0 !important;
-     display: block !important;
-     white-space: normal !important; /* Allow text wrap */
-     transition: none !important;
+    width: 100% !important;
+    height: 40% !important;
+    padding: 20px !important;
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    background: transparent !important;
   }
-
-  .locations-section .location-item .location-content h4 {
+  
+  .locations-section .location-item h4 {
+    font-size: 16px !important;
     margin-bottom: 8px !important;
-    font-size: 18px !important;
     color: #fff !important;
   }
   
-  .locations-section .location-item .location-content p {
-    font-size: 12px !important;
-    line-height: 1.6 !important;
-    color: #A5A5A5 !important;
-    text-align: left !important;
-  }
-  
-  /* Hide the desktop/horizontal navigation arrows */
-  .locations-section .location-controls {
-    display: none !important;
+  .locations-section .location-item p {
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+    color: #aaa !important;
+    white-space: normal !important;
   }
 }
 
