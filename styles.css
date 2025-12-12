@@ -4357,14 +4357,14 @@ body.controls-open .mobile-nav-arrows {
   }
 }
 
-/* Mobile Key Locations Refinement - Tidy Carousel */
+/* Mobile Key Locations Refinement - Clean Carousel */
 @media (max-width: 768px) {
   /* Scroll Container */
   .locations-section .section-content {
     width: 100% !important;
     overflow-x: auto !important;
     scroll-snap-type: x mandatory !important;
-    padding: 0 20px !important; /* Padding for start/end spacing */
+    padding: 0 10vw !important; /* Center 80vw items (10vw padding on each side) */
     scrollbar-width: none !important;
     box-sizing: border-box !important;
     display: flex !important;
@@ -4379,21 +4379,24 @@ body.controls-open .mobile-nav-arrows {
     display: flex !important;
     flex-direction: row !important;
     width: max-content !important;
-    gap: 16px !important; /* Clean consistent gap */
+    gap: 8px !important; /* 8px gap as requested */
     margin: 0 !important;
-    padding-right: 20px !important; /* Extra padding at end */
+    padding-right: 10vw !important; /* Match start padding */
   }
   
   /* Individual Cards */
   .locations-section .location-item {
-    width: 85vw !important; /* Optimal mobile width */
-    height: 75vh !important; /* Tidy height */
+    width: 80vw !important; /* 80vw as requested */
+    height: 75vh !important;
     flex-shrink: 0 !important;
-    scroll-snap-align: center !important; /* Snap to center */
+    scroll-snap-align: center !important;
     margin-right: 0 !important;
-    border-radius: 8px !important;
-    background: rgba(12, 12, 12, 0.9) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    
+    /* Remove styling as requested */
+    border-radius: 0 !important;
+    background: none !important;
+    border: none !important;
+    
     display: flex !important;
     flex-direction: column !important;
     overflow: hidden !important;
@@ -4402,7 +4405,7 @@ body.controls-open .mobile-nav-arrows {
   /* Image Section */
   .locations-section .location-item .location-image {
     width: 100% !important;
-    height: 60% !important; /* Balanced split */
+    height: 60% !important;
     flex-shrink: 0 !important;
   }
   
@@ -4410,32 +4413,37 @@ body.controls-open .mobile-nav-arrows {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
-    border-radius: 0 !important; /* Flush with container */
+    border-radius: 2px !important; /* Keep slight global radius or remove if desired */
   }
 
   /* Content Section */
   .locations-section .location-item .location-content {
-    width: 100% !important;
+    width: 100% !important; /* Fill card width */
     height: 40% !important;
-    padding: 20px !important;
+    padding: 16px 0 !important; /* Vertical padding only */
     flex-grow: 1 !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
     background: transparent !important;
+    align-items: flex-start !important; /* Align text left */
   }
   
   .locations-section .location-item h4 {
-    font-size: 16px !important;
+    width: 100% !important;
+    font-size: 18px !important;
     margin-bottom: 8px !important;
     color: #fff !important;
+    text-align: left !important;
   }
   
   .locations-section .location-item p {
+    width: 100% !important;
     font-size: 11px !important;
     line-height: 1.5 !important;
     color: #aaa !important;
     white-space: normal !important;
+    text-align: left !important;
   }
 }
 
