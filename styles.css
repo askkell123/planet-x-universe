@@ -4384,9 +4384,10 @@ body.controls-open .mobile-nav-arrows {
     padding-right: 10vw !important; /* Match start padding */
   }
   
-  /* Individual Cards */
-  .locations-section .location-item {
-    width: 80vw !important; /* 80vw as requested */
+  /* Individual Cards - Override Specificity of .focused */
+  .locations-section .location-item,
+  .locations-section .location-item.focused {
+    width: 80vw !important; /* 80vw as requested, overriding desktop focused state */
     height: 75vh !important;
     flex-shrink: 0 !important;
     scroll-snap-align: center !important;
@@ -4400,6 +4401,7 @@ body.controls-open .mobile-nav-arrows {
     display: flex !important;
     flex-direction: column !important;
     overflow: hidden !important;
+    transition: none !important; /* Remove desktop transition */
   }
   
   /* Image Section */
@@ -4416,8 +4418,9 @@ body.controls-open .mobile-nav-arrows {
     border-radius: 2px !important; /* Keep slight global radius or remove if desired */
   }
 
-  /* Content Section */
-  .locations-section .location-item .location-content {
+  /* Content Section - Force visible on all items */
+  .locations-section .location-item .location-content,
+  .locations-section .location-item.focused .location-content {
     width: 100% !important; /* Fill card width */
     height: 40% !important;
     padding: 16px 0 !important; /* Vertical padding only */
@@ -4427,6 +4430,8 @@ body.controls-open .mobile-nav-arrows {
     justify-content: flex-start !important;
     background: transparent !important;
     align-items: flex-start !important; /* Align text left */
+    opacity: 1 !important; /* Force visible */
+    pointer-events: auto !important;
   }
   
   .locations-section .location-item h4 {
