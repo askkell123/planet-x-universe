@@ -2505,7 +2505,7 @@ class PlanetExplorer {
 
       // Wait for animation to finish then fully hide
       setTimeout(() => {
-        modal.classList.remove('visible');
+      modal.classList.remove('visible');
         modal.classList.remove('closing');
         document.body.classList.remove('modal-open');
         // Hide gradient overlay once modal closed
@@ -2839,28 +2839,28 @@ class PlanetExplorer {
   navigatePlanet(direction) {
     if (this.animating) return;
     
-    // First hide the current planet info with animation
-    this.hidePlanetInfo();
-    
-    // After a delay, navigate to the next planet
-    setTimeout(() => {
-      // Navigate left or right in the planets array
+      // First hide the current planet info with animation
+      this.hidePlanetInfo();
+      
+      // After a delay, navigate to the next planet
+      setTimeout(() => {
+        // Navigate left or right in the planets array
       if (direction === 'left') {
-        this.currentPlanetIndex = (this.currentPlanetIndex - 1 + this.planets.length) % this.planets.length;
+          this.currentPlanetIndex = (this.currentPlanetIndex - 1 + this.planets.length) % this.planets.length;
       } else if (direction === 'right') {
-        this.currentPlanetIndex = (this.currentPlanetIndex + 1) % this.planets.length;
-      }
+          this.currentPlanetIndex = (this.currentPlanetIndex + 1) % this.planets.length;
+        }
+        
+        // Get the target planet
+        const targetPlanet = this.planets[this.currentPlanetIndex];
+        
+        // Get planet name from userData
+        const planetName = targetPlanet.name || targetPlanet.userData.name;
+        
+        // Move camera to new planet - will show info when animation completes
+        this.moveCamera(targetPlanet, planetName);
       
-      // Get the target planet
-      const targetPlanet = this.planets[this.currentPlanetIndex];
-      
-      // Get planet name from userData
-      const planetName = targetPlanet.name || targetPlanet.userData.name;
-      
-      // Move camera to new planet - will show info when animation completes
-      this.moveCamera(targetPlanet, planetName);
-      
-    }, 600); // Wait for 600ms to allow panels to slide out
+      }, 600); // Wait for 600ms to allow panels to slide out
   }
   
   // Handle arrow key navigation
@@ -3434,4 +3434,5 @@ class PlanetExplorer {
 // Initialize app when window loads
 window.addEventListener('load', () => {
   new PlanetExplorer();
+  console.log('Planet-X Universe v1.1.0 - Mobile Fixes Loaded');
 }); 
