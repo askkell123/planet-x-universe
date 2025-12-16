@@ -4364,11 +4364,13 @@ body.controls-open .mobile-nav-arrows {
     width: 100% !important;
     overflow-x: auto !important;
     scroll-snap-type: x mandatory !important;
-    padding: 0 10vw !important; /* Center 80vw items (10vw padding on each side) */
+    padding: 0 20px !important; /* Align first card left (20px margin) */
     scrollbar-width: none !important;
     box-sizing: border-box !important;
     display: flex !important;
     align-items: center !important;
+    /* Ensure off-screen content is reachable via scroll, but container clips overflow */
+    overflow-y: hidden !important; 
   }
   
   .locations-section .section-content::-webkit-scrollbar {
@@ -4379,18 +4381,18 @@ body.controls-open .mobile-nav-arrows {
     display: flex !important;
     flex-direction: row !important;
     width: max-content !important;
-    gap: 8px !important; /* 8px gap as requested */
+    gap: 8px !important; 
     margin: 0 !important;
-    padding-right: 10vw !important; /* Match start padding */
+    padding-right: 20px !important; /* Extra space at the end */
   }
   
   /* Individual Cards - Override Specificity of .focused */
   .locations-section .location-item,
   .locations-section .location-item.focused {
-    width: 80vw !important; /* 80vw as requested, overriding desktop focused state */
+    width: 80vw !important; 
     height: 75vh !important;
     flex-shrink: 0 !important;
-    scroll-snap-align: center !important;
+    scroll-snap-align: start !important; /* Snap to start (left) instead of center */
     margin-right: 0 !important;
     
     /* Remove styling as requested */
