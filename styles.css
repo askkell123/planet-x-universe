@@ -4437,14 +4437,6 @@ body.controls-open .mobile-nav-arrows {
     opacity: 1 !important; 
     pointer-events: auto !important;
   }
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: flex-start !important;
-    background: transparent !important;
-    align-items: flex-start !important; /* Align text left */
-    opacity: 1 !important; /* Force visible */
-    pointer-events: auto !important;
-  }
   
   .locations-section .location-item h4 {
     width: 100% !important;
