@@ -4314,44 +4314,61 @@ body.controls-open .mobile-nav-arrows {
    MOBILE NEXT PLANET SECTION REFINEMENT
    ========================================================================== */
 @media (max-width: 768px) {
+  /* ------------------------------------------------
+     Mobile Next Planet Section Refinement
+  ------------------------------------------------ */
   .modal-section.next-planet-section {
+    width: 100vw !important;
+    height: 100vh !important;
     min-height: 100vh !important;
-    padding: 40px 20px !important;
+    padding: 0 !important;
     box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important; /* Prevent scroll within this section */
   }
 
   .next-planet-section .section-content {
+    width: 100% !important;
     height: 100% !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
-    gap: 30px !important;
+    gap: 40px !important;
   }
 
+  /* Planet Model / Image - Perfect Sphere */
   .next-planet-image {
     width: 90% !important;
     height: auto !important;
-    max-height: 50vh !important;
+    aspect-ratio: 1 / 1 !important; /* Force square aspect ratio */
+    max-width: 90vw !important;     /* Prevent overflowing width */
+    max-height: 60vh !important;    /* Leave room for text/button */
     object-fit: contain !important;
     margin: 0 auto !important;
     flex: 0 0 auto !important;
+    border-radius: 50% !important;  /* Ensure rounded shape if it's a bg image */
   }
 
+  /* Content Wrapper (Text + Button) */
   .next-planet-section .content-wrap {
     width: 100% !important;
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important; /* Center text/button */
+    align-items: center !important;
     text-align: center !important;
-    background: none !important; /* Ensure transparency if needed */
-    padding: 0 !important;
+    background: none !important;
+    padding: 0 20px !important;
+    flex: 0 0 auto !important;
   }
-
+  
+  /* Explore Button */
   .explore-next-planet-button {
-    width: auto !important; /* Hug text width */
-    min-width: auto !important;
-    padding: 12px 32px !important; /* Restore padding */
+    width: auto !important;
+    min-width: 140px !important;
     display: inline-flex !important;
     margin-top: 20px !important;
   }
