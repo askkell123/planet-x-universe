@@ -4390,9 +4390,10 @@ body.controls-open .mobile-nav-arrows {
   .locations-section .location-item,
   .locations-section .location-item.focused {
     width: 80vw !important; 
-    height: 75vh !important;
+    height: auto !important; /* height: auto as requested */
+    min-height: 75vh !important; /* ensure some minimum height */
     flex-shrink: 0 !important;
-    scroll-snap-align: start !important; /* Snap to start (left) instead of center */
+    scroll-snap-align: start !important; 
     margin-right: 0 !important;
     
     /* Remove styling as requested */
@@ -4403,13 +4404,13 @@ body.controls-open .mobile-nav-arrows {
     display: flex !important;
     flex-direction: column !important;
     overflow: hidden !important;
-    transition: none !important; /* Remove desktop transition */
+    transition: none !important; 
   }
   
   /* Image Section */
   .locations-section .location-item .location-image {
     width: 100% !important;
-    height: 60% !important;
+    height: 70% !important; /* 70% as requested */
     flex-shrink: 0 !important;
   }
   
@@ -4417,15 +4418,15 @@ body.controls-open .mobile-nav-arrows {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
-    border-radius: 2px !important; /* Keep slight global radius or remove if desired */
+    border-radius: 2px !important; 
   }
 
   /* Content Section - Force visible on all items */
   .locations-section .location-item .location-content,
   .locations-section .location-item.focused .location-content {
-    width: 100% !important; /* Fill card width */
-    height: 40% !important;
-    padding: 16px 0 !important; /* Vertical padding only */
+    width: 100% !important; 
+    height: auto !important; /* auto height for content */
+    padding: 16px 0 !important; 
     flex-grow: 1 !important;
     display: flex !important;
     flex-direction: column !important;
