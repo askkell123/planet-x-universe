@@ -4390,8 +4390,7 @@ body.controls-open .mobile-nav-arrows {
   .locations-section .location-item,
   .locations-section .location-item.focused {
     width: 80vw !important; 
-    height: auto !important; /* height: auto as requested */
-    min-height: 75vh !important; /* ensure some minimum height */
+    height: 75vh !important; /* Fixed height to define available space */
     flex-shrink: 0 !important;
     scroll-snap-align: start !important; 
     margin-right: 0 !important;
@@ -4407,11 +4406,13 @@ body.controls-open .mobile-nav-arrows {
     transition: none !important; 
   }
   
-  /* Image Section */
+  /* Image Section - Fills remaining space */
   .locations-section .location-item .location-image {
     width: 100% !important;
-    height: 70% !important; /* 70% as requested */
-    flex-shrink: 0 !important;
+    flex: 1 1 auto !important; /* Grow to fill available space */
+    height: auto !important;   /* Let flex control height */
+    min-height: 0 !important;  /* Allow shrinking if needed */
+    flex-shrink: 1 !important;
   }
   
   .locations-section .location-item .location-image img {
@@ -4421,13 +4422,21 @@ body.controls-open .mobile-nav-arrows {
     border-radius: 2px !important; 
   }
 
-  /* Content Section - Force visible on all items */
+  /* Content Section - Takes only required space */
   .locations-section .location-item .location-content,
   .locations-section .location-item.focused .location-content {
     width: 100% !important; 
-    height: auto !important; /* auto height for content */
+    flex: 0 0 auto !important; /* Do not grow, do not shrink */
+    height: auto !important;
     padding: 16px 0 !important; 
-    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    background: transparent !important;
+    align-items: flex-start !important; 
+    opacity: 1 !important; 
+    pointer-events: auto !important;
+  }
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
