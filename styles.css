@@ -4344,13 +4344,15 @@ body.controls-open .mobile-nav-arrows {
   .next-planet-image {
     width: 90% !important;
     height: auto !important;
-    aspect-ratio: 1 / 1 !important; /* Force square aspect ratio */
-    max-width: 90vw !important;     /* Prevent overflowing width */
-    max-height: 60vh !important;    /* Leave room for text/button */
+    /* Removed aspect-ratio constraint to let image define natural shape */
+    max-width: 90vw !important;     
+    max-height: 60vh !important;    
     object-fit: contain !important;
     margin: 0 auto !important;
     flex: 0 0 auto !important;
-    border-radius: 50% !important;  /* Ensure rounded shape if it's a bg image */
+    border-radius: 0 !important;  /* Remove mask */
+    overflow: visible !important; /* Ensure nothing is clipped */
+    background: none !important;
   }
 
   /* Content Wrapper (Text + Button) */
