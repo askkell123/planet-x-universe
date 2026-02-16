@@ -246,29 +246,92 @@ class PlanetExplorer {
   }
   
   addStarfield() {
-    const starGeometry = new THREE.BufferGeometry();
-    const starCount = 8000;
-    const positions = new Float32Array(starCount * 3);
-    
-    for (let i = 0; i < starCount * 3; i += 3) {
-      positions[i] = (Math.random() - 0.5) * 2000;
-      positions[i + 1] = (Math.random() - 0.5) * 2000;
-      positions[i + 2] = (Math.random() - 0.5) * 2000;
+    const count = 15000;
+    const positions = new Float32Array(count * 6);
+    const velocities = new Float32Array(count * 3);
+
+    for (let i = 0; i < count; i++) {
+      const x = (Math.random() - 0.5) * 2000;
+      const y = (Math.random() - 0.5) * 2000;
+      const z = (Math.random() - 0.5) * 2000;
+
+      const dist = Math.sqrt(x * x + y * y + z * z) || 1;
+      const speed = 0.1 + Math.random() * 0.25;
+      velocities[i * 3] = (x / dist) * speed;
+      velocities[i * 3 + 1] = (y / dist) * speed;
+      velocities[i * 3 + 2] = (z / dist) * speed;
+
+      const trailLen = 1.0 + (dist / 2000) * 3.0;
+      positions[i * 6] = x;
+      positions[i * 6 + 1] = y;
+      positions[i * 6 + 2] = z;
+      positions[i * 6 + 3] = x - velocities[i * 3] * trailLen;
+      positions[i * 6 + 4] = y - velocities[i * 3 + 1] * trailLen;
+      positions[i * 6 + 5] = z - velocities[i * 3 + 2] * trailLen;
     }
-    
-    starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    
-    const starMaterial = new THREE.PointsMaterial({
-      color: 0xffffff,
-      size: 0.6,
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    const material = new THREE.LineBasicMaterial({
+      color: 0xaaccff,
       transparent: true,
-      opacity: 0.8
+      opacity: 0.5,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
     });
-    
-    this.starfield = new THREE.Points(starGeometry, starMaterial);
+
+    this.starfield = new THREE.LineSegments(geometry, material);
     this.scene.add(this.starfield);
+
+    this._warpVelocities = velocities;
+    this._warpCount = count;
   }
-  
+
+  animateStarfield() {
+    if (!this.starfield) return;
+    const posAttr = this.starfield.geometry.attributes.position;
+    const vel = this._warpVelocities;
+    const count = this._warpCount;
+
+    for (let i = 0; i < count; i++) {
+      const vi = i * 3;
+      const pi = i * 6;
+
+      posAttr.array[pi] += vel[vi] * 0.25;
+      posAttr.array[pi + 1] += vel[vi + 1] * 0.25;
+      posAttr.array[pi + 2] += vel[vi + 2] * 0.25;
+
+      const x = posAttr.array[pi];
+      const y = posAttr.array[pi + 1];
+      const z = posAttr.array[pi + 2];
+      const dist = Math.sqrt(x * x + y * y + z * z);
+      const trailLen = 1.0 + (dist / 2000) * 3.0;
+
+      posAttr.array[pi + 3] = x - vel[vi] * trailLen;
+      posAttr.array[pi + 4] = y - vel[vi + 1] * trailLen;
+      posAttr.array[pi + 5] = z - vel[vi + 2] * trailLen;
+
+      if (dist > 1200) {
+        const nx = (Math.random() - 0.5) * 200;
+        const ny = (Math.random() - 0.5) * 200;
+        const nz = (Math.random() - 0.5) * 200;
+        const nd = Math.sqrt(nx * nx + ny * ny + nz * nz) || 1;
+        const speed = 0.1 + Math.random() * 0.25;
+        vel[vi] = (nx / nd) * speed;
+        vel[vi + 1] = (ny / nd) * speed;
+        vel[vi + 2] = (nz / nd) * speed;
+        posAttr.array[pi] = nx;
+        posAttr.array[pi + 1] = ny;
+        posAttr.array[pi + 2] = nz;
+        posAttr.array[pi + 3] = nx;
+        posAttr.array[pi + 4] = ny;
+        posAttr.array[pi + 5] = nz;
+      }
+    }
+    posAttr.needsUpdate = true;
+  }
+
   addNebulaSkybox() {
     /* // Entire method body commented out to prevent execution
     const loader = new THREE.TextureLoader();
@@ -2712,6 +2775,9 @@ class PlanetExplorer {
     // Update controls
     this.controls.update();
     
+    // Animate starfield
+    this.animateStarfield();
+
     // Rotate planets
       this.planets.forEach(planet => {
         if (planet.userData && typeof planet.userData.rotationSpeed === 'number') {
@@ -3267,67 +3333,54 @@ class PlanetExplorer {
      3-D Planet Preview (Next-Planet Section)
   --------------------------------------------------------- */
   createPlanetPreview(container, planetName) {
-    // Ensure previous preview disposed/stopped
     this.removePlanetPreview();
-
     if (!container) return;
-    
-    // Reuse renderer
+
     const renderer = this._previewRenderer;
-    const scene = this._previewScene;
-    const camera = this._previewCamera;
+    const scene    = this._previewScene;
+    const camera   = this._previewCamera;
 
-    // Size calculations
-    let width = container.clientWidth;
-    let height = container.clientHeight;
-    if (!width || width === 0) {
-      width = (container.parentElement?.clientWidth || window.innerWidth) * 0.45;
-    }
-    if (!height || height === 0) {
-      height = width; // make square
-    }
-    
-    // Attach to new container
-    renderer.setSize(width, height);
+    const calcSize = () => {
+      const isMobile = window.innerWidth <= 768;
+      const factor   = isMobile ? 0.9 : 0.5;
+      const refWidth = container.clientWidth
+                    || container.parentElement?.clientWidth
+                    || window.innerWidth;
+      const maxH     = window.innerHeight * 0.7;
+      let size       = refWidth * factor;
+      if (size > maxH) size = maxH;
+      return Math.round(size);
+    };
+
+    const size = calcSize();
+    renderer.setSize(size, size);
     container.appendChild(renderer.domElement);
-    this._previewContainer = container; // Keep track
+    this._previewContainer = container;
 
-    // Planet mesh setup
-    const texture = this.textureLoader.load(`textures/${planetName.toLowerCase()}-texture.png`);
+    const texture  = this.textureLoader.load(`textures/${planetName.toLowerCase()}-texture.png`);
     const geometry = new THREE.SphereGeometry(1, 32, 32);
     const material = new THREE.MeshStandardMaterial({ map: texture });
-    const mesh = new THREE.Mesh(geometry, material);
+    const mesh     = new THREE.Mesh(geometry, material);
     scene.add(mesh);
-    
-    // Store for cleanup (rotation, removal)
     this._previewMesh = mesh;
 
-    // Animation loop
     const animate = () => {
-      // Slow rotation
-      if (this._previewMesh) {
-          this._previewMesh.rotation.y += 0.002;
-      }
+      if (this._previewMesh) this._previewMesh.rotation.y += 0.002;
       renderer.render(scene, camera);
       this._previewAnimId = requestAnimationFrame(animate);
     };
     animate();
 
-    // Ensure renderer matches displayed size after CSS rules applied
     const resizePreview = () => {
-      // If detached, stop
-      if (!renderer.domElement.parentElement) return; 
-      
-      const cw = renderer.domElement.clientWidth;
-      const ch = renderer.domElement.clientHeight;
-      if (cw && ch) {
-        renderer.setSize(cw, ch, false);
-        camera.aspect = cw / ch;
+      if (!renderer.domElement.parentElement) return;
+      const s = calcSize();
+      if (s > 0) {
+        renderer.setSize(s, s);
+        camera.aspect = 1;
         camera.updateProjectionMatrix();
       }
     };
 
-    // Call initially (next tick to ensure layout) and on resize
     requestAnimationFrame(resizePreview);
     window.addEventListener('resize', resizePreview);
     this._previewResizeHandler = resizePreview;
@@ -3434,5 +3487,4 @@ class PlanetExplorer {
 // Initialize app when window loads
 window.addEventListener('load', () => {
   new PlanetExplorer();
-  console.log('Planet-X Universe v1.1.0 - Mobile Fixes Loaded');
 }); 

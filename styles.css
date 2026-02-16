@@ -157,8 +157,7 @@ p, .location-item p, .city-description, .ship-description,
 
 #scene-container canvas {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -1px;
   width: 100%;
   height: 100%;
 }
@@ -437,11 +436,12 @@ p, .location-item p, .city-description, .ship-description,
   grid-template-columns: repeat(6, 1fr);
   gap: 24px;
   padding: 0 20px;
-  max-width: 1200px;
-  margin: 5vh auto;
+  max-width: 600px;
+  margin: 0;
 }
 
 .stat-item {
+  width: 100%;
   background: none;
   padding: 16px 20px;
   display: flex;
@@ -462,6 +462,7 @@ p, .location-item p, .city-description, .ship-description,
 }
 
 .stat-value {
+  width: 100%;
   font-family: 'Nyxerin', sans-serif;
   font-size: 0.75vw;
   font-weight: 600;
@@ -827,8 +828,16 @@ body, html, #planet-modal, .modal-content {
   flex-direction: column;
   height: 100%;
   align-items: flex-end;
-  padding: 40px;
+  padding: 0 40px;
   justify-content: center;
+}
+
+.hero-right-column > div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 .hero-section .hero-image-container {
@@ -1468,65 +1477,19 @@ button:hover,
   height: 100%;
   overflow: hidden;
   z-index: 0;
-  background: radial-gradient(ellipse at center, rgba(12, 12, 12, 1) 0%, rgba(10, 10, 10, 1) 100%);
+  background: #000000;
 }
 
 .nebula-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(0, 255, 234, 0.05) 0%, rgba(0, 255, 234, 0) 70%),
-    radial-gradient(circle at 80% 70%, rgba(120, 0, 255, 0.1) 0%, rgba(120, 0, 255, 0) 70%),
-    radial-gradient(circle at 60% 40%, rgba(50, 0, 120, 0.1) 0%, rgba(50, 0, 120, 0) 70%);
-  mix-blend-mode: screen;
-  animation: nebula-move 120s infinite linear;
+  display: none;
 }
 
 .nebula-stars {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(1px 1px at 10% 10%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
-    radial-gradient(1px 1px at 20% 20%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
-    radial-gradient(1px 1px at 30% 30%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
-    radial-gradient(1px 1px at 40% 40%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
-    radial-gradient(1px 1px at 50% 50%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
-    radial-gradient(1px 1px at 60% 60%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
-    radial-gradient(1px 1px at 70% 70%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
-    radial-gradient(1px 1px at 80% 80%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
-    radial-gradient(1px 1px at 90% 90%, rgba(255, 255, 255, 0.8) 50%, transparent 100%);
-  background-repeat: repeat;
-  background-size: 200px 200px;
-  opacity: 0.3;
-  animation: nebula-stars 30s infinite linear;
+  display: none;
 }
 
 .nebula-dust {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(2px 2px at 15% 15%, rgba(0, 255, 234, 0.3) 50%, transparent 100%),
-    radial-gradient(2px 2px at 25% 25%, rgba(120, 0, 255, 0.3) 50%, transparent 100%),
-    radial-gradient(2px 2px at 35% 35%, rgba(50, 0, 120, 0.3) 50%, transparent 100%),
-    radial-gradient(2px 2px at 45% 45%, rgba(0, 255, 234, 0.3) 50%, transparent 100%),
-    radial-gradient(2px 2px at 55% 55%, rgba(120, 0, 255, 0.3) 50%, transparent 100%),
-    radial-gradient(2px 2px at 65% 65%, rgba(50, 0, 120, 0.3) 50%, transparent 100%),
-    radial-gradient(2px 2px at 75% 75%, rgba(0, 255, 234, 0.3) 50%, transparent 100%),
-    radial-gradient(2px 2px at 85% 85%, rgba(120, 0, 255, 0.3) 50%, transparent 100%);
-  background-repeat: repeat;
-  background-size: 300px 300px;
-  opacity: 0.2;
-  mix-blend-mode: screen;
-  animation: nebula-dust 60s infinite linear;
+  display: none;
 }
 
 @keyframes nebula-move {
@@ -2553,28 +2516,53 @@ body, html {
 }
 
 /* -------------------------------------------------------------
-   Next Planet Preview Section Layout
+   Next Planet Preview Section Layout  (rebuilt clean)
 -------------------------------------------------------------- */
 .next-planet-section {
-  height: 100vh !important; /* full viewport */
+  height: 100vh !important;
+  min-height: 100vh !important;
   position: relative;
+  overflow: hidden !important;
+  padding: 40px 0 !important;
+  box-sizing: border-box !important;
 }
 
-/* Main wrapper becomes two columns */
 .next-planet-section .section-content {
   position: relative;
-  height: 80%;
   width: 100%;
+  height: 100%;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 24px !important;
   padding: 0 !important;
+  overflow: visible !important;
 }
 
-/* Left column: text */
+/* Planet preview container — NO section-background class now */
+.next-planet-section .next-planet-image {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  background: none;
+  border-radius: 0 !important;
+}
+
+/* Canvas sized entirely by JS — just center it */
+.next-planet-section .next-planet-image canvas {
+  display: block;
+  border-radius: 0 !important;
+}
+
+/* Text + button overlay */
 .next-planet-section .content-wrap {
+  position: absolute !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
   width: auto !important;
   background: none !important;
   backdrop-filter: none !important;
@@ -2586,52 +2574,18 @@ body, html {
   text-align: center !important;
   z-index: 2 !important;
 }
+
 .next-planet-section .next-planet-name {
+  font-family: 'Nyxerin', sans-serif !important;
   font-size: 3vw;
   margin-bottom: 24px;
   text-align: center !important;
 }
 
-/* Right column: planet image */
-.next-planet-section .next-planet-image {
-  position: relative !important;
-  inset: unset !important;           /* clear absolute centering */
-  width: 60% !important;
-  height: 60% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-.next-planet-section .next-planet-image canvas,
-.next-planet-section .next-planet-image img {
-  width: 60vw !important;
-  height: 60vw !important;
-}
-
-/* ensure text overlay still above */
-.next-planet-section .content-wrap { z-index: 2 !important; }
-
-/* Title alignment */
 .next-planet-section .section-title {
   text-align: left !important;
-  margin-left: 0 !important; /* align with other section titles */
-  font-size: 28px !important; /* same as other section titles */
-} 
-
-/* Use Nyxerin font for the planet name */
-.next-planet-section .next-planet-name {
-  font-family: 'Nyxerin', sans-serif !important;
-}
-
-/* Add perfect center overlay */
-.next-planet-section .content-wrap {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important; /* perfect centre overlay */
-  align-items: center !important;
-  justify-content: center !important;
+  margin-left: 0 !important;
+  font-size: 28px !important;
 }
 
 /* -------------------------------------------------------------
@@ -3479,11 +3433,13 @@ body, html {
     align-items: flex-start !important; /* left-align content */
   }
 
-  /* Make the stats grid span full width */
+  /* Make the stats grid span full width & switch to 2×3 layout */
   .hero-section .planet-stats {
     width: 100% !important;
     max-width: none !important;        /* remove 1200px cap */
     margin-top: 20px !important;       /* slight spacing below description */
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: repeat(3, 1fr) !important;
   }
 
   /* Hero image adapts naturally on tablet */
@@ -3610,12 +3566,6 @@ body, html {
    Restore desktop defaults (≥ 901px)
 ------------------------------------------------------------- */
 @media (min-width: 901px) {
-  /* Up-Next planet original size */
-  .next-planet-section .next-planet-image canvas,
-  .next-planet-section .next-planet-image img {
-    width: 60vw !important;
-    height: 40vw !important;
-  }
 
   /* Mothership & Weapon revert to side-by-side layout */
   .mothership-section .section-background,
@@ -4066,10 +4016,10 @@ body, html {
   }
 } 
 
-/* Enforce min-height for modal images (except insignia) */
-.modal-section:not(.insignia-section) img,
-.modal-section:not(.insignia-section) canvas {
-  min-height: 100vh !important; /* This is very strong */
+/* Enforce min-height for modal images (except insignia & next-planet preview) */
+.modal-section:not(.insignia-section):not(.next-planet-section) img,
+.modal-section:not(.insignia-section):not(.next-planet-section) canvas {
+  min-height: 100vh !important;
   object-fit: cover;
 }
 
@@ -4077,8 +4027,7 @@ body, html {
 .modal-section:not(.insignia-section),
 .modal-section:not(.insignia-section) .section-background,
 .modal-section:not(.insignia-section) .image-content,
-.modal-section.hero-section .hero-image-container,
-.modal-section.next-planet-section .next-planet-image {
+.modal-section.hero-section .hero-image-container {
   height: auto !important;
   max-height: none !important; /* Override any conflicting max-heights */
 }
@@ -4213,25 +4162,6 @@ body.controls-open .mobile-nav-arrows {
     display: flex;
   }
   
-  /* Next Planet Section - Mobile Update */
-  .next-planet-section .section-content {
-    flex-direction: column !important;
-    width: 100% !important;
-    height: auto !important;
-  }
-  
-  .next-planet-image {
-    width: 90% !important;
-    height: auto !important;
-    aspect-ratio: 1 / 1;
-    margin: 0 auto 20px auto !important;
-    object-fit: contain !important;
-  }
-  
-  .explore-next-planet-button {
-    width: 100% !important;
-  }
-  
   /* Ensure modal images fill width */
   .modal-section img {
     width: 100% !important;
@@ -4246,10 +4176,9 @@ body.controls-open .mobile-nav-arrows {
 .location-item .location-image,
 .image-content,
 .section-background,
-.next-planet-image,
 .content-wrap,
 .modal-section img,
-.modal-section canvas {
+.modal-section:not(.next-planet-section) canvas {
   border-radius: 2px !important;
 }
 
@@ -4310,168 +4239,22 @@ body.controls-open .mobile-nav-arrows {
   }
 }
 
-/* ==========================================================================
-   MOBILE NEXT PLANET SECTION REFINEMENT
-   ========================================================================== */
+
+/* Mobile Key Locations Refinement */
 @media (max-width: 768px) {
-  /* ------------------------------------------------
-     Mobile Next Planet Section Refinement
-  ------------------------------------------------ */
-  .modal-section.next-planet-section {
-    width: 100vw !important;
-    height: 100vh !important;
-    min-height: 100vh !important;
-    padding: 0 !important;
-    box-sizing: border-box !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    overflow: hidden !important; /* Prevent scroll within this section */
-  }
-
-  .next-planet-section .section-content {
-    width: 100% !important;
-    height: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 40px !important;
-  }
-
-  /* Planet Model / Image - Perfect Sphere */
-  .next-planet-image {
-    width: 90% !important;
-    height: auto !important;
-    /* Removed aspect-ratio constraint to let image define natural shape */
-    max-width: 90vw !important;     
-    max-height: 60vh !important;    
-    object-fit: contain !important;
-    margin: 0 auto !important;
-    flex: 0 0 auto !important;
-    border-radius: 0 !important;  /* Remove mask */
-    overflow: visible !important; /* Ensure nothing is clipped */
-    background: none !important;
-  }
-
-  /* Content Wrapper (Text + Button) */
-  .next-planet-section .content-wrap {
-    width: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center !important;
-    background: none !important;
-    padding: 0 20px !important;
-    flex: 0 0 auto !important;
-  }
-  
-  /* Explore Button */
-  .explore-next-planet-button {
-    width: auto !important;
-    min-width: 140px !important;
-    display: inline-flex !important;
-    margin-top: 20px !important;
-  }
-}
-
-/* Mobile Key Locations Refinement - Clean Carousel */
-@media (max-width: 768px) {
-  /* Scroll Container */
-  .locations-section .section-content {
-    width: 100% !important;
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory !important;
-    padding: 0 20px !important; /* Align first card left (20px margin) */
-    scrollbar-width: none !important;
-    box-sizing: border-box !important;
-    display: flex !important;
-    align-items: center !important;
-    /* Ensure off-screen content is reachable via scroll, but container clips overflow */
-    overflow-y: hidden !important; 
-  }
-  
-  .locations-section .section-content::-webkit-scrollbar {
-    display: none !important;
-  }
-
   .locations-section .location-list {
-    display: flex !important;
-    flex-direction: row !important;
-    width: max-content !important;
-    gap: 8px !important; 
-    margin: 0 !important;
-    padding-right: 20px !important; /* Extra space at the end */
+    gap: 0 !important; /* Reset flex gap if any, use margin */
   }
   
-  /* Individual Cards - Override Specificity of .focused */
-  .locations-section .location-item,
-  .locations-section .location-item.focused {
-    width: 80vw !important; 
-    height: 75vh !important; /* Fixed height to define available space */
+  .locations-section .location-item {
+    width: 80vw !important;
+    margin-right: 4px !important;
     flex-shrink: 0 !important;
-    scroll-snap-align: start !important; 
-    margin-right: 0 !important;
-    
-    /* Remove styling as requested */
-    border-radius: 0 !important;
-    background: none !important;
-    border: none !important;
-    
-    display: flex !important;
-    flex-direction: column !important;
-    overflow: hidden !important;
-    transition: none !important; 
   }
   
-  /* Image Section - Fills remaining space */
-  .locations-section .location-item .location-image {
-    width: 100% !important;
-    flex: 1 1 auto !important; /* Grow to fill available space */
-    height: auto !important;   /* Let flex control height */
-    min-height: 0 !important;  /* Allow shrinking if needed */
-    flex-shrink: 1 !important;
-  }
-  
-  .locations-section .location-item .location-image img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    border-radius: 2px !important; 
-  }
-
-  /* Content Section - Takes only required space */
-  .locations-section .location-item .location-content,
-  .locations-section .location-item.focused .location-content {
-    width: 100% !important; 
-    flex: 0 0 auto !important; /* Do not grow, do not shrink */
-    height: auto !important;
-    padding: 16px 0 !important; 
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: flex-start !important;
-    background: transparent !important;
-    align-items: flex-start !important; 
-    opacity: 1 !important; 
-    pointer-events: auto !important;
-  }
-  
-  .locations-section .location-item h4 {
-    width: 100% !important;
-    font-size: 18px !important;
-    margin-bottom: 8px !important;
-    color: #fff !important;
-    text-align: left !important;
-  }
-  
-  .locations-section .location-item p {
-    width: 100% !important;
-    font-size: 11px !important;
-    line-height: 1.5 !important;
-    color: #aaa !important;
-    white-space: normal !important;
-    text-align: left !important;
+  /* Remove margin from the last item */
+  .locations-section .location-item:last-child {
+    margin-right: 20px !important; /* Keep some end padding */
   }
 }
 
@@ -4482,3 +4265,4 @@ body.controls-open .mobile-nav-arrows {
     top: 20px !important;
   }
 }
+

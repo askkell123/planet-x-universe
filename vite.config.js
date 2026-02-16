@@ -27,6 +27,7 @@ export default defineConfig({
   preview: {
     allowedHosts: [
       'px-universe-explorer-ioj4b.ondigitalocean.app',
+      'universe.playplanetx.com',
       'localhost'
     ]
   },
