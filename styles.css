@@ -1,6 +1,14 @@
 :root, html {
-  background: #000000;
+  background: #000000 !important;
   min-height: 100%;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+body {
+  background: #000000 !important;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
 }
 
 * {
@@ -28,7 +36,7 @@
 
 body {
   overflow: hidden;
-  background: #0c0c0c;
+  background: #000000;
   color: #fff;
   font-size: 10px;
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="white" stroke-width="1" stroke-dasharray="20,2"><rect x="3" y="3" width="30" height="30" rx="12" ry="12" fill="none" /><circle cx="18" cy="18" r="1" fill="white" /></svg>') 18 18, auto;
