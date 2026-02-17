@@ -1,0 +1,9 @@
+{
+  "name": "Planet-X Universe",
+  "short_name": "Planet-X",
+  "start_url": ".",
+  "display": "fullscreen",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait"
+}
