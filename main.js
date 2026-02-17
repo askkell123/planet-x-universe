@@ -3148,42 +3148,45 @@ class PlanetExplorer {
     locationsSection.appendChild(controlsDiv); 
     console.log("Appended controlsDiv to locationsSection.");
 
-    // --- Focus-based carousel logic ---
+    // --- Focus-based carousel logic (desktop only) ---
     const locationItems = Array.from(locationList.querySelectorAll('.location-item'));
     if (locationItems.length === 0) {
       console.warn('No location items found');
       return;
     }
 
+    const isMobile = window.innerWidth <= 768;
+
     let focusIndex = 0;
 
     const setFocus = (newIndex, skipScroll = false) => {
+      if (isMobile) return; // no focus behaviour on mobile
       if (newIndex < 0 || newIndex >= locationItems.length) return;
       focusIndex = newIndex;
       locationItems.forEach((item, idx) => {
         item.classList.toggle('focused', idx === focusIndex);
       });
       if (!skipScroll) {
-        // Bring item into horizontal view without affecting vertical scroll
         const itemEl = locationItems[focusIndex];
-        // Manually calculate horizontal center scroll to avoid ancestor vertical scrolling
         const itemOffsetLeft = itemEl.offsetLeft;
         const itemWidth = itemEl.offsetWidth;
         const containerWidth = locationsContainer.clientWidth;
         const targetScrollLeft = itemOffsetLeft - (containerWidth - itemWidth) / 2;
         locationsContainer.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
       }
-      // Update arrow visibility
       btnLeft.classList.toggle('hidden', focusIndex === 0);
       btnRight.classList.toggle('hidden', focusIndex === locationItems.length - 1);
     };
 
-    // Initialise first focus without scrolling (prevents vertical jump on modal open)
-    setFocus(0, true);
+    if (!isMobile) {
+      // Initialise first focus without scrolling (prevents vertical jump on modal open)
+      setFocus(0, true);
+    }
 
-    // Click-to-focus on individual location items
+    // Click-to-focus on individual location items (desktop only)
     locationItems.forEach((item, idx) => {
       item.addEventListener('click', (e) => {
+        if (isMobile) return;
         e.stopPropagation();
         setFocus(idx);
       });

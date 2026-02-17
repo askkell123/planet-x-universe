@@ -1,3 +1,8 @@
+:root, html {
+  background: #000000;
+  min-height: 100%;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -4240,21 +4245,56 @@ body.controls-open .mobile-nav-arrows {
 }
 
 
-/* Mobile Key Locations Refinement */
+/* Mobile Key Locations — vertical stack, no focus */
 @media (max-width: 768px) {
+  .locations-section {
+    height: auto !important;
+    min-height: auto !important;
+    padding: 40px 0 !important;
+  }
+
+  .locations-section .section-content {
+    height: auto !important;
+    overflow: visible !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    padding: 0 20px !important;
+  }
+
   .locations-section .location-list {
-    gap: 0 !important; /* Reset flex gap if any, use margin */
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: auto !important;
+    gap: 20px !important;
   }
-  
-  .locations-section .location-item {
-    width: 80vw !important;
-    margin-right: 4px !important;
+
+  .locations-section .location-item,
+  .locations-section .location-item.focused {
+    width: 100% !important;
+    height: auto !important;
     flex-shrink: 0 !important;
+    margin-right: 0 !important;
+    transition: none !important;
   }
-  
-  /* Remove margin from the last item */
+
   .locations-section .location-item:last-child {
-    margin-right: 20px !important; /* Keep some end padding */
+    margin-right: 0 !important;
+  }
+
+  /* Remove focus carousel — show all content */
+  .locations-section .location-item .location-content,
+  .locations-section .location-item.focused .location-content {
+    display: flex !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    width: 100% !important;
+  }
+
+  /* Hide carousel arrows on mobile */
+  .locations-section .location-controls {
+    display: none !important;
   }
 }
 
